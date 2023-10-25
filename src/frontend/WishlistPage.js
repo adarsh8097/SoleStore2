@@ -1,11 +1,11 @@
-import React, { useEffect,useState } from "react";
+import React  from "react";
 //import WomenCollection from './WomenCollectionJson';
 import './WishlistPage.css';
 import { FaShoppingCart } from "react-icons/fa";
 import FooterPage from "./FooterPage";
 import HomePage from "./HomePage";
 import Slider from "./Slider";
-import { json } from "react-router-dom";
+// import { json } from "react-router-dom";
 
 
 //  const search = window.location.search;

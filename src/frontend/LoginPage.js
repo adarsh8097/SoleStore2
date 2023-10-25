@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './LoginPage.css';
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link,  useNavigate } from "react-router-dom";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
 
 
@@ -82,6 +82,7 @@ function LoginPage(){
       const alertfun =()=>{
         alert("function added Comming Soon..!");
       }
+    
 
     return(
        <>
@@ -166,7 +167,7 @@ function LoginPage(){
          
         </div>
       </div>
-    </div>
+      </div>
        </>
     )
 }
