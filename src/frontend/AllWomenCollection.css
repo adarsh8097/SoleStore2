@@ -1,0 +1,83 @@
+
+h2{
+    text-align: center;
+}
+
+ h2:hover{
+    color: red;
+    font-weight: bold;
+
+}
+
+.card-head:hover{
+    cursor: pointer;
+    font-weight:bold;
+    /* transform: translateY(-2px); */
+    color: rgb(165, 93, 93);
+}
+/* .card-title{
+    font-size: 1rem;
+} */
+
+/* .wishlistIcon{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    text-align: center;
+    z-index:92;
+    cursor:pointer;
+    padding-bottom: 0.5rem!important;
+    padding-left: 0.25rem!important;
+    padding-right: 0.25rem!important;
+
+}; */
+
+.product-card{
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.product-card:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.card-name{
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+
+.addtocart{
+    /* background: gray; */
+    /* size: 0.5rem; */
+    /* height: 1.5rem; */
+    /* width:0.8em ; */
+    align-items: center;
+    justify-content: center;
+    vertical-align: center;
+}
+
+/* button{
+    height: 2.9rem;
+    color: black;
+    justify-content: center;
+    align-items: center;
+    vertical-align: center;
+    border: none;
+    font-weight: bold;
+    font-size: 1.3rem;
+    box-shadow: none;
+    background-image: linear-gradient(rgb(110, 100, 100),rgb(196, 89, 89));
+ } */
+
+ .collection-component{
+    gap:2rem;
+    align-items: center;
+    justify-content: center;
+ }

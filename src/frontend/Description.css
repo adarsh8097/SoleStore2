@@ -1,0 +1,126 @@
+
+.Single-productItem-component{
+    display: grid; 
+     grid-template-columns: repeat(2,1fr);
+    gap: 9rem;
+    /* background-image: linear-gradient(white,rgb(196, 89, 89)); */
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+
+    /* display: flex;
+    flex-direction: column; */
+    /* display: flex;
+    flex-direction: column; */
+
+}
+
+.card-product-img img{
+    width: 250px;
+    height: auto;
+    box-sizing: border-box;
+    border: 2px solid rgb(110, 100, 100);
+
+}
+@media only screen and (max-width:700px) {
+    .Single-productItem-component{
+        display: flex;
+       flex-direction: column;
+       /* display: grid;
+       grid-template-columns: repeat(2,1fr); */
+       text-align: center;
+        gap: 1rem;
+        box-sizing: border-box;
+
+    }
+    
+}
+
+h1{
+    text-align: center;
+}
+h1:hover{
+    color:red;
+}
+
+h5{
+    font-weight: bold;
+    font-size: 1.4rem;
+
+}
+
+h5:hover{
+    color: #a25255;
+}
+
+.price-line{
+    border:1px solid rgb(180, 165, 165);
+    bottom: 5rem;
+}
+
+.product-price{
+    font-size: 1.2rem;
+
+}
+
+.product-size{
+    font-size: 1.1rem;
+}
+.product-size ul{
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    margin-right: 2rem;
+    cursor: pointer;
+    
+}
+
+.product-size ul li{
+    border: 1px solid gray;
+    border-radius: 100px;
+    size: 1.2rem;
+    width: 3rem;
+    text-align:center;
+    justify-content: center;
+    font-weight: bold;
+
+
+}
+.product-size ul li:hover{
+    border-color: red;
+    color: #15728a;
+}
+
+.product-brand,label,.product-description,.product-detail{
+    font-size: 1.1rem;
+}
+
+.head{
+    font-weight: bold;
+    /* background-color: rgb(196,89,89); */
+}
+
+#quantity{
+    cursor:pointer;
+}
+
+ .add-cart{
+    margin-top: 10px;
+    display: flex;
+     justify-content: space-evenly
+ }
+
+ button{
+    height: 2.9rem;
+    color: black;
+    justify-content: center;
+    align-items: center;
+    vertical-align: center;
+    border: none;
+    font-weight: bold;
+    font-size: 1.3rem;
+    box-shadow: none;
+    background-image: linear-gradient(rgb(110, 100, 100),rgb(196, 89, 89));
+ }
+
+ button:hover{
+    color: rgb(243, 236, 236);
+ }

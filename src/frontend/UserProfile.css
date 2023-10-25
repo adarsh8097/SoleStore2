@@ -1,0 +1,20 @@
+.ProfileSection{
+    justify-content: center;
+    align-items: center;
+     /* margin: 10rem; */
+     align-self: center;
+     margin-left: 40%;
+}
+
+.card-header img{
+    width: 100%;
+    border-radius: 50%;
+}
+
+.card-info{
+    font-size: 1.2rem;
+    /* gap: 0.5rem; */
+    display: flex;
+    flex-direction: column;
+
+}

@@ -1,0 +1,108 @@
+.sidenav{
+    height: 100%;
+    width: 300px;
+    margin-right: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    color: rgb(12, 11, 11);
+
+  }
+
+  /* .sidebar-link Link{
+    color: black;
+  } */
+  
+  .sidenav a{
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #130e0e;
+    display: block;
+    transition: 0.3s;
+   
+
+  }
+  
+  .sidenav a:hover {
+    color: #f7f6f6;
+    font-weight: bold;
+    text-align: left;
+    font-size: 1.2rem;
+    background-color: #818181;
+  }
+  
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 2rem;
+    z-index: 1;
+    /* margin-left: 20px; */
+    cursor: pointer;
+    /* background-color: #c0afaf; */
+    color:rgb(99, 92, 92);
+    border:none;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    /* content: center; */
+    /* padding-right: 2rem; */
+    border-radius:50%;
+    margin-top: 5px;
+    border-width: 20px;
+    /* margin: 2rem; */
+    /* font-size: 2rem; */
+    vertical-align: center;
+    padding-right: 1rem;
+    /* background-size:cover; */
+    font-weight: bold;
+    width: 5%;
+    height: 9%;
+    padding-right: 2rem;
+  }
+  @media screen and (max-width:1400px){
+     .sidenav{
+      display: none;
+     }
+    
+  }
+  
+  @media screen and (max-height: 650px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+
+    .sidenav{
+      display: block;
+    }
+  }
+
+  .open{
+    font-size:30px;
+    cursor:pointer;
+    border: none;
+    background:none;
+  }
+ .closebtn{
+    /* cursor: pointer;
+    background-color: #c0afaf;
+    color:red;
+    border:none;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    /* content: center; */
+    /* padding-right: 2rem; 
+    border-radius:100%;
+    margin-top: 10px;
+    margin-left: 2rem;
+    font-size: 2rem;
+    vertical-align: center;
+    padding-right: 1rem; */
+
+ }
