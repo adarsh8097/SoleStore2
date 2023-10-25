@@ -1,12 +1,12 @@
 import React, { useEffect,useState } from "react";
 import './CartProductPage.css';
-import { DefaultContext } from "react-icons/lib";
+// import { DefaultContext } from "react-icons/lib";
 import HomePage from "./HomePage";
 import Slider from "./Slider";
 import FooterPage from "./FooterPage";
-import { Link, useParams,useNavigate, Navigate } from "react-router-dom";
-import axios from "axios";
-import { FaAlignRight, FaArrowLeft, FaShoppingCart } from "react-icons/fa";
+import { Link,useNavigate} from "react-router-dom";
+// import axios from "axios";
+import { FaArrowLeft, FaShoppingCart } from "react-icons/fa";
 
 
 

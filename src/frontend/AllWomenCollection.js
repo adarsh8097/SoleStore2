@@ -3,7 +3,7 @@ import './AllWomenCollection.css';
 import HomePage from "./HomePage";
 import FooterPage from "./FooterPage";
 import Slider from "./Slider";
-import { Link, json } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 // import SingleProduct from "./SingleProduct";
 //import Description from "./Description";
