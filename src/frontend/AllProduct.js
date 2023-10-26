@@ -118,8 +118,9 @@ function AllProduct(){
         <h6 className="product-price">Price:{item.price}</h6>
           
            <div className="card-info">
-            <span  className="addtocart" onClick={()=> addtowishList(item)} title="add to Wishlist"><FaHeart/> </span>
-           <span className="addtocart" title="add to Cart"  onClick={()=> addtocart(item)}> <FaShoppingCart/> </span>
+            {/* <span  className="addtocart" onClick={()=> addtowishList(item)} title="add to Wishlist"><FaHeart/> </span> */}
+           {/* <span className="addtocart" title="add to Cart"  onClick={()=> addtocart(item)}> <FaShoppingCart/> </span> */}
+           <p className="addtocart mt-3" title="Add to Cart" onClick={()=> addtocart(item)}> add to cart<FaShoppingCart/></p>
          </div>
      
       

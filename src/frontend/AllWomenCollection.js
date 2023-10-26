@@ -394,7 +394,7 @@ const AllWomenCollection=()=>{
             console.log("cartItem");
             console.log(cartproductItem);
          }
-
+    //    /Allproduct/${item._id}
     return(
         <>
         <HomePage/>
@@ -407,21 +407,23 @@ const AllWomenCollection=()=>{
              <div className=" card product-card col-sm-3 mt-5">   
            <div class=" card-head " key={product._id} id="product-card" >
             <Link to={`/description?id=${product._id}`} onClick={mesgAlert}>
+
+            {/* <Link to={`/description/${product._id}`} onClick={mesgAlert}> */}
            <img src={product.displayImage} class="card-img-top" alt={product.alt} />
            </Link>
            <div class="card-body">
-             <div class="card-name">{product.name}</div>
+             <div class="card-name"><b>{product.name}</b></div>
              <p class="card-text">{product.title}</p>
-             <h6 style={{color:"gray",fontWeight:"bold"}}>{product.price}</h6>
+             <h6 style={{color:"gray",fontWeight:"bold"}}>&#8377; {product.price}</h6>
             
             <div className="card-info">
                 
            
-            <span className="addtocart" onClick={()=> addtowishList(product)} title="add to Wishlist"> 
+            {/* <span className="addtocart" onClick={()=> addtowishList(product)} title="add to Wishlist"> 
                 < FaHeart />
-            </span>
+            </span> */}
           
-             <span className="addtocart" onClick={()=> addtocart(product)} title="add to Cart"><FaShoppingCart /></span>
+             <p className="addtocart" onClick={()=> addtocart(product)} title="add to Cart">add to cart<FaShoppingCart /></p>
            </div>
            </div>
            </div>

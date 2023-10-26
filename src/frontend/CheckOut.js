@@ -116,7 +116,7 @@ console.log("userdetails data" , userDetail);
     // console.log(`name:${data.fname},email:${data.email},adar:${data.city},state:${data.state},zip:${data.zip}`);
     //  let  userprdouctpayentDetails = JSON.parse(localStorage.getItem("checkoutdetils"));
     //   let detail = userprdouctpayentDetails;
-    localStorage.setItem("userpaymentdetails",JSON.stringify("chaeckOutdata"));
+    localStorage.setItem("userpaymentdetails",JSON.stringify(chaeckOutdata));
 
       console.log("details",chaeckOutdata);
 

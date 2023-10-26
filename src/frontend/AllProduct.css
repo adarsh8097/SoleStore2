@@ -301,6 +301,7 @@
 .card-info{
     /* text-align: center; */
     display: flex;
+    /* flex-direction: row; */
     justify-content: space-between;
     width: 100%;
     align-items: center;
@@ -326,19 +327,20 @@
 }
 .addtocart{
     cursor: pointer;
-    padding: 15px;
+    padding: 5px;
     border-radius: 10px;
-    background: #243358;
+    background: #cc3131;
     /* box-shadow: 3px 2px 5px gainsboro; */
     color: white;
     transition: transform .3s linear;
     font-weight: bold;
     justify-content: space-evenly;
+    width: 120px;
   }
   .addtocart:hover{
     transform: translateY(-3px);
      background-color: rgb(6, 31, 54);
-     color: red;
+     color: rgb(241, 235, 235);
      font-size: 1rem;
 }
 
