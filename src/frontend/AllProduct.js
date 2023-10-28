@@ -104,10 +104,9 @@ function AllProduct(){
          <div className="collection-component col-sm-12 row">
        {isitem.map((item)=>
        <div className="card product-card col-sm-12 mt-3">
+       <div data-v-2d5b3c05="" class="wishlistIcon pl-1 pb-2 pr-1 wishlist" onClick={()=> addtowishList(item)} title="add to Wishlist"></div>
       <div className="card-head">
-       
-       
-        <div className="img-card-div" key={item._id} >
+       <div className="img-card-div" key={item._id} >
          {/* <h1>This is single :{item._id}</h1> */}
          <Link to={`/Allproduct/${item._id}`}>
           <img src={item.displayImage} alt={item.alt}/>
@@ -120,7 +119,7 @@ function AllProduct(){
            <div className="card-info">
             {/* <span  className="addtocart" onClick={()=> addtowishList(item)} title="add to Wishlist"><FaHeart/> </span> */}
            {/* <span className="addtocart" title="add to Cart"  onClick={()=> addtocart(item)}> <FaShoppingCart/> </span> */}
-           <p className="addtocart mt-3" title="Add to Cart" onClick={()=> addtocart(item)}> add to cart<FaShoppingCart/></p>
+           {/* <p className="addtocart mt-3" title="Add to Cart" onClick={()=> addtocart(item)}> add to cart<FaShoppingCart/></p> */}
          </div>
      
       

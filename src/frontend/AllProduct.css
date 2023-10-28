@@ -325,24 +325,26 @@
 .card:hover{
   transform:translateY(-3px);
 }
+
 .addtocart{
     cursor: pointer;
-    padding: 5px;
+    padding: 2px;
     border-radius: 10px;
     background: #cc3131;
     /* box-shadow: 3px 2px 5px gainsboro; */
-    color: white;
+    color: #fff;
     transition: transform .3s linear;
     font-weight: bold;
     justify-content: space-evenly;
-    width: 120px;
+    width: 130px;
+    height: 40%;
   }
-  .addtocart:hover{
+  /* .addtocart:hover{
     transform: translateY(-3px);
      background-color: rgb(6, 31, 54);
      color: rgb(241, 235, 235);
      font-size: 1rem;
-}
+} */
 
 .column{
     /* flex: 0 0 calc(33.3333 - 15px); */

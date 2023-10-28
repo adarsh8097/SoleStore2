@@ -370,9 +370,9 @@ const AllWomenCollection=()=>{
           
 
     }
-        const mesgAlert =()=>{
-           alert("Please refresh the page some server-issue..!");
-        } 
+        // const mesgAlert =()=>{
+        //    alert("Please refresh the page some server-issue..!");
+        // } 
 
 
         // Add to Cart Componet Add here;
@@ -404,12 +404,14 @@ const AllWomenCollection=()=>{
            <div className="container-fluid">
            <div className=" collection-component row col-sm-12">
             {WomenCollection.map((product)=>(
-             <div className=" card product-card col-sm-3 mt-5">   
-           <div class=" card-head " key={product._id} id="product-card" >
-            <Link to={`/description?id=${product._id}`} onClick={mesgAlert}>
+             <div className="card product-card col-sm-3 mt-5">
+             <div data-v-2d5b3c05="" class="wishlistIcon pl-1 pb-2 pr-1 wishlist" onClick={()=> addtowishList(product)} title="add to Wishlist"></div>   
+           <div class=" card-head bg-image hover-overlay hover-zoom hover-shadow ripple " key={product._id} id="product-card" >
+            <Link to={`/description?_id=${product._id}`}>
 
             {/* <Link to={`/description/${product._id}`} onClick={mesgAlert}> */}
            <img src={product.displayImage} class="card-img-top" alt={product.alt} />
+           <div class="mask" style={{backgroundColor: "hsla(195, 83%, 58%, 0.2)"}}></div>
            </Link>
            <div class="card-body">
              <div class="card-name"><b>{product.name}</b></div>
@@ -423,7 +425,7 @@ const AllWomenCollection=()=>{
                 < FaHeart />
             </span> */}
           
-             <p className="addtocart" onClick={()=> addtocart(product)} title="add to Cart">add to cart<FaShoppingCart /></p>
+             {/* <p className="addtocart" onClick={()=> addtocart(product)} title="add to Cart">Add to Cart<FaShoppingCart /></p> */}
            </div>
            </div>
            </div>

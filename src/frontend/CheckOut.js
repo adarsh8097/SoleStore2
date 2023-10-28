@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 const userDetail = JSON.parse(sessionStorage.getItem("userDetails")||"{}");
 console.log("userDetailstatus",userDetail);
- function CheckOut(){
+ 
+function CheckOut(){
 
 // const navigate = useNavigate();
 //     const userDetail = JSON.parse(sessionStorage.getItem('userDetails')||"{}");
@@ -35,11 +36,16 @@ console.log("userDetailstatus",userDetail);
 const navigate = useNavigate();
       
     const userDetail = JSON.parse(sessionStorage.getItem("userDetails")||"{}");
-    useEffect(() =>{
-        if(!userDetail){
-            navigate('/Loginpage');
-        }
-      },[]);
+    if(userDetail){
+      navigate('/Loginpage');
+    }
+
+    console.log('userdeatils',userDetail);
+    // useEffect(() =>{
+    //     if(userDetail){
+    //         navigate('/Loginpage');
+    //     }
+    //   },[]);
         // fetch("https://academics.newtonschool.co/api/v1/ecommerce/wishlist",{
         //     method:"GET",
         //     headers:{

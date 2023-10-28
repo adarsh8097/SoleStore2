@@ -11,7 +11,7 @@ h2{
 
 .card-head:hover{
     cursor: pointer;
-    font-weight:bold;
+    /* font-weight:bold; */
     /* transform: translateY(-2px); */
     color: rgb(165, 93, 93);
 }
@@ -81,3 +81,41 @@ h2{
     align-items: center;
     justify-content: center;
  }
+
+ .wishlistIcon {
+    width: 30px;
+    height: 30px;
+    background-color: rgba(0,0,0,.2);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    /* z-index: 92; */
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.16);
+    cursor: pointer;
+    color:#fff;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.pb-2 {
+    padding-bottom: 0.5rem!important;
+}
+
+.pr-1 {
+    padding-right: 0.15rem!important;
+}
+
+.wishlistIcon:before {
+    font: 14px/1.5 FontAwesome;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    content: "\F08A";
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

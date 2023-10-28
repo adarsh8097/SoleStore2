@@ -288,7 +288,7 @@ const HomePage =()=> {
            <div className="drop-item">
                    {/* <span className="right-slide" style={{background:"none",border:"none",width:"1rem"}}><Rightslide/></span> */}
                   <div class="dropdown">
-                    < span type="button" class="btn  dropdown-toggle" data-bs-toggle="dropdown">
+                    < span type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">
                     TOPWEAR
                     </span>
                     <ul class="dropdown-menu">
@@ -347,7 +347,7 @@ const HomePage =()=> {
                     </ul>
                 </div>
                 <div className="dropdown">
-                <Link to="https://www.thesouledstore.com/membership"><span type="button" class="btn ">
+                <Link to="https://www.thesouledstore.com/membership"><span type="button" class="btn">
                 MEMBERSHIP
                  </span></Link>
                   {/* <Link to="#">MEMBERSHIP</Link>  */}
@@ -358,7 +358,7 @@ const HomePage =()=> {
                      <div className="search-container" >
                              
                         { isSearch && <div className="search-input" >
-                         <input type="search" id="search" placeholder="Search for Product..?" autoComplete="off" autoFocus="autofocus" className="searchinput"/>
+                         <input type="search" id="search" placeholder="What are you looking for..?" autoComplete="off" autoFocus="autofocus" className="searchinput"/>
                          <div className="micbutton" >
                                 <span className="mic-icon-mobile" onClick={alertmessg} >
                                 <FaMicrophone />

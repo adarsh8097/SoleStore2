@@ -79,8 +79,6 @@ function CartItem(){
     // const[quentity,setQuentity] = useState(false);
     // setQuentity(!quentity);
 
-    
-
 var totalprice=0;
 
 
@@ -110,6 +108,8 @@ const loadCartItem=()=>{
 }
 loadCartItem();
 
+// useEffect(()=>{
+
 function calculetTotalPrice(){
     //loadCartItem();
     cartproductItem = JSON.parse(localStorage.getItem('cartItem')) || [];
@@ -120,20 +120,41 @@ function calculetTotalPrice(){
         console.log("index",index, "price:",p, "quantity",q);
         console.log("totalPrice-Item",totalprice);
     });
-        
-        // 
-       // console.log(cartproductItem);
-}
 
-  
-  const handleRemoveFromCart = (index) =>{
+    
+    // console.log(cartproductItem);
+}
+calculetTotalPrice();
+
+
+
+// calculetTotalPrice();
+
+  const[cartproduct, setCartProduct] = useState([]);
+
+     
+useEffect(()=>{
     const cartproductItem = JSON.parse(localStorage.getItem('cartItem')) || [];
-    // console.log("cartproductItem");
-    let item =[...cartproductItem];
+     console.log(cartproductItem);
+     setCartProduct(cartproductItem);
+    },[]);
+
+  const handleRemoveFromCart = (index) =>{
+    // const[cartproduct, setCartProduct] = useState([]);
+    // useEffect(()=>{
+    // const cartproductItem = JSON.parse(localStorage.getItem('cartItem')) || [];
+    //  console.log(cartproductItem);
+    //  setCartProduct(cartproductItem);
+    // },[]);
+     // console.log("cartproductItem");
+    let item =[...cartproduct];
     item.splice(index,1);
     localStorage.setItem('cartItem', JSON.stringify(item));
     alert("This Product Removed SuccessFully From Wish List...");
+    setCartProduct(item);
     loadCartItem();
+    return item;
+   
   } 
      
  
@@ -167,17 +188,17 @@ function calculetTotalPrice(){
     // },[]);
    
     // console.log("userdetails data" , userDetail);
-        const navigate = useNavigate();
-     function CheckOuthandler(){
-        const userDetail = JSON.parse(sessionStorage.getItem('userDetails')||"{}");
-        if(!userDetail){
-            navigate('/Loginpage');
-        }else{
-            navigate("/CheckOut");
-        }
+    //     const navigate = useNavigate();
+    //  function CheckOuthandler(){
+    //     const userDetail = JSON.parse(sessionStorage.getItem('userDetails')||"{}");
+    //     if(!userDetail){
+    //         navigate('/Loginpage');
+    //     }else{
+    //         navigate("/CheckOut");
+    //     }
 
-        console.log("userLoginDetails",userDetail);
-     }
+    //     console.log("userLoginDetails",userDetail);
+    //  }
 
      
 
@@ -252,7 +273,7 @@ function calculetTotalPrice(){
                     <h4>Cart <span className="price" style={{color:"black",gap:"2rem"}}><FaShoppingCart/><b>{cartproductItem.length}</b></span></h4>
                  { cartproductItem.map((item)=>(  
                      < div className="cart-nam-info">
-                     <p><span className="price"><b>ItemName:-</b><br/>{item.name}</span></p>
+                     <p><span className="price"><b>ItemName:-</b>{item.name}</span></p>
                      <p><span className="item-price"><b>Price:{item.price}</b></span></p>
                      <hr/>
                     

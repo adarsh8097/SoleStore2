@@ -1,35 +1,33 @@
-import React from "react";
+import React,{useEffect} from "react";
 import './Description.css';
 import HomePage from "./HomePage";
 import FooterPage from "./FooterPage";
 import WomenCollection from './WomenCollectionJson';
-import { Link } from "react-router-dom";
+import { Link, json } from "react-router-dom";
 import Slider from "./Slider";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 // import SingleProduct from "./SingleProduct";
 //import SingleProduct from "./SingleProduct";
 // import { useParams } from "react-router-dom";
-const search = window.location.search;
-    const params = new URLSearchParams(search);
-    const foo = params.get('id');
-    console.log(foo);
+// const search = window.location.search;
+//     const params = new URLSearchParams(search);
+//     const foo = params.get('_id');
+//     console.log(foo);
 
 // console.log(WomenCollection);
 // Create Single Product:
-var productDetail = null;
-var result = WomenCollection.filter(function(element){
-    if (element._id == foo){
-        //console.log(element);
-        productDetail=element;
-        return true;
-    } else {
-        return false;
-    }
-});
+// var productDetail = null;
+// var result = WomenCollection.filter(function(element){
+//     if (element._id == foo){
+//         //console.log(element);
+//         productDetail=element;
+//         return true;
+//     } else {
+//         return false;
+//     }
+// });
 
-// useEffect(()=>{
-//     result();
-// },[]);
+
 
 //console.log(productDetail.title);
 
@@ -63,8 +61,67 @@ const handleaddToFavorites = (products)=>{
   // console.log("product",products);
 }
 
+//  function onLoad(){
+//   var result = WomenCollection.filter(function(element){
+//     if (element._id == foo){
+//         //console.log(element);
+//         productDetail=element;
+//         return true;
+//     } else {
+//         return false;
+//     }
+// });
 
+//  }
+//  onLoad();
+// let productDetail ;
+
+   //Add Product ShopingList:
+
+   function addtoCart(product){
+    const cartproductItem = JSON.parse(localStorage.getItem('cartItem')) || [];
+     console.log("productData", product);
+     let ifProductAllerdyExicty = cartproductItem.find((productItem) => productItem._id === product._id);
+
+     if(!ifProductAllerdyExicty){
+      cartproductItem.push(product);
+      alert('Product add Successfully in cart...!');
+      localStorage.setItem('cartItem',JSON.stringify(cartproductItem));
+
+     }
+     else{
+      alert("Product allready Add in cart...!");
+     }
+     
+     console.log('cartproductItem', cartproductItem);
+   }
+ 
 function Description(){
+  // var productDetail= null;
+  // let element ;
+  // const { id } =  useParams();
+  // let productDetail 
+  let productDetail = true ;
+
+  console.log("productDetail",productDetail);
+  // useEffect(()=>{
+    const search = window.location.search;
+     const params = new URLSearchParams(search);
+    const foo = params.get('_id');
+    console.log(foo);
+    
+    var result = WomenCollection.filter(function(element){
+      if (element._id == foo){
+          // console.log(element);
+          productDetail=element;
+          console.log("productDetail value", productDetail);
+          return true;
+      } else {
+          return false;
+      }
+      // console.log("productDetail value", productDetail);
+  });
+// },[productDetail]);
 
   // var productDetail;
   // var result = WomenCollection.filter(function(element){
@@ -107,7 +164,7 @@ return(
         <HomePage/>
         <Slider/>
         
-         {/* <h1>Product {productDetail.name} </h1> */}
+         {/* <h1>Product {id} </h1> */}
          <div className="container">
         <div className="Single-productItem-component   mt-4 col-sm-9" >
             
@@ -166,7 +223,7 @@ return(
             </div>
             <div className="add-cart">
             <button className="button btn-wishlist" onClick={()=>handleaddToFavorites(productDetail)}><FaHeart/> add to wishlist</button>
-            <button className="button" title="add to cart"><FaShoppingCart/></button>
+            <button className="button" title="add to cart" onClick={()=>addtoCart(productDetail)}>add to ShoppingCart<FaShoppingCart/></button>
            
             </div>
             </div>

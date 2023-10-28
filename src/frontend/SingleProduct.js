@@ -205,19 +205,59 @@ const SingleProduct =()=>{
 //     </>
 
 //    )
+
+const addtowishList =(product)=>{
+  const favorateProduct = JSON.parse(localStorage.getItem('wishlist'))||[];
+  console.log('product',product);
+  const ifProductAlreadyExecty = favorateProduct.find(favrate => favrate._id === product._id);
+
+  if(!ifProductAlreadyExecty){
+    favorateProduct.push(product);
+    alert("Product added To wishlist Successfully");
+    localStorage.setItem('wishlist',JSON.stringify(favorateProduct));
+
+  }else{
+    alert("Product allready exist in wishlist...");
+  }
+
+  console.log('wishlist');
+  console.log(favorateProduct);
+
+ }
+
+const  addtocart =(p)=>{
+  const cartproductItem = JSON.parse(localStorage.getItem('cartItem')) || [];
+  console.log("product",p);
+  let ifproductallreadyInCart = cartproductItem.find(cart => cart._id === p._id);
+
+  if(!ifproductallreadyInCart){
+      cartproductItem.push(p);
+      alert("Product add SuccessFully in Cart...!");
+      localStorage.setItem('cartItem', JSON.stringify(cartproductItem));
+
+  }else{
+      alert("Product allready Add in cart...!");
+  }
+
+  console.log("cartItem");
+  console.log(cartproductItem);
+}
      
   return(
     <>
    <HomePage/>
-    <h3>Product Brand:{product.brand}</h3>
-    <div className="container"> 
+    {/* <h3>Product Brand:{product.brand}</h3> */}
+    <div className="container mt-5"> 
     <div className="Single-productItem-component  mt-4 col-sm-9">
 
       <div className="card-head">
         
       { product ? (
         <div className=" card-product-img">
-          <img src={product.displayImage} alt="Cloth-img"/>
+          {/* <img src={product.displayImage} alt="Cloth-img"/> */}
+        
+            <img src={product.displayImage} alt="cloth-img"/>
+        
         </div>
       ):(
         <p className="loder"> Loding...</p>
@@ -268,15 +308,15 @@ const SingleProduct =()=>{
             </div>
 
             <div className="add-cart">
-            <button className="button btn-wishlist"><FaHeart/> add to wishlist</button>
-            <button className="button" title="add to cart"><FaShoppingCart/></button>
+            <button className="button btn-wishlist" title="add to wishlist" onClick={()=>addtowishList(product)}><FaHeart/> Add to wishlist</button>
+            <button className="button" title="add to cart" onClick={()=> addtocart(product)}>Add to cart <FaShoppingCart/></button>
            
             </div>
       </div>
      </div>
     </div>
     
-    <FooterPage/>
+    {/* <FooterPage/> */}
     
     </>
   )
