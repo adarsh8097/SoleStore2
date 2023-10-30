@@ -9,6 +9,33 @@ import Rightslide from "./Rightslide";
 //  import Rightslide from "./Rightslide";
 
 const HomePage =()=> {
+
+//   document.addEventListener('DOMContentLoaded', function() {
+//   const searchInput = document.getElementById('search');
+//   const searchResults = document.querySelector('.search-results');
+  
+//   searchInput.addEventListener('input', () => {
+//       const searchTerm = searchInput.value.trim();
+      
+//       if (searchTerm.length > 0) {
+//           // Perform a search or show search results here
+//           // For simplicity, we'll just show the results container
+//           searchResults.classList.add('active');
+//       } else {
+//           searchResults.classList.remove('active');
+//       }
+//   });
+
+//   searchInput.addEventListener('blur', () => {
+//     // Delay hiding the results to allow clicking on them
+//     setTimeout(() => {
+//         searchResults.classList.remove('active');
+//     }, 300);
+// });
+//   });
+  
+ 
+  
     
     //   const open=()=>{
     //     document.getElementById('search').style.display="block";
@@ -46,22 +73,20 @@ const HomePage =()=> {
         };
         const navigate = useNavigate();
         const userDetail = JSON.parse(sessionStorage.getItem("userDetails")||"{}");
-             const[isclickbtn,setIsClickbtn]=useState(false);
+           
+        console.log('userdetails-data', userDetail);
+        
+        
+        // const[isclickbtn,setIsClickbtn]=useState(false);
                  
              function details(){
-              setIsClickbtn(!isclickbtn);
-                if(isclickbtn){
-
-                  if(!userDetail){
+                 if(Object.keys(userDetail).length === 0){
                       navigate('/LoginPage');
-                  }
-                  else{
+                  }else{
                     navigate('/UserProfile');
                   }
-
-
-                }
-             } 
+                 
+               } 
        
     
         // const hamburger = document.getElementsByClassName("hamburger");
@@ -246,6 +271,10 @@ const HomePage =()=> {
 
 
     }
+
+    const favorateProduct = JSON.parse(localStorage.getItem('wishlist'))||[];
+
+    const cartproductItem = JSON.parse(localStorage.getItem('cartItem')) || [];
     
     
     return(
@@ -270,7 +299,7 @@ const HomePage =()=> {
                  
             </div>
             </nav> 
-             <nav className="navbar navbar-expand-lg navbar-expand-sm navbar-light bg-light fixed-top navigation-2">
+             <nav className="navbar navbar-expand-lg navbar-expand-sm navbar-lightgray fixed-top navigation-2">
                 {/* <div className="container"> */}
                    
                     {/* <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -356,17 +385,24 @@ const HomePage =()=> {
                
                         
                      <div className="search-container" >
-                             
+                     
                         { isSearch && <div className="search-input" >
-                         <input type="search" id="search" placeholder="What are you looking for..?" autoComplete="off" autoFocus="autofocus" className="searchinput"/>
+                         <input type="search" id="search" placeholder="Search...?" autoComplete="off" autoFocus="autofocus" className="searchinput"/>
                          <div className="micbutton" >
                                 <span className="mic-icon-mobile" onClick={alertmessg} >
                                 <FaMicrophone />
                                 </span>
                            </div>
+                           
                           </div> 
                           
-                          }   
+                          }  
+
+                           {/* <div class="searchbutton" onClick={searchpro}>
+                            <span class="search-input-icons" >
+                              <FaSearch /> 
+                            </span>
+                        </div>  */}
                      </div>
                    
                     
@@ -375,23 +411,29 @@ const HomePage =()=> {
                               <FaSearch /> 
                             </span>
                         </div>
-                        <div class="searchbutton" onClick={details}>
+                          <div class="searchbutton" onClick={details}>
                          <span className="user-Sign-symbol">
-                          <FaUser style={{color:"black"}} />
+                          <FaUser />
                         </span>
                         </div>
                      
                         <div class="searchbutton" >
-                       <Link to="/WishlistPage"> <span className="user-Sign-symbol">
-                            <FaHeart style={{color:"red"}}/>
+                          {/* <span className="cart-count">{favorateProduct.length}</span> */}
+                       <Link to="/WishlistPage"> 
+                       <span className="user-Sign-symbol">
+                            <FaHeart style={{color:"#000"}}/>
                         </span>
+                        <div class="sc-11rr3rd-0 iqxmt7-0 hoFBBP goNsGa">{favorateProduct.length}</div>
                         </Link>
                         </div>
-                     
+                     {/*  */}
                         <div class="searchbutton" >
                        <Link to="/CartProductPage"> <span className="user-Sign-symbol">
-                            <FaShoppingBag  style={{color:"black"}}/>
+                            <FaShoppingBag  style={{color:"#000"}}/>
                         </span>
+                        {/* <div class="sc-11rr3rd-0 iqxmt7-0 hoFBBP goNsG">{cartproductItem.length}</div> */}
+                       
+                        <div class="sc-11rr3rd-0 iqxmt7-0 hoFBBP goNsGa">{cartproductItem.length}</div>
                         </Link>
                      </div>
                  
