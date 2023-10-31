@@ -1,5 +1,6 @@
 import React from "react";
 import './Slider.css';
+import { Link } from "react-router-dom";
 
 function Slider(){
 
@@ -28,27 +29,27 @@ function Slider(){
         
         {/* <!-- The slideshow/carousel --> */}
   <div class="carousel-inner">
-    <div class="carousel-item active">
+   <Link to="/Men"> <div class="carousel-item active">
       <img src="img/Web-Banner_1_1hVRa1i.webp" alt="Los Angeles" class="d-block" style={{width:'100%'}}/>
       {/* <div class="carousel-caption">
         <h3>Los Angeles</h3>
         <p>We had such a great time in LA!</p>
       </div> */}
-    </div>
-    <div class="carousel-item">
+    </div></Link>
+    <Link to="/AllWomenCollection"><div class="carousel-item">
       <img src="img/Web-Banner_1_h0DvwUm.webp" alt="Chicago" class="d-block" style={{width:'100%'}}/>
       {/* <div class="carousel-caption">
         <h3>Chicago</h3>
         <p>Thank you, Chicago!</p>
       </div>  */}
-    </div>
-    <div class="carousel-item">
+    </div></Link>
+   <Link to="/AllWomenCollection"> <div class="carousel-item">
       <img src="img/Web-Banner_1_rwFtTge.webp" alt="New York" class="d-block" style={{width:'100%'}}/>
       {/* <div class="carousel-caption">
         <h3>New York</h3>
         <p>We love the Big Apple!</p>
       </div>   */}
-    </div>
+    </div></Link>
     {/* {/* <div class="carousel-item">
       <img src="img/Homepage-Banner-Beautiful-Blues_1s9JnZs.webp" alt="New York" class="d-block" style={{width:'100%'}}/>
       {/* <div class="carousel-caption">
@@ -56,46 +57,60 @@ function Slider(){
         <p>We love the Big Apple!</p>
     //   </di>   
     </div>  */}
-     <div className="carousel-item">
+    <Link to="/AllWomenCollection"> <div className="carousel-item">
      <img src="img/Homepage-Banner-Beautiful-Blues_1s9JnZs.webp" alt="New York" class="d-block" style={{width:'100%'}}/>
      
-     </div>
-     <div className="carousel-item">
+     </div></Link>
+
+    <Link to="/AllWomenCollection"> <div className="carousel-item">
      <img src="img/Sara_Homepage_cS1WnKo.webp" alt="New York" class="d-block" style={{width:'100%'}}/>
      
-     </div>
-     <div className="carousel-item">
+     </div></Link>
+
+     <Link to="/AllWomenCollection"> <div className="carousel-item">
      <img src="Web-Banner_17.webp" alt="New York" class="d-block" style={{width:'100%'}}/>
      
-     </div>
+     </div></Link>
+     <Link to="/AllWomenCollection">
      <div className="carousel-item">
      <img src="webBanner_1.webp" alt="New York" class="d-block" style={{width:'100%'}}/>
      
-     </div>
+     </div></Link>
+     <Link to="/Men">
      <div className="carousel-item">
      <img src="webBanner_2.webp" alt="New York" class="d-block" style={{width:'100%'}}/>
      
-     </div>
+     </div></Link>
+     <Link to="/AllWomenCollection">
      <div className="carousel-item">
      <img src="webBanner_3.webp" alt="New York" class="d-block" style={{width:'100%'}}/>
      
-     </div>
+     </div></Link>
+     <Link to="/AllWomenCollection">
      <div className="carousel-item">
      <img src="webBanner_4.webp" alt="New York" class="d-block" style={{width:'100%'}}/>
      
-     </div>
+     </div></Link>
+     <Link to="/Men">
      <div className="carousel-item">
      <img src="./img/men sliders.webp" alt="New York" class="d-block" style={{width:'100%'}}/>
      
-     </div>
+     </div></Link>
+     <Link to="/Men">
      <div className="carousel-item">
      <img src="./img/men sliders2.webp" alt="New York" class="d-block" style={{width:'100%'}}/>
      
-     </div>
+     </div></Link>
+     <Link to="/Men">
      <div className="carousel-item">
      <img src="./img/men sliders3.webp" alt="New York" class="d-block" style={{width:'100%'}}/>
      
-     </div>
+     </div></Link>
+     <Link to="/Men">
+     <div className="carousel-item">
+     <img src="./img/men top banner.webp" alt="New York" class="d-block" style={{width:'100%'}}/>
+     
+     </div></Link>
     
     
      
