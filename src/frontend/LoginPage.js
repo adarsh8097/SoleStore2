@@ -38,7 +38,8 @@ function LoginPage(){
         const data = await resp.json();
         if(resp.status >= 400){
              new Error(data.message);
-             alert(data.message);
+           alert(data.message);
+           
              return;
             }
 
@@ -49,7 +50,7 @@ function LoginPage(){
           sessionStorage.setItem('userDetails',JSON.stringify(userdata));
           alert(`welocme ${userdata.name}`);
           console.log(userdata);
-           navigate('/CheckOut');
+           navigate('/');
 
 
         // .then((resp)=>{
@@ -66,6 +67,7 @@ function LoginPage(){
      }
 
 
+
      };
 
      useEffect(()=>{
@@ -76,16 +78,18 @@ function LoginPage(){
         //     navigate("/LoginPage");
         // }
 
-     },[LoginPage]);
+     },[]);
 
 
       const alertfun =()=>{
         alert("function added Comming Soon..!");
       }
     
+      
 
     return(
        <>
+       
      <div id="myModal" class="modal">
      
       <div class="modal-content">
