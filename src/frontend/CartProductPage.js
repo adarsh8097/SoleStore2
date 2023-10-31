@@ -117,6 +117,7 @@ function calculetTotalPrice(){
         var q=parseInt(item.quantity);
         var p=parseInt(item.price);
         totalprice=totalprice+(q*p);
+        
         console.log("index",index, "price:",p, "quantity",q);
         console.log("totalPrice-Item",totalprice);
     });
@@ -200,6 +201,23 @@ useEffect(()=>{
     //     console.log("userLoginDetails",userDetail);
     //  }
 
+     const navigate = useNavigate();
+
+    const userDetail = JSON.parse(sessionStorage.getItem("userDetails")||"{}");
+    // useEffect(()=>{
+    //    if(!userDetail){
+    //     navigate("/Loginpage");
+    //    }
+       
+    // });
+
+      function userdeatils(){
+        if(Object.keys(userDetail).length === 0){
+            navigate("/LoginPage");
+        }else{
+            navigate("/CheckOut");
+        }
+      }
      
 
     return(
@@ -266,33 +284,41 @@ useEffect(()=>{
                     </>
                 )}
             </div>
+            {cartproductItem.length > 0 ? (
              <div className="product-cart-container-price">
             <div className=" col-sm-10">
                <div className="container">
                 <div className="card">
                     <h4>Cart <span className="price" style={{color:"black",gap:"2rem"}}><FaShoppingCart/><b>{cartproductItem.length}</b></span></h4>
-                 { cartproductItem.map((item)=>(  
+                 { cartproductItem.map((item)=>(
+                
                      < div className="cart-nam-info">
                      <p><span className="price"><b>ItemName:-</b>{item.name}</span></p>
                      <p><span className="item-price"><b>Price:{item.price}</b></span></p>
                      <hr/>
                     
                      </div>
-                 ))}
+                     ))}
                  <div className="total-price-item">
                     <p><b>Total:</b>
                      <span className="item-price">&#8377;<b>{totalprice}</b></span>
                     </p>
                 </div>
                 <div className="card-footer">
-                    <button onClick={CheckOuthandler}>CheckOut</button>
+                  <button onClick={userdeatils}>CheckOut</button>
                  </div>
                    <Link to="/"> <span> <p className="cart-para-btn">< FaArrowLeft style={{fontWeight:"bold", textAlign:"center",fontSize:"1rem"}}/>Continue Shoping</p>
             </span></Link>
+            
+           
                 </div>
+               
                 </div>
                </div>
             </div>
+            ):(
+              <div></div>
+            )}
          </div>
          <FooterPage/>
          </>
