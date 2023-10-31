@@ -387,7 +387,7 @@ const HomePage =()=> {
                      <div className="search-container" >
                      
                         { isSearch && <div className="search-input" >
-                         <input type="search" id="search" placeholder="Search...?" autoComplete="off" autoFocus="autofocus" className="searchinput"/>
+                         <input type="search" id="search" placeholder="Search Product...?" autoComplete="off" autoFocus="autofocus" className="searchinput"/>
                          <div className="micbutton" >
                                 <span className="mic-icon-mobile" onClick={alertmessg} >
                                 <FaMicrophone />
