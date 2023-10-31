@@ -159,6 +159,7 @@ function Description(){
     //   console.log(favoritesProduct);
     //   console.log(ifProductAlreadyExecty);
     // }
+  
 return(
         <>
         <HomePage/>
