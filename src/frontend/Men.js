@@ -170,6 +170,7 @@ function Men(){
             </div>
 
          </div>
+                
         </div>
         <div id="OFFICIAL-MERCHANDISE-parent">
           <div class="collection-heading">OFFICIAL MERCHANDISE</div>
