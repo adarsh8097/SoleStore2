@@ -35,10 +35,13 @@ function CheckOut(){
 
 const navigate = useNavigate();
       
-    const userDetail = JSON.parse(sessionStorage.getItem("userDetails")||"{}");
-    if(userDetail){
-      navigate('/Loginpage');
-    }
+    // const userDetail = JSON.parse(sessionStorage.getItem("userDetails")||"{}");
+    // useEffect(()=>{
+    //    if(!userDetail){
+    //     navigate("/Loginpage");
+    //    }
+
+    // })
 
     console.log('userdeatils',userDetail);
     // useEffect(() =>{
@@ -155,7 +158,7 @@ console.log("userdetails data" , userDetail);
 
     const deliverydata =(p)=>{
       const delivery = JSON.stringify(localStorage.getItem('delivery'));
-      console.log("userProductcheckoutdata",p);
+      console.log("userProductcheckoutdata",delivery);
     }
     deliverydata();
 
