@@ -217,6 +217,7 @@ console.log("userdetails data" , userDetail);
              placeholder="New York"
              required/>
 
+              
             <div class="row">
               <div class="col-50">
                 <label for="state">State</label>
