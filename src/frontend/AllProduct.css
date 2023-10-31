@@ -258,6 +258,7 @@
     grid-template-columns: repeat(1, 3fr);
   } */
 
+
   #card-container {
     display: flex;
      flex-direction:column;
