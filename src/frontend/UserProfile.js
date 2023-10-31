@@ -2,9 +2,11 @@ import React from "react";
 import'./UserProfile.css';
 import { useNavigate } from "react-router-dom";
 import { FaShoppingBag } from "react-icons/fa";
+import HomePage from "./HomePage";
 
 function UserProfile(){
     const userDetail = JSON.parse(sessionStorage.getItem("userDetails")||"{}");
+        console.log("userdetails-data");
         console.log(userDetail);
     // localStorage.setItem("userpaymentdetails",JSON.stringify("chaeckOutdata"));
     const deliverydata = JSON.parse(localStorage.getItem("userpaymentdetails") || "{}") ;
@@ -13,11 +15,23 @@ function UserProfile(){
 //    console.log(cartproductItem)
 
         const navigate = useNavigate();
+       
+        
+    //     if(Object.keys(userDetail).length===0){
+    //         // alert("data not found");
+    //         navigate('/LoginPage');
+    //     }else{
+    //         // alert(" found")
+    //         navigate('/UserProfile');
+    //   }
+    
+
 
     const logOutBtn=()=>{
         sessionStorage.removeItem('userDetails');
         localStorage.removeItem('cartItem');
         localStorage.removeItem('wishlist');
+        localStorage.removeItem('userpaymentdetails');
         alert("Logout Successfully...!");
         navigate('/LoginPage');
 
@@ -32,6 +46,7 @@ function UserProfile(){
 
     return(
         <>
+        <HomePage/>
         <h1>UserProfile Section</h1>
         <div className="ProfileSection conatiner">
             <div className="card-conatiner">
@@ -51,8 +66,9 @@ function UserProfile(){
                         </div>
                     </div>
                     </div>
-
-                     { deliverydata ?( <div className="disptch-info card">
+                      {/* {  deliverydata.length > 0 ?(  */}
+                        
+                     {  Object.keys(deliverydata).length > 0 ? ( <div className="disptch-info card">
                         <h4 className="car-title">Delivery address</h4>
                             <div className="delivery-detail mt-3">
                                <p><b>Address:</b>{deliverydata.adr}</p>
@@ -64,10 +80,13 @@ function UserProfile(){
                             <p className="logutbutton" title="Continue Shoping">Continue <FaShoppingBag/></p>
                         </div>
                         </div>
-
+            
                     ):(
-                        <div className="details"><b>Details not update</b></div>
+                        <div className="details"></div>
                     ) }
+                   
+
+              
                        
                 </div>
              
