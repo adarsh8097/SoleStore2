@@ -374,6 +374,7 @@ const AllWomenCollection=()=>{
         //    alert("Please refresh the page some server-issue..!");
         // } 
 
+   
 
         // Add to Cart Componet Add here;
          const  addtocart =(p)=>{
