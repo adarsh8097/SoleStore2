@@ -37,6 +37,7 @@ import FooterPage from "./FooterPage";
 
 //       }
 
+
 //       // useEffect(()=>{
 //       //   fetchProduct();
 //       // },[]
