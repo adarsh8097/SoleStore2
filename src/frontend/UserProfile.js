@@ -84,6 +84,10 @@ function UserProfile(){
                     ):(
                         <div className="details"></div>
                     ) }
+                   
+
+              
+                       
                 </div>
              
             </div>
