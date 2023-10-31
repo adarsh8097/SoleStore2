@@ -95,7 +95,8 @@ import { json } from "react-router-dom";
             console.log(cartproductItem);
         }
         // addtoCart();
-    
+
+      
     
     return(
        <>
