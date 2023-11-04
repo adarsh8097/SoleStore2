@@ -79,57 +79,120 @@ function CartItem(){
     // const[quentity,setQuentity] = useState(false);
     // setQuentity(!quentity);
 
-var totalprice=0;
+// var totalprice=0;
 
 
   function addQuantity(index,qty){
        
         //var qty=(document.getElementById("quantity"+index)!=null)?document.getElementById("quantity"+index).value:1;
-        alert("index= "+index+" kjjkj= "+qty); 
+        // alert("index= "+index+" kjjkj= "+qty); 
         const cartproductItem = JSON.parse(localStorage.getItem('cartItem'));
         let item =[...cartproductItem];
         item[index].quantity=parseInt(qty);
         localStorage.setItem('cartItem', JSON.stringify(item));
         console.log("add qty");
         console.log(item);
-        calculetTotalPrice();
+        // calculetTotalPrice();
+        updateTotalPrice();
     
     }
 
+const[cartproductItem , setCartProductItem] = useState([]);
+
+ const [totalprice, setTotalPrice] = useState(0);
+//  const [quentity,setQuentity] = useState(cartproductItem.map(()=>0));
+
+//     function updateQuentity(index,newquentity){
+//       const cartproductItem = JSON.parse(localStorage.getItem('cartItem'));
+//       const  newquentityes =[...cartproductItem];
+//       newquentityes[index] = parseInt(newquentity);
+//       setQuentity(newquentity);
+//     }
+ 
 
 
 
 
-var cartproductItem=[];
-const loadCartItem=()=>{
-     cartproductItem = JSON.parse(localStorage.getItem('cartItem')) || [];
-     console.log(cartproductItem);
-     calculetTotalPrice();
-}
-loadCartItem();
+//  cartproductItem=[];
+// const loadCartItem=()=>{
+   useEffect(()=>{
+     const cartItems = JSON.parse(localStorage.getItem('cartItem')) || [];
+    //  console.log(cartproductItem);
+    
+     setCartProductItem(cartItems);
+    //  calculetTotalPrice();
+    updateTotalPrice();
+
+},[]);
+// loadCartItem();
 
 // useEffect(()=>{
 
-function calculetTotalPrice(){
-    //loadCartItem();
-    cartproductItem = JSON.parse(localStorage.getItem('cartItem')) || [];
-    cartproductItem.map((item,index)=>{
-        var q=parseInt(item.quantity);
-        var p=parseInt(item.price);
-        totalprice=totalprice+(q*p);
+// function calculetTotalPrice(){
+//     //loadCartItem();
+//     cartproductItem = JSON.parse(localStorage.getItem('cartItem')) || [];
+//     cartproductItem.map((item,index)=>{
+//         var q=parseInt(item.quantity);
+//         var p=parseInt(item.price);
+//         totalprice=totalprice+(q*p);
         
-        console.log("index",index, "price:",p, "quantity",q);
-        console.log("totalPrice-Item",totalprice);
-    });
+//         console.log("index",index, "price:",p, "quantity",q);
+//         console.log("totalPrice-Item",totalprice);
+//     });
 
     
-    // console.log(cartproductItem);
-}
-calculetTotalPrice();
+//     // console.log(cartproductItem);
+// }
+// calculetTotalPrice();
 
+// const updateTotalPrice = () => {
+//   let totalPrice = 0;
+//   for (let index = 0; index < cartproductItem.length; index++) {
+//      const item = cartproductItem[index];
+//     const q = parseInt(item.quantity);
+//     const p = parseInt(item.price);
+//     alert("price-"+ p);
+//      totalPrice = totalPrice  + q[index] * cartproductItem[index].p;
+//     //  totalPrice += q*p;
+//     console.log('total-price:',totalPrice);
+//     //  return totalPrice;
+//   }
+  
+//   setTotalPrice(totalPrice);
 
+//   alert('total- ' +totalprice);
+ 
+//   // alert( "total- "+totalPrice);
+// };
+
+const updateTotalPrice = () => {
+  let totalPrice = 0;
+  for (let index = 0; index < cartproductItem.length; index++) {
+    const item = cartproductItem[index];
+    const quantity = parseInt(item.quantity);
+    const price = parseFloat(item.price); // Use parseFloat to handle decimal values
+    console.log('quenti '+ quantity, 'Price ', price);
+    const itemTotal = quantity * price;
+    totalPrice += itemTotal;
+  }
+
+  setTotalPrice(totalPrice);
+  console.log('Total-price:'+ totalPrice);
+
+  // alert('Total Price: ' + totalPrice); // Use the variable name 'totalPrice' here
+};
 
 // calculetTotalPrice();
+
+ // useEffect to update total price whenever cartproductItem changes
+ useEffect(() => {
+  updateTotalPrice();
+}, [cartproductItem]);
+
+
+
+
+
 
   const[cartproduct, setCartProduct] = useState([]);
 
@@ -138,6 +201,7 @@ useEffect(()=>{
     const cartproductItem = JSON.parse(localStorage.getItem('cartItem')) || [];
      console.log(cartproductItem);
      setCartProduct(cartproductItem);
+    updateTotalPrice();
     },[]);
 
   const handleRemoveFromCart = (index) =>{
@@ -153,7 +217,12 @@ useEffect(()=>{
     localStorage.setItem('cartItem', JSON.stringify(item));
     alert("This Product Removed SuccessFully From Wish List...");
     setCartProduct(item);
-    loadCartItem();
+    // loadCartItem();
+    setCartProductItem(item);
+     setTotalPrice();
+
+
+
     return item;
    
   } 
@@ -219,6 +288,44 @@ useEffect(()=>{
         }
       }
      
+      // const[option , setOption] = useState('1');
+      // const optionValue = ['1','2','3','4','5','6','7','8','9','10'];
+
+    //   function addQuantity(){
+       
+    //     //var qty=(document.getElementById("quantity"+index)!=null)?document.getElementById("quantity"+index).value:1;
+    //     // alert("index= "+index+" kjjkj= "+qty); 
+    //     const cartproductItem = JSON.parse(localStorage.getItem('cartItem'));
+    //     if(cartproductItem){
+    //     let item =[...cartproductItem];
+    //      const index= 1 ;
+    //     const quantity = parseInt(option);
+
+    //     item[index].quantity = quantity;
+    //     localStorage.setItem('cartItem', JSON.stringify(item));
+    //     console.log("add qty");
+    //     console.log(item);
+    //     // alert(item);
+    //     // calculetTotalPrice();
+    //     updateTotalPrice();
+    //     }
+    
+    // }
+
+      // const handleOptionChange =(e)=>{
+            
+      //     const selectdataquentity = e.target.value;
+      //       // setOption(selectdataquentity);
+
+      //       // localStorage.setItem('selectItemquentity',selectdataquentity);
+      //       // alert('alertOpton', selectdataquentity);
+       
+      // }
+
+      // useEffect(()=>{
+      //   addQuantity();
+
+      // },[]);
 
     return(
         <>
@@ -243,9 +350,10 @@ useEffect(()=>{
                                 <p>{item.title}</p>
 
                                 <div className="product-quentity">
-                                    <label for="quantity"> Quantity: </label>
+                                    <label for="quantity"> Quantity:{item.quantity} </label>
 
-                                    <select name="cars" id="quantity{index}" onChange={(event)=>addQuantity(index,event.target.value)}>
+                                    <select id="quantity{index}" onChange={(e)=>addQuantity(index,e.target.value)}>
+                                    {/* <select id="quantity{index}" onChange={(newquentity) => updateQuentity(index,newquentity)}> */}
                                     <option value="1">01</option>
                                     <option value="2">02</option>
                                     <option value="3">03</option>
@@ -256,8 +364,17 @@ useEffect(()=>{
                                     <option value="8">08</option>
                                     <option value="9">09</option>
                                     <option value="10">10</option>
+                                    
+                                    {/* {optionValue.map((option,index) => (
+                                      <option key={index} value={option}> {option} </option>
+                                      // alert({option});
+
+                                    ))}; */}
+                                    
+                                    {/* <label for="quantity"> Quantity:{option} </label> */}
                                     </select>
                                     
+
                                  </div>
                                  
                              
