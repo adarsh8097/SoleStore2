@@ -266,7 +266,7 @@ const HomePage =()=> {
     const alertmessg =()=>{
          setIsClick(!isclick);
         if(isclick){
-         window.alert("This functionality add Comming soon..!");
+         window.alert("Comming soon..!");
         }
 
 
@@ -290,8 +290,8 @@ const HomePage =()=> {
                </ul>
                 
                 <ul className="nav nav-tag ">
-                   <Link className="sole" to="#"> <li>TRACK ORDER</li></Link>
-                    <Link className="sole" to="#"> <li>CONTACT</li></Link>
+                   <Link className="sole" to="#" onClick={alertmessg}> <li>TRACK ORDER</li></Link>
+                    <Link className="sole" to="#" onClick={alertmessg}> <li>CONTACT</li></Link>
                    <Link className="sole" to="https://play.google.com/store/apps/details?id=com.thesouledstore">
                    <li>< FaMobile style={{color:"white"}}/> DOWNLOAD APP</li> </Link> 
 
