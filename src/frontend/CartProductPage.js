@@ -100,6 +100,7 @@ function CartItem(){
 const[cartproductItem , setCartProductItem] = useState([]);
 
  const [totalprice, setTotalPrice] = useState(0);
+    
 //  const [quentity,setQuentity] = useState(cartproductItem.map(()=>0));
 
 //     function updateQuentity(index,newquentity){
