@@ -84,6 +84,7 @@ const handleaddToFavorites = (products)=>{
      let ifProductAllerdyExicty = cartproductItem.find((productItem) => productItem._id === product._id);
 
      if(!ifProductAllerdyExicty){
+      product.quantity=1;
       cartproductItem.push(product);
       alert('Product add Successfully in cart...!');
       localStorage.setItem('cartItem',JSON.stringify(cartproductItem));
@@ -159,7 +160,6 @@ function Description(){
     //   console.log(favoritesProduct);
     //   console.log(ifProductAlreadyExecty);
     // }
-  
 return(
         <>
         <HomePage/>
