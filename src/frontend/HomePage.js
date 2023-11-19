@@ -312,7 +312,7 @@ const HomePage =()=> {
                     <a data-v-3ee02bb2="" href="/" onClick={() => changeTab('tab1')} className={`router-link-exact-active router-link-active ${activeTab === 'tab1' ? 'activeCat' : ''}`}> WOMEN </a>
                     </li> 
                     <li data-v-3ee02bb2="" class="">
-                      <a data-v-3ee02bb2="" href="/Men" onClick={() => changeTab('tab2') } className={activeTab === 'tab2' ? 'activeCat' : ''} >MEN </a>
+                      <Link data-v-3ee02bb2="" to="/Men" onClick={() => changeTab('tab2') } className={activeTab === 'tab2' ? 'activeCat' : ''} >MEN </Link>
                       </li> <li data-v-3ee02bb2="" class=" remo">
                         <a data-v-3ee02bb2="" href="#" onClick={alertmessg} class="" >KIDS </a>
                         </li>
