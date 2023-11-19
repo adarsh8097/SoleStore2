@@ -3,6 +3,7 @@ import './HomePage.css' ;
 import { Link, useNavigate } from "react-router-dom";
 import{ FaHeart, FaMicrophone, FaMobile, FaSearch, FaShoppingBag, FaUser} from "react-icons/fa";
 import Rightslide from "./Rightslide";
+import { tab } from "@testing-library/user-event/dist/tab";
 // import Slider from "./Slider";
 // import Collection from "./Collection";
 // import FooterPage from "./FooterPage";
@@ -266,7 +267,7 @@ const HomePage =()=> {
     const alertmessg =()=>{
          setIsClick(!isclick);
         if(isclick){
-         window.alert("Comming soon..!");
+         window.alert("add Comming soon..!");
         }
 
 
@@ -275,38 +276,91 @@ const HomePage =()=> {
     const favorateProduct = JSON.parse(localStorage.getItem('wishlist'))||[];
 
     const cartproductItem = JSON.parse(localStorage.getItem('cartItem')) || [];
+
     
-    
+    // Remove Class form Active:
+    const[activeTab, setActiveTab] = useState('tab1');
+    function changeTab(tab){
+  //  var links = document.getElementsByClassName('activeCat');
+  //  for(var i=0; i<links.length;i++){
+  //   links[i].classList.remove('activeCate');
+  //  }
+
+  //   // Add 'active' class to the clicked link
+  //   var ActiveLink = document.querySelector(`a[href='#'][onClick="changeTab('${tab}')"]`);
+
+  //   if(ActiveLink){
+  //     ActiveLink.classList.add('activeCate');
+
+  //   }
+   
+  setActiveTab(tab);
+    }
+
+
+  
+     
     return(
         <>
+
+         <div data-v-3ee02bb2="" id="topbar" class="topbar">
+          <div data-v-3ee02bb2="" class="">
+            <div data-v-3ee02bb2="" class="row">
+              <div data-v-3ee02bb2="" class="topheader68">
+                <ul data-v-3ee02bb2="" data-testid="floornav" class="top_nav55">
+                  <li data-v-3ee02bb2="" class="">
+                    <a data-v-3ee02bb2="" href="/" onClick={() => changeTab('tab1')} className={`router-link-exact-active router-link-active ${activeTab === 'tab1' ? 'activeCat' : ''}`}> WOMEN </a>
+                    </li> 
+                    <li data-v-3ee02bb2="" class="">
+                      <a data-v-3ee02bb2="" href="/Men" onClick={() => changeTab('tab2') } className={activeTab === 'tab2' ? 'activeCat' : ''} >MEN </a>
+                      </li> <li data-v-3ee02bb2="" class=" remo">
+                        <a data-v-3ee02bb2="" href="#" onClick={alertmessg} class="" >KIDS </a>
+                        </li>
+                        </ul>
+                         <div data-v-3ee02bb2="" class="top_rightnav66 sole">
+                          <a data-v-3ee02bb2="" href="#" onClick={alertmessg} class="pointer text-uppercase sole">
+                            <span data-v-3ee02bb2="">Track Order</span></a>
+                             <a data-v-3ee02bb2="" href="#" onClick={alertmessg} class="pointer text-uppercase sole">
+                              <span data-v-3ee02bb2="">Contact Us</span>
+                              </a> 
+                              <a data-v-3ee02bb2="" href="https://play.google.com/store/apps/details?id=com.thesouledstore" class="pointer text-uppercase d-inline-flex align-items-center sole">
+
+                                {/* <i data-v-3ee02bb2="" aria-hidden="true" class="fa fa-mobile mr-1" style={{fontSize: "18px",gap:"5px"}}></i> */}
+                                <FaMobile style={{fontSize: "18px"}}/>   Download App 
+
+                         
+                           
+                              </a>
+                       </div>
+                     </div>
+                  </div>
+                </div>
+              </div>
         
-        <nav className="nav1">
+        {/* <nav className="nav1">
             <div className="navigation">
                
                <ul className="nav nav-tag1">
-                 <Link to="/" className="sole" ><li>WOMEN</li></Link>
+                 <Link to="/" className="sole" id="wish1" ><li>WOMEN</li></Link>
                  <Link to="/Men"  className="sole"><li>MEN</li></Link>
                  <Link to="#" onClick={alertmessg}  className="sole"><li>KIDS</li></Link>
                </ul>
                 
                 <ul className="nav nav-tag ">
-                   <Link className="sole" to="#" onClick={alertmessg}> <li>TRACK ORDER</li></Link>
-                    <Link className="sole" to="#" onClick={alertmessg}> <li>CONTACT</li></Link>
+                   <Link className="sole" to="#"> <li>TRACK ORDER</li></Link>
+                    <Link className="sole" to="#"> <li>CONTACT</li></Link>
                    <Link className="sole" to="https://play.google.com/store/apps/details?id=com.thesouledstore">
                    <li>< FaMobile style={{color:"white"}}/> DOWNLOAD APP</li> </Link> 
 
                 </ul>
                  
             </div>
-            </nav> 
-             <nav className="navbar navbar-expand-lg navbar-expand-sm navbar-lightgray fixed-top navigation-2">
+            </nav>  */}
+
+             <nav className="navbar navbar-expand-lg navbar-expand-sm navbar-light fixed-top navigation-2">
                 {/* <div className="container"> */}
                    
-                    {/* <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                         <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>                    
-                    </button> */}
+                   
                       <span className="navbar-brand" id="logo-img-div">
                            <Link to="/"><img src="stor-logo.jpg" alt="dp"/></Link> 
                         </span>
@@ -407,13 +461,14 @@ const HomePage =()=> {
                    
                     
                          <div class="searchbutton" onClick={searchpro}>
-                            <span class="search-input-icons" >
+                            <span class="search-input-icons" style={{cursor:"pointer"}} >
                               <FaSearch /> 
                             </span>
                         </div>
                           <div class="searchbutton" onClick={details}>
                          <span className="user-Sign-symbol">
-                          <FaUser />
+                          {/* <FaUser /> */}
+                          <span data-v-3ee02bb2="" class="hicon fa fa-user-o"></span>
                         </span>
                         </div>
                      
@@ -421,7 +476,8 @@ const HomePage =()=> {
                           {/* <span className="cart-count">{favorateProduct.length}</span> */}
                        <Link to="/WishlistPage"> 
                        <span className="user-Sign-symbol">
-                            <FaHeart style={{color:"#000"}}/>
+                            {/* <FaHeart style={{color:"#333"}}/> */}
+                            <span data-v-3ee02bb2="" class="headercart hicon fa fa-heart-o" ></span>
                         </span>
                         <div class="sc-11rr3rd-0 iqxmt7-0 hoFBBP goNsGa">{favorateProduct.length}</div>
                         </Link>
@@ -429,7 +485,12 @@ const HomePage =()=> {
                      {/*  */}
                         <div class="searchbutton" >
                        <Link to="/CartProductPage"> <span className="user-Sign-symbol">
-                            <FaShoppingBag  style={{color:"#000"}}/>
+                            {/* <FaShoppingBag  style={{color:"#000"}}/> */}
+                            <svg data-v-3ee02bb2="" xmlns="http://www.w3.org/2000/svg" width="25" height="23" viewBox="0 0 48 48" class="headercart" style= {{stroke: "rgb(114, 107, 107); fill: rgb(34, 32, 32)", strokeWidth: "1.4", webkitFontSmoothing:"antialiased"}}>
+                            <path data-v-3ee02bb2="" xmlns="http://www.w3.org/2000/svg" d="M43,46H5c-2.209,0-4-1.791-4-4l4-24c0.678-3.442,2.668-4,4.877-4h2.652  C14.037,7.052,18.602,2,24,2s9.963,5.052,11.471,12h2.652c2.209,0,4.199,0.558,4.877,4l4,24C47,44.209,45.209,46,43,46z M24,4  c-4.352,0-8.045,4.178-9.418,10h18.837C32.045,8.178,28.353,4,24,4z M41,18c-0.308-1.351-0.957-2-2.37-2h-2.828  C35.925,16.976,36,17.975,36,19c0,0.552-0.447,1-1,1s-1-0.448-1-1c0-1.027-0.069-2.031-0.201-3H14.201C14.07,16.969,14,17.973,14,19  c0,0.552-0.447,1-1,1s-1-0.448-1-1c0-1.025,0.075-2.024,0.197-3H9.369C7.957,16,7.309,16.649,7,18L3,42c0,1.104,0.896,2,2,2h38  c1.104,0,2-0.896,2-2L41,18z" shape-rendering="auto"></path> 
+                            <line data-v-3ee02bb2="" x1="5" y1="32" x2="44" y2="32" style={{strokeWidth: "2"}}>
+                              </line>
+                              </svg>
                         </span>
                         {/* <div class="sc-11rr3rd-0 iqxmt7-0 hoFBBP goNsG">{cartproductItem.length}</div> */}
                        
