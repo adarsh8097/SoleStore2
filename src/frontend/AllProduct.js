@@ -44,7 +44,7 @@ function AllProduct(){
         favorateProduct.push(product);
         alert("Product added To wishlist Successfully");
         localStorage.setItem('wishlist',JSON.stringify(favorateProduct));
-         navigate('/AllProduct');
+        navigate('/AllProduct');
       }else{
         alert("Product allready exist in wishlist...");
       }
