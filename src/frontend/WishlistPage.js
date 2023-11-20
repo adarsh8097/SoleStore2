@@ -5,8 +5,10 @@ import { FaShoppingCart } from "react-icons/fa";
 import FooterPage from "./FooterPage";
 import HomePage from "./HomePage";
 import Slider from "./Slider";
-import { json } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import { json } from "react-router-dom";
+
 
 
 //  const search = window.location.search;
@@ -51,7 +53,7 @@ import { json } from "react-router-dom";
 
 
     },[]);
-
+    const nevigate = useNavigate();
     const handleRemoveFromFavrates = (index) =>{
     //     let item = [...favorateProduct];
     //    const previouseSecondItem = item.splice(index,1)[0];
@@ -87,6 +89,8 @@ import { json } from "react-router-dom";
                 cartproductItem.push(p);
                 alert('Product add to Cart Successfully...!');
                 localStorage.setItem('cartItem',JSON.stringify(cartproductItem));
+                // <Route path="/"></Route>
+                nevigate('/WishlistPage');
 
             }else{  
                 alert("product allready add to cart...!");
@@ -95,7 +99,35 @@ import { json } from "react-router-dom";
             console.log(cartproductItem);
         }
         // addtoCart();
-    
+        // import React, { useState } from 'react';
+
+        // const Navbar = () => {
+        
+        // const [backgroundColor, setBackgroundColor] = useState('lightblue');
+        
+        // const handleButtonClick = () => {
+        
+        // // Change the background color to a different color when the button is clicked
+        
+        // setBackgroundColor('lightgreen');
+        
+        // };
+        
+        // return (
+        
+        // <div style={{ backgroundColor, padding: '10px' }}>
+        
+        // <h1>Navbar</h1>
+        
+        // <button onClick={handleButtonClick}>Change Color</button>
+        
+        // </div>
+        
+        // );
+        
+        // };
+        
+        // export default Navbar;
     
     return(
        <>
