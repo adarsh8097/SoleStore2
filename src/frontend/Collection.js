@@ -184,7 +184,7 @@ function Collection(){
         </div>
         <div className="shopby-color">
           
-          <div className="collection-heading">SHOP BY COLOUR</div>
+          {/* <div className="collection-heading">SHOP BY COLOUR</div>
            <div className="scroll-container">
             <img src="collection2.webp"  alt="Collection Pic" />
             <img src="collection3.webp" alt="error" />
@@ -195,7 +195,7 @@ function Collection(){
             <img src="color4.webp" alt="error"/>
             <img src="color5.webp" alt="error"/>
             <img src="color6.webp" alt="error"/>
-         </div>
+         </div> */}
          
 
         </div>
