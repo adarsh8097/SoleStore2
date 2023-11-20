@@ -34,7 +34,7 @@ function AllProduct(){
 
      },[]);
 
-     
+     const navigate = useNavigate();
      const addtowishList =(product)=>{
       const favorateProduct = JSON.parse(localStorage.getItem('wishlist'))||[];
       console.log('product',product);
@@ -44,7 +44,7 @@ function AllProduct(){
         favorateProduct.push(product);
         alert("Product added To wishlist Successfully");
         localStorage.setItem('wishlist',JSON.stringify(favorateProduct));
-
+         navigate('/AllProduct');
       }else{
         alert("Product allready exist in wishlist...");
       }
