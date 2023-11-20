@@ -3,7 +3,7 @@ import './AllWomenCollection.css';
 import HomePage from "./HomePage";
 import FooterPage from "./FooterPage";
 import Slider from "./Slider";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 // import SingleProduct from "./SingleProduct";
 //import Description from "./Description";
@@ -350,7 +350,8 @@ const AllWomenCollection=()=>{
         }
     
     ];
-      const navigate = useNavigate();
+
+    const navigate = useNavigate();
     const addtowishList =(p)=>{
         const favorateProduct = JSON.parse(localStorage.getItem('wishlist'))||[];
         console.log("my prod-"+p);
@@ -360,7 +361,7 @@ const AllWomenCollection=()=>{
             favorateProduct.push(p);
             alert("Product added To wishlist Successfully");
             localStorage.setItem('wishlist',JSON.stringify(favorateProduct));
-              navigate('/AllWomenCollection');
+            navigate('/AllWomenCollection');
           }else{
 
             alert("Product allready exist in wishlist...");
@@ -375,28 +376,35 @@ const AllWomenCollection=()=>{
         //    alert("Please refresh the page some server-issue..!");
         // } 
 
-   
 
         // Add to Cart Componet Add here;
-         const  addtocart =(p)=>{
-            const cartproductItem = JSON.parse(localStorage.getItem('cartItem')) || [];
-            console.log("product",p);
-            let ifproductallreadyInCart = cartproductItem.find(cart => cart._id === p._id);
+        //  const  addtocart =(p)=>{
+        //     const cartproductItem = JSON.parse(localStorage.getItem('cartItem')) || [];
+        //     console.log("product",p);
+        //     let ifproductallreadyInCart = cartproductItem.find(cart => cart._id === p._id);
 
-            if(!ifproductallreadyInCart){
-                p.quantity=1;
-                cartproductItem.push(p);
-                alert("Product add SuccessFully in Cart...!");
-                localStorage.setItem('cartItem', JSON.stringify(cartproductItem));
+        //     if(!ifproductallreadyInCart){
+        //         p.quantity=1;
+        //         cartproductItem.push(p);
+        //         alert("Product add SuccessFully in Cart...!");
+        //         localStorage.setItem('cartItem', JSON.stringify(cartproductItem));
 
-            }else{
-                alert("Product allready Add in cart...!");
-            }
+        //     }else{
+        //         alert("Product allready Add in cart...!");
+        //     }
 
-            console.log("cartItem");
-            console.log(cartproductItem);
-         }
+        //     console.log("cartItem");
+        //     console.log(cartproductItem);
+        //  }
     //    /Allproduct/${item._id}
+
+    const btn = document.getElementById('wish1');
+
+        function change() {
+        btn.style.backgroundColor = 'salmon';
+        btn.style.color = 'white';
+        };
+
     return(
         <>
         <HomePage/>
@@ -407,12 +415,12 @@ const AllWomenCollection=()=>{
            <div className=" collection-component row col-sm-12">
             {WomenCollection.map((product)=>(
              <div className="card product-card col-sm-3 mt-5">
-             <div data-v-2d5b3c05="" class="wishlistIcon pl-1 pb-2 pr-1 wishlist" onClick={()=> addtowishList(product)} title="add to Wishlist"></div>   
+             <div data-v-2d5b3c05  id="wish1" class="wishlistIcon pl-1 pb-2 pr-1 wishlist" onClick={()=> addtowishList(product)} title="add to Wishlist"></div>   
            <div class=" card-head bg-image hover-overlay hover-zoom hover-shadow ripple " key={product._id} id="product-card" >
             <Link to={`/description?_id=${product._id}`}>
 
             {/* <Link to={`/description/${product._id}`} onClick={mesgAlert}> */}
-           <img src={product.displayImage} class="card-img-top" alt={product.alt} />
+           <img src={product.displayImage} class="card-img-top" alt={product.alt} style={{height:"250px"}}/>
            <div class="mask" style={{backgroundColor: "hsla(195, 83%, 58%, 0.2)"}}></div>
            </Link>
            <div class="card-body">
