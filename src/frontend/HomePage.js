@@ -267,7 +267,7 @@ const HomePage =()=> {
     const alertmessg =()=>{
          setIsClick(!isclick);
         if(isclick){
-         window.alert("add Comming soon..!");
+         window.alert(" Comming soon..!");
         }
 
 
