@@ -4,7 +4,7 @@ import './AllProduct.css';
 import HomePage from './HomePage';
 import FooterPage from "./FooterPage";
 import Slider from "./Slider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import { FaHeart, FaShoppingCart } from "react-icons/fa";
 function AllProduct(){
     const[isitem, setIsitem] = useState([]);
