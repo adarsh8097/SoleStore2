@@ -94,26 +94,34 @@ console.log("userdetails data" , userDetail);
 
     };
 
-    var totalprice=0;
-
+    // var totalprice=0;
+    // const navigate = useNavigate();
+     const[totalprice , setTotalPrice] = useState(0);
     function calculetTotalPrice(){
         //loadCartItem();
+        let totalPrice =0;
       const  cartproductItem = JSON.parse(localStorage.getItem('cartItem')) || [];
         cartproductItem.map((item,index)=>{
             var q=parseInt(item.quantity);
             var p=parseInt(item.price);
-            totalprice=totalprice+(q*p);
+            totalPrice=totalPrice+(q*p);
             console.log("index",index, "price:",p, "quantity",q);
-            console.log("totalPrice-Item",totalprice);
+            console.log("totalPrice-Item",totalPrice);
+              // navigate('/CheckOut');
         });
+
+        setTotalPrice(totalPrice);
+
           
       }
-        calculetTotalPrice();
-        function loadCartItem(){
 
-             calculetTotalPrice();
-        }
-        loadCartItem();
+       useEffect(()=>{calculetTotalPrice();},[]);
+        // calculetTotalPrice();
+        // function loadCartItem(){
+
+        //      calculetTotalPrice();
+        // }
+        // loadCartItem();
 
             // 
            // console.log(cartproductItem);
@@ -217,7 +225,6 @@ console.log("userdetails data" , userDetail);
              placeholder="New York"
              required/>
 
-              
             <div class="row">
               <div class="col-50">
                 <label for="state">State</label>
