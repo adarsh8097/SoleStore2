@@ -103,7 +103,8 @@ import FooterPage from "./FooterPage";
 //               headers:{
 //                   projectId :"8spjkxc7tnxh",
 //                   // AppType:"Soul Store",
-  
+
+
 //               },
 //       });
 
