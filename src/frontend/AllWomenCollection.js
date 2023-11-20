@@ -350,7 +350,7 @@ const AllWomenCollection=()=>{
         }
     
     ];
-
+      const navigate = useNavigate();
     const addtowishList =(p)=>{
         const favorateProduct = JSON.parse(localStorage.getItem('wishlist'))||[];
         console.log("my prod-"+p);
@@ -360,6 +360,7 @@ const AllWomenCollection=()=>{
             favorateProduct.push(p);
             alert("Product added To wishlist Successfully");
             localStorage.setItem('wishlist',JSON.stringify(favorateProduct));
+              navigate('/AllWomenCollection');
           }else{
 
             alert("Product allready exist in wishlist...");
