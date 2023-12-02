@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import './LoginPage.css';
 import { Link,  useNavigate } from "react-router-dom";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
+import HomePage from "./HomePage";
 
 
 function LoginPage(){
@@ -89,7 +90,7 @@ function LoginPage(){
 
     return(
        <>
-       
+       <HomePage/>
      <div id="myModal" class="modal">
      
       <div class="modal-content">
