@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './HomePage.css' ;
 import { Link, useNavigate } from "react-router-dom";
-import{ FaHeart, FaMicrophone, FaMobile, FaSearch, FaShoppingBag, FaUser} from "react-icons/fa";
+import{ FaMicrophone, FaMobile, FaSearch } from "react-icons/fa";
 import Rightslide from "./Rightslide";
-import { tab } from "@testing-library/user-event/dist/tab";
+// import { tab } from "@testing-library/user-event/dist/tab";
 // import Slider from "./Slider";
 // import Collection from "./Collection";
 // import FooterPage from "./FooterPage";
@@ -65,6 +65,64 @@ const HomePage =()=> {
         //     x.style.display ="none";
         // }
        
+
+      const [searchproduct, setIsSearchProduct] = useState([]);
+
+      // useEffect((result)=>{
+      //   try {
+      //    fetch(`https://academics.newtonschool.co/api/v1/ecommerce/clothes/products?search={"title":"${result}"}`,{
+      //     method: "GET",
+      //     headers:{
+      //       projectId :"8spjkxc7tnxh",
+      //       // AppType:"Soul Store",
+
+      //   },
+        
+      //    })
+
+      //    .then((response) =>{response.json()
+      //        if(response.status >= 400){
+      //          new Error(response.message);
+
+      //        }
+      //       })
+      //    .then((data)=> setIsSearchProduct(data.data));
+
+      //   }catch(err){
+      //     console.log("Item not match", err);
+      //   }
+
+      // },[]);
+      useEffect(() => {
+        const fetchData = async (filter) => {
+          try {
+            const response = await fetch (
+              `https://academics.newtonschool.co/api/v1/ecommerce/clothes/products?search={"title":"${filter}"}`,
+              {
+                method: 'GET',
+                headers: {
+                  projectId: '8spjkxc7tnxh',
+                  // Ap pType:"Soul Store",
+                },
+              }
+          );
+    
+            if (!response.ok) {
+              throw new Error(response.statusText);
+            }
+    
+            const data = await response.json();
+            setIsSearchProduct(data.data);
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+
+         } ;
+    
+        fetchData();
+      }, []); 
+
+
 
         const[isSearch, setIsSearch] = useState(false);
 
@@ -267,7 +325,7 @@ const HomePage =()=> {
     const alertmessg =()=>{
          setIsClick(!isclick);
         if(isclick){
-         window.alert(" Comming soon..!");
+         window.alert("add Comming soon..!");
         }
 
 
@@ -279,8 +337,8 @@ const HomePage =()=> {
 
     
     // Remove Class form Active:
-    const[activeTab, setActiveTab] = useState('tab1');
-    function changeTab(tab){
+    // const[activeTab, setActiveTab] = useState('tab1');
+    // function changeTab(tab){
   //  var links = document.getElementsByClassName('activeCat');
   //  for(var i=0; i<links.length;i++){
   //   links[i].classList.remove('activeCate');
@@ -294,8 +352,13 @@ const HomePage =()=> {
 
   //   }
    
-  setActiveTab(tab);
-    }
+  // setActiveTab(tab);
+  //   }
+  //  const[activeTab, setActiveTab] = useState('white');
+  //  function changeTab(){
+  //       setActiveTab('lightgreen');
+
+  //  };
 
 
   
@@ -308,17 +371,17 @@ const HomePage =()=> {
             <div data-v-3ee02bb2="" class="row">
               <div data-v-3ee02bb2="" class="topheader68">
                 <ul data-v-3ee02bb2="" data-testid="floornav" class="top_nav55">
-                  <li data-v-3ee02bb2="" class="">
-                    <a data-v-3ee02bb2="" href="/" onClick={() => changeTab('tab1')} className={`router-link-exact-active router-link-active ${activeTab === 'tab1' ? 'activeCat' : ''}`}> WOMEN </a>
+                  <li data-v-3ee02bb2="" class="activeCat" >
+                    <a data-v-3ee02bb2="" href="/" > WOMEN </a>
                     </li> 
                     <li data-v-3ee02bb2="" class="">
-                      <Link data-v-3ee02bb2="" to="/Men" onClick={() => changeTab('tab2') } className={activeTab === 'tab2' ? 'activeCat' : ''} >MEN </Link>
+                      <a data-v-3ee02bb2="" href="/Men" >MEN </a>
                       </li> <li data-v-3ee02bb2="" class=" remo">
                         <a data-v-3ee02bb2="" href="#" onClick={alertmessg} class="" >KIDS </a>
                         </li>
                         </ul>
                          <div data-v-3ee02bb2="" class="top_rightnav66 sole">
-                          <a data-v-3ee02bb2="" href="#" onClick={alertmessg} class="pointer text-uppercase sole">
+                          <a data-v-3ee02bb2="" href="#" onClick={details} class="pointer text-uppercase sole">
                             <span data-v-3ee02bb2="">Track Order</span></a>
                              <a data-v-3ee02bb2="" href="#" onClick={alertmessg} class="pointer text-uppercase sole">
                               <span data-v-3ee02bb2="">Contact Us</span>
@@ -441,7 +504,7 @@ const HomePage =()=> {
                      <div className="search-container" >
                      
                         { isSearch && <div className="search-input" >
-                         <input type="search" id="search" placeholder="Search Product...?" autoComplete="off" autoFocus="autofocus" className="searchinput"/>
+                         <input type="search" id="search"  placeholder="Search Product...?" autoComplete="off" autoFocus="autofocus" className="searchinput"/>
                          <div className="micbutton" >
                                 <span className="mic-icon-mobile" onClick={alertmessg} >
                                 <FaMicrophone />
