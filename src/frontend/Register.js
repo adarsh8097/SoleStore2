@@ -47,8 +47,15 @@ function Register(){
       sessionStorage.setItem("userDetails",JSON.stringify(data));
         console.log('data',data);
          console.log("data Success");
-        alert(data.message);
-      navigate('/LoginPage');   
+        // alert(data.message);
+        if(userfirstName && userLastName && email && password && phone != 0){
+          alert('please Login');
+          navigate('/LoginPage');
+        }
+        else{
+          alert('please Provide all thing..!');
+      navigate('/Register');  
+      } 
     })
 
     
@@ -60,6 +67,8 @@ function Register(){
     
     
    }
+
+
 
 
    const registerfun=()=>{
