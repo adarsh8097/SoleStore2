@@ -30,7 +30,7 @@ function UserProfile(){
     const logOutBtn=()=>{
         sessionStorage.removeItem('userDetails');
         localStorage.removeItem('cartItem');
-        localStorage.removeItem('wishlist');
+        // localStorage.removeItem('wishlist');
         localStorage.removeItem('userpaymentdetails');
         alert("Logout Successfully...!");
         navigate('/LoginPage');
