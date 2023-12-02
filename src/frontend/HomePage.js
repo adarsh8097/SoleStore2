@@ -372,28 +372,28 @@ const HomePage =()=> {
               <div data-v-3ee02bb2="" class="topheader68">
                 <ul data-v-3ee02bb2="" data-testid="floornav" class="top_nav55">
                   <li data-v-3ee02bb2="" class="activeCat" >
-                    <a data-v-3ee02bb2="" href="/" > WOMEN </a>
+                    <Link data-v-3ee02bb2="" href="/" > WOMEN </Link>
                     </li> 
                     <li data-v-3ee02bb2="" class="">
-                      <a data-v-3ee02bb2="" href="/Men" >MEN </a>
+                      <Link data-v-3ee02bb2="" href="/Men" >MEN </Link>
                       </li> <li data-v-3ee02bb2="" class=" remo">
-                        <a data-v-3ee02bb2="" href="#" onClick={alertmessg} class="" >KIDS </a>
+                        <Link data-v-3ee02bb2="" href="#" onClick={alertmessg} class="" >KIDS </Link>
                         </li>
                         </ul>
                          <div data-v-3ee02bb2="" class="top_rightnav66 sole">
-                          <a data-v-3ee02bb2="" href="#" onClick={details} class="pointer text-uppercase sole">
-                            <span data-v-3ee02bb2="">Track Order</span></a>
-                             <a data-v-3ee02bb2="" href="#" onClick={alertmessg} class="pointer text-uppercase sole">
+                          <Link data-v-3ee02bb2="" href="#" onClick={details} class="pointer text-uppercase sole">
+                            <span data-v-3ee02bb2="">Track Order</span></Link>
+                             <Link data-v-3ee02bb2="" href="#" onClick={alertmessg} class="pointer text-uppercase sole">
                               <span data-v-3ee02bb2="">Contact Us</span>
-                              </a> 
-                              <a data-v-3ee02bb2="" href="https://play.google.com/store/apps/details?id=com.thesouledstore" class="pointer text-uppercase d-inline-flex align-items-center sole">
+                              </Link> 
+                              <Link data-v-3ee02bb2="" href="https://play.google.com/store/apps/details?id=com.thesouledstore" class="pointer text-uppercase d-inline-flex align-items-center sole">
 
                                 {/* <i data-v-3ee02bb2="" aria-hidden="true" class="fa fa-mobile mr-1" style={{fontSize: "18px",gap:"5px"}}></i> */}
                                 <FaMobile style={{fontSize: "18px"}}/>   Download App 
 
                          
                            
-                              </a>
+                              </Link>
                        </div>
                      </div>
                   </div>
