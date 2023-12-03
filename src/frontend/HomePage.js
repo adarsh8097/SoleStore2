@@ -372,12 +372,12 @@ const HomePage =()=> {
               <div data-v-3ee02bb2="" class="topheader68">
                 <ul data-v-3ee02bb2="" data-testid="floornav" class="top_nav55">
                   <li data-v-3ee02bb2="" class="activeCat" >
-                    <Link data-v-3ee02bb2="" href="/" > WOMEN </Link>
+                    <Link data-v-3ee02bb2="" to="/" > WOMEN </Link>
                     </li> 
                     <li data-v-3ee02bb2="" class="">
-                      <Link data-v-3ee02bb2="" href="/Men" >MEN </Link>
+                      <Link data-v-3ee02bb2="" to="/Men" >MEN </Link>
                       </li> <li data-v-3ee02bb2="" class=" remo">
-                        <Link data-v-3ee02bb2="" href="#" onClick={alertmessg} class="" >KIDS </Link>
+                        <Link data-v-3ee02bb2="" to="#" onClick={alertmessg} class="" >KIDS </Link>
                         </li>
                         </ul>
                          <div data-v-3ee02bb2="" class="top_rightnav66 sole">
