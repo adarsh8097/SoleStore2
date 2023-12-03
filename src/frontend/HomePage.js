@@ -343,6 +343,7 @@ const HomePage =()=> {
   //  for(var i=0; i<links.length;i++){
   //   links[i].classList.remove('activeCate');
   //  }
+  
 
   //   // Add 'active' class to the clicked link
   //   var ActiveLink = document.querySelector(`a[href='#'][onClick="changeTab('${tab}')"]`);
