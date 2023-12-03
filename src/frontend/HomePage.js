@@ -382,7 +382,7 @@ const HomePage =()=> {
                         </li>
                         </ul>
                          <div data-v-3ee02bb2="" class="top_rightnav66 sole">
-                          <Link data-v-3ee02bb2="" to="/userProfile" class="pointer text-uppercase sole">
+                          <Link data-v-3ee02bb2="" to="#" class="pointer text-uppercase sole" onClick={details}>
                             <span data-v-3ee02bb2="">Track Order</span></Link>
                              <Link data-v-3ee02bb2="" href="#" onClick={alertmessg} class="pointer text-uppercase sole">
                               <span data-v-3ee02bb2="">Contact Us</span>
