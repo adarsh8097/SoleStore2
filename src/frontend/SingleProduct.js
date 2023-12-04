@@ -233,6 +233,7 @@ const  addtocart =(p)=>{
   let ifproductallreadyInCart = cartproductItem.find(cart => cart._id === p._id);
 
   if(!ifproductallreadyInCart){
+       p.quantity=1;
       cartproductItem.push(p);
       alert("Product add SuccessFully in Cart...!");
       localStorage.setItem('cartItem', JSON.stringify(cartproductItem));
