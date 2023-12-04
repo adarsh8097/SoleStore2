@@ -132,6 +132,7 @@ import FooterPage from "./FooterPage";
 
 
 
+
 const SingleProduct =()=>{
    const { id } = useParams();
    const [product , setProduct ] = useState({});
