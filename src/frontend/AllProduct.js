@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import './AllProduct.css';
-// import SingleProduct from "./SingleProduct";
+
 import HomePage from './HomePage';
 import FooterPage from "./FooterPage";
-import Slider from "./Slider";
-import { Link, useNavigate } from "react-router-dom";
-// import { FaHeart, FaShoppingCart } from "react-icons/fa";
+
+import { Link,  useNavigate} from "react-router-dom";
+
 function AllProduct(){
+  
     const[isitem, setIsitem] = useState([]);
+   
 
      useEffect(()=>{
         try{
@@ -16,24 +18,65 @@ function AllProduct(){
             method:"GET",
             headers:{
                 projectId :"8spjkxc7tnxh",
-                // AppType:"Soul Store",
+              
 
             },
 
         }
         ).then((responce) => responce.json())
-        .then((data) => 
-        // console.log('data'),
-        setIsitem(data.data));
-        //
-          // console.log('data',data));
+        .then((data) => {setIsitem(data.data);
+         
+        });
+        
       }catch(err){
-        console.log("product not fiund",err);
+        console.log("product not found",err);
         
       }
 
      },[]);
 
+     
+
+
+
+    //  https://academics.newtonschool.co/api/v1/ecommerce/clothes/products?limit=10&page=1&filter={%22gender%22:%22Men%22,%22color%22:%22RED%22}
+       const[searchColor , setSearchColor] = useState('');
+
+       const[color, setIsColor] = useState([]);
+      //  const [priceData, setPriceData] = useState([]);
+
+
+
+    const filterdProduct=(colordata)=>{
+       try{
+       fetch(`https://academics.newtonschool.co/api/v1/ecommerce/clothes/products?limit=100&page=1&search={%22color%22:"${colordata}"}`,{
+        method:"GET",
+        headers:{
+            projectId :"8spjkxc7tnxh",
+         },
+
+       })
+       .then((responce)=>responce.json())
+       .then((data)=> { 
+        setIsColor(data.data  || {} );
+        // const price = priceData.map(product =>product.price);
+        // setPriceData(price);
+        
+      });
+      }catch(err){
+          console.log("data not filterd product found",err);
+      }
+    }
+     
+    const handleColor =(e)=>{
+      setSearchColor(e.target.value);
+      filterdProduct(searchColor);
+    }
+
+    // useEffect(()=>{
+    //   filterdProduct(searchColor);
+
+    // },[]);
      const navigate = useNavigate();
      const addtowishList =(product)=>{
       const favorateProduct = JSON.parse(localStorage.getItem('wishlist'))||[];
@@ -54,60 +97,190 @@ function AllProduct(){
 
      }
 
+     const MoreColor =()=>{
+         alert("Please use Inputbox for MoreColor && MoreItem..!");
+     }
+    //  const navigate = useNavigate();
 
-    //  const addCartItem =(p)=>{
-    //     const cartproductItem = JSON.parse(localStorage.getItem('CartItem'))||[];
-    //     console.log("cart Item",p);
-    //     const ifproductallreadyInCart = cartproductItem.find(cartproduct => cartproduct._id === p._id);
+     const FilterColor =()=>{
+      let chooseColor = 'red';
+      filterdProduct(chooseColor);
+      // navigate('/AllProduct');
+     }
 
-    //     if(!ifproductallreadyInCart){
-    //       cartproductItem.push(p);
-    //       alert("Product added Successfully in cart...!");
-    //       localStorage.setItem('CartItem',JSON.stringify(cartproductItem));
-    //     }else{
-    //       alert('Product Allready exist in Cart...');
+     const FilterColor1 =()=>{
+      let chooseColor = 'green';
+      // setSearchColor(chooseColor);
+      filterdProduct(chooseColor);
+     }
 
-    //     }
+     const FilterColor2 =()=>{
+      let chooseColor = 'yellow';
+      filterdProduct(chooseColor);
+     }
 
-    //     console.log('cartItem');
-    //     console.log(cartproductItem);
-    //  }
-      
-    // Product to Cart:
-    const  addtocart =(p)=>{
-      const cartproductItem = JSON.parse(localStorage.getItem('cartItem')) || [];
-      console.log("product",p);
-      let ifproductallreadyInCart = cartproductItem.find(cart => cart._id === p._id);
+     const FilterColor3 =()=>{
+      let chooseColor = 'pink';
+      filterdProduct(chooseColor);
+     }
 
-      if(!ifproductallreadyInCart){
-          cartproductItem.push(p);
-          alert("Product add SuccessFully in Cart...!");
-          localStorage.setItem('cartItem', JSON.stringify(cartproductItem));
+     const FilterColor4 =()=>{
+      let chooseColor = 'blue';
+      filterdProduct(chooseColor);
+     }
 
-      }else{
-          alert("Product allready Add in cart...!");
+     const FilterColor5 =()=>{
+      let chooseColor = 'black';
+      filterdProduct(chooseColor);
+     }
+
+       const [searchTerm, setSearchTerm] = useState('');
+      const [searchproduct, setIsSearchProduct] = useState([]);
+     
+       
+      // const navigate = useNavigate();
+      const fetchData = (result) => {
+         try{
+        fetch(`https://academics.newtonschool.co/api/v1/ecommerce/clothes/products?limit=100&page=1&search={%22name%22:"${result}"}`,
+            {
+              method:"GET",
+              headers:{
+                projectId :"8spjkxc7tnxh",
+              },
+            },
+        ).then((response) => response.json())
+        .then((data)=> {
+            setIsSearchProduct(data.data || {} );
+
+          
+        });
+         
+    }
+    catch(err){
+        console.log("Data Not found...!", err);
+    }
+  }
+    
+
+   
+      const handleChange=(e)=>{
+       setSearchTerm(e.target.value);
+      fetchData(searchTerm);
+     
       }
 
-      console.log("cartItem");
-      console.log(cartproductItem);
-   }
+      useEffect(()=>{
+        fetchData(searchTerm);
+
+      },[]);
+     
+     const chooseProduct =()=>{
+        
+        let chooseItem = 'T-shirt';
+        fetchData(chooseItem);
+
+      }
+      const chooseProduct1 =()=>{
+        
+        let chooseItem = 'shirt';
+        fetchData(chooseItem);
+
+      }
+
+      const chooseProduct2 =()=>{
+        
+        let chooseItem = 'pants';
+         fetchData(chooseItem);
+
+      }
+
+      const chooseProduct3 =()=>{
+        
+        let chooseItem = 'joggers';
+       fetchData(chooseItem);
+
+      }
+
+      const chooseProduct4 =()=>{
+        
+        let chooseItem ='shorts';
+         fetchData(chooseItem);
+
+      }
+
+      const chooseProduct5 =()=>{
+        
+        let chooseItem = 'kurta';
+         fetchData(chooseItem);
+
+      }
 
     return(
       <>
     
        <HomePage/>
-       <Slider/>
-      <div>
-        {/* {isitem && isitem.map((product) => <SingleProduct  item ={product}/>)}; */}
+     
+      <div className="filter-product">
+       
+        <div className="filterdata">
+          <div>
+          <p className="filter-title"> Product search by color..!</p>
+          <input type="search"
+           id="filter"
+           placeholder="Search Product by Color..!"
+           autoFocus="autofocus"
+           className="searchinput"
+           value={searchColor}
+           onChange={handleColor}
+            />
+            </div>
+            <div>
+            <ul className="selectColor">
+            <li onClick={FilterColor}>Red</li>
+            <li onClick={FilterColor1}>Green</li>
+            <li onClick={FilterColor2}>Yellow</li>
+            <li onClick={FilterColor3}>Pink</li>
+            <li onClick={FilterColor4}>Blue</li>
+            <li onClick={FilterColor5}>Black</li>
+            <li onClick={MoreColor}>MoreColor</li>
+            </ul>
+            
+            </div>
 
-         <div className="container-fluid">
-         <div className="collection-component col-sm-12 row">
-       {isitem.map((item)=>
-       <div className="card product-card col-sm-12 mt-3">
+            <div>
+          <p className="filter-title"> Product search by type..!</p>
+          <input type="search"
+           id="filter"
+           placeholder="Search Product by Color..!"
+           autoFocus="autofocus"
+           className="searchinput"
+           value={searchTerm}
+           onChange={handleChange}
+            />
+            </div>
+            <div>
+            <ul className="selectProduct">
+            <li onClick={chooseProduct}>T-shirt</li>
+            <li onClick={chooseProduct1}>Shirt</li>
+            <li onClick={chooseProduct2}>Pants</li>
+            <li onClick={chooseProduct3}>Joggers</li>
+            <li onClick={chooseProduct4}>shorts</li>
+            <li onClick={chooseProduct5}>kurta</li>
+            <li onClick={MoreColor}>MoreItem</li>
+            </ul>
+            
+            </div>
+          </div>
+        
+        { Object.keys(color).length > 0 || Object.keys(searchproduct).length > 0 ? (
+       <div className="container-fluid">
+       <div className="collection-component col-sm-12 row">
+       {color && color.map((item)=>
+       <div className="card product-card col-sm-12 mt-4">
        <div data-v-2d5b3c05="" class="wishlistIcon pl-1 pb-2 pr-1 wishlist" onClick={()=> addtowishList(item)} title="add to Wishlist"></div>
       <div className="card-head">
        <div className="img-card-div" key={item._id} >
-         {/* <h1>This is single :{item._id}</h1> */}
+      
          <Link to={`/Allproduct/${item._id}`}>
           <img src={item.displayImage} alt={item.alt}/>
            </Link>
@@ -117,19 +290,59 @@ function AllProduct(){
         <h6 className="product-price">Price:{item.price}</h6>
           
            <div className="card-info">
-            {/* <span  className="addtocart" onClick={()=> addtowishList(item)} title="add to Wishlist"><FaHeart/> </span> */}
-           {/* <span className="addtocart" title="add to Cart"  onClick={()=> addtocart(item)}> <FaShoppingCart/> </span> */}
-           {/* <p className="addtocart mt-3" title="Add to Cart" onClick={()=> addtocart(item)}> add to cart<FaShoppingCart/></p> */}
          </div>
-     
-      
-         </div>
+          </div>
          </div>
          
          )}
          </div>
+       <div className="collection-component col-sm-12 row">
+       { searchproduct && searchproduct.map((item)=>
+       <div className="card product-card col-sm-12 mt-4">
+       <div data-v-2d5b3c05="" class="wishlistIcon pl-1 pb-2 pr-1 wishlist" onClick={()=> addtowishList(item)} title="add to Wishlist"></div>
+      <div className="card-head">
+       <div className="img-card-div" key={item._id} >
+      
+         <Link to={`/Allproduct/${item._id}`}>
+          <img src={item.displayImage} alt={item.alt}/>
+           </Link>
+         </div>
        
+        <div  className="product-name" >{item.name}</div>
+        <h6 className="product-price">Price:{item.price}</h6>
+          
+           <div className="card-info">
+         </div>
+          </div>
+         </div>
+       )}
+       </div>
+
      </div> 
+       ):(
+          <div className="collection-component col-sm-9 row">
+          {isitem && isitem.map((item)=>(
+            <div className="card product-card col-sm-9 mt-4">
+            <div data-v-2d5b3c05="" class="wishlistIcon pl-1 pb-2 pr-1 wishlist" onClick={()=> addtowishList(item)} title="add to Wishlist"></div>
+           <div className="card-head">
+            <div className="img-card-div" key={item._id} >
+           
+              <Link to={`/Allproduct/${item._id}`}>
+               <img src={item.displayImage} alt={item.alt}/>
+                </Link>
+              </div>
+            
+             <div  className="product-name" >{item.name}</div>
+             <h6 className="product-price">Price:{item.price}</h6>
+               
+                <div className="card-info">
+              </div>
+               </div>
+              </div>
+              
+              ))}
+              </div>
+        )}
 
 
       </div>
