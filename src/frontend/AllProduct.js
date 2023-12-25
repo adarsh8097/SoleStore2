@@ -9,8 +9,6 @@ import { Link,  useNavigate} from "react-router-dom";
 function AllProduct(){
   
     const[isitem, setIsitem] = useState([]);
-   
-
      useEffect(()=>{
         try{
         fetch("https://academics.newtonschool.co/api/v1/ecommerce/clothes/products",
@@ -34,12 +32,7 @@ function AllProduct(){
       }
 
      },[]);
-
-     
-
-
-
-    //  https://academics.newtonschool.co/api/v1/ecommerce/clothes/products?limit=10&page=1&filter={%22gender%22:%22Men%22,%22color%22:%22RED%22}
+   //  https://academics.newtonschool.co/api/v1/ecommerce/clothes/products?limit=10&page=1&filter={%22gender%22:%22Men%22,%22color%22:%22RED%22}
        const[searchColor , setSearchColor] = useState('');
 
        const[color, setIsColor] = useState([]);
