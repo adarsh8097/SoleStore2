@@ -11,26 +11,10 @@ h2{
 
 .card-head:hover{
     cursor: pointer;
-    /* font-weight:bold; */
-    /* transform: translateY(-2px); */
+   
     color: rgb(165, 93, 93);
 }
-/* .card-title{
-    font-size: 1rem;
-} */
 
-/* .wishlistIcon{
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    text-align: center;
-    z-index:92;
-    cursor:pointer;
-    padding-bottom: 0.5rem!important;
-    padding-left: 0.25rem!important;
-    padding-right: 0.25rem!important;
-
-}; */
 
 .product-card{
     display: grid;
@@ -54,27 +38,13 @@ h2{
 
 
 .addtocart{
-    /* background: gray; */
-    /* size: 0.5rem; */
-    /* height: 1.5rem; */
-    /* width:0.8em ; */
+   
     align-items: center;
     justify-content: center;
     vertical-align: center;
 }
 
-/* button{
-    height: 2.9rem;
-    color: black;
-    justify-content: center;
-    align-items: center;
-    vertical-align: center;
-    border: none;
-    font-weight: bold;
-    font-size: 1.3rem;
-    box-shadow: none;
-    background-image: linear-gradient(rgb(110, 100, 100),rgb(196, 89, 89));
- } */
+
 
  .collection-component{
     gap:2rem;
@@ -92,7 +62,7 @@ h2{
     position: absolute;
     top: 15px;
     right: 25px;
-    /* z-index: 92; */
+    
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.16);
     cursor: pointer;
     color:#fff;
@@ -110,12 +80,19 @@ h2{
 }
 
 .wishlistIcon:before {
-    font: 14px/1.5 FontAwesome;
+    font: 14px FontAwesome;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
-    content: "\F08A";
+   justify-content: "F08A";
     color: #fff;
     justify-content: center;
     align-items: center;
     text-align: center;
+    
+}
+
+ .wishlist:after{
+    font: 14px fontAwesome;
+    color: red;
+    background-color: red; 
 }
