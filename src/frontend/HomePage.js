@@ -47,12 +47,7 @@ const HomePage =()=> {
         
         navigate("/AllProduct");
       };
-
-     
-     
-
-      
-       const[isSearch, setIsSearch] = useState(false);
+     const[isSearch, setIsSearch] = useState(false);
 
         const searchpro =()=>{
             setIsSearch(!isSearch);
