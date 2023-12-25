@@ -83,7 +83,7 @@ h2{
     font: 14px FontAwesome;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
-   justify-content: "F08A";
+   content: "\F08A";
     color: #fff;
     justify-content: center;
     align-items: center;
