@@ -11,8 +11,7 @@ const HomePage =()=> {
   const [searchTerm, setSearchTerm] = useState('');
       const [searchproduct, setIsSearchProduct] = useState([]);
      
-       
-      const navigate = useNavigate();
+       const navigate = useNavigate();
       const fetchData = (result) => {
          try{
         fetch(`https://academics.newtonschool.co/api/v1/ecommerce/clothes/products?limit=100&page=1&search={%22name%22:"${result}"}`,
@@ -35,9 +34,7 @@ const HomePage =()=> {
     }
   }
     
-
-   
-      const handleChange=(e)=>{
+    const handleChange=(e)=>{
        setSearchTerm(e.target.value);
       fetchData(searchTerm);
      
