@@ -4,9 +4,7 @@ import HomePage from "./HomePage";
 import FooterPage from "./FooterPage";
 import Slider from "./Slider";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { FaHeart, FaShoppingCart } from "react-icons/fa";
-// import SingleProduct from "./SingleProduct";
-//import Description from "./Description";
+
 
 
 const AllWomenCollection=()=>{
@@ -352,10 +350,11 @@ const AllWomenCollection=()=>{
     ];
 
     const navigate = useNavigate();
-    const addtowishList =(p)=>{
+    const addtowishList =(p)=> {
+
         const favorateProduct = JSON.parse(localStorage.getItem('wishlist'))||[];
-        console.log("my prod-"+p);
-          let ifProductAllerdyExicty = favorateProduct.find(favrate=>favrate._id === p._id);
+        console.log("my prod-"+ p);
+          let ifProductAllerdyExicty = favorateProduct.find(favrate => favrate._id === p._id);
             console.log(ifProductAllerdyExicty);
           if(!ifProductAllerdyExicty){
             favorateProduct.push(p);
@@ -366,60 +365,28 @@ const AllWomenCollection=()=>{
 
             alert("Product allready exist in wishlist...");
           }
-        //   localStorage.setItem('wishlist',JSON.stringify(favorateProduct));
+     
          console.log("wishlist");
           console.log(favorateProduct);
           
 
     }
-        // const mesgAlert =()=>{
-        //    alert("Please refresh the page some server-issue..!");
-        // } 
-
-
-        // Add to Cart Componet Add here;
-        //  const  addtocart =(p)=>{
-        //     const cartproductItem = JSON.parse(localStorage.getItem('cartItem')) || [];
-        //     console.log("product",p);
-        //     let ifproductallreadyInCart = cartproductItem.find(cart => cart._id === p._id);
-
-        //     if(!ifproductallreadyInCart){
-        //         p.quantity=1;
-        //         cartproductItem.push(p);
-        //         alert("Product add SuccessFully in Cart...!");
-        //         localStorage.setItem('cartItem', JSON.stringify(cartproductItem));
-
-        //     }else{
-        //         alert("Product allready Add in cart...!");
-        //     }
-
-        //     console.log("cartItem");
-        //     console.log(cartproductItem);
-        //  }
-    //    /Allproduct/${item._id}
-
-    const btn = document.getElementById('wish1');
-
-        function change() {
-        btn.style.backgroundColor = 'salmon';
-        btn.style.color = 'white';
-        };
-
+    
     return(
         <>
         <HomePage/>
         <Slider/>
          <h2> All Brand new Product for Women</h2>
-         {/* {WomenCollection.map((item) => <Description productItem={item} />)} */}
+      
            <div className="container-fluid">
            <div className=" collection-component row col-sm-12">
-            {WomenCollection.map((product)=>(
+            { WomenCollection.map((product)=>(
              <div className="card product-card col-sm-3 mt-5">
              <div data-v-2d5b3c05  id="wish1" class="wishlistIcon pl-1 pb-2 pr-1 wishlist" onClick={()=> addtowishList(product)} title="add to Wishlist"></div>   
            <div class=" card-head bg-image hover-overlay hover-zoom hover-shadow ripple " key={product._id} id="product-card" >
             <Link to={`/description?_id=${product._id}`}>
 
-            {/* <Link to={`/description/${product._id}`} onClick={mesgAlert}> */}
+           
            <img src={product.displayImage} class="card-img-top" alt={product.alt} style={{height:"250px"}}/>
            <div class="mask" style={{backgroundColor: "hsla(195, 83%, 58%, 0.2)"}}></div>
            </Link>
@@ -430,12 +397,6 @@ const AllWomenCollection=()=>{
             
             <div className="card-info">
                 
-           
-            {/* <span className="addtocart" onClick={()=> addtowishList(product)} title="add to Wishlist"> 
-                < FaHeart />
-            </span> */}
-          
-             {/* <p className="addtocart" onClick={()=> addtocart(product)} title="add to Cart">Add to Cart<FaShoppingCart /></p> */}
            </div>
            </div>
            </div>
