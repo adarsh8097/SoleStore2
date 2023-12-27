@@ -43,24 +43,22 @@
     right: 10px;
     font-size: 2rem;
     z-index: 1;
-    /* margin-left: 20px; */
+    
     cursor: pointer;
-    /* background-color: #c0afaf; */
+  
     color:rgb(99, 92, 92);
     border:none;
     text-align: center;
     justify-content: center;
     align-items: center;
-    /* content: center; */
-    /* padding-right: 2rem; */
+  
     border-radius:50%;
     margin-top: 5px;
     border-width: 20px;
-    /* margin: 2rem; */
-    /* font-size: 2rem; */
+
     vertical-align: center;
     padding-right: 1rem;
-    /* background-size:cover; */
+ 
     font-weight: bold;
     width: 5%;
     height: 9%;
@@ -72,7 +70,6 @@
      }
     
   }
-
   
   @media screen and (max-height: 650px) {
     .sidenav {padding-top: 15px;}
@@ -89,21 +86,3 @@
     border: none;
     background:none;
   }
- .closebtn{
-    /* cursor: pointer;
-    background-color: #c0afaf;
-    color:red;
-    border:none;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    /* content: center; */
-    /* padding-right: 2rem; 
-    border-radius:100%;
-    margin-top: 10px;
-    margin-left: 2rem;
-    font-size: 2rem;
-    vertical-align: center;
-    padding-right: 1rem; */
-
- }
