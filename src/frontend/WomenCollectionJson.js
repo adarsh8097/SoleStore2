@@ -335,7 +335,6 @@ const WomenCollection = [
         RodePrice:"Rs. 1399/- incl. of all taxes",
         productDetais:"Premium Heavy Gauge Fabric 100% Cotton Machine Wash"
     }
-
 ];
 
 export default WomenCollection;
