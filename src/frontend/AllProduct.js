@@ -9,6 +9,8 @@ import { Link,  useNavigate} from "react-router-dom";
 function AllProduct(){
   
     const[isitem, setIsitem] = useState([]);
+   
+
      useEffect(()=>{
         try{
         fetch("https://academics.newtonschool.co/api/v1/ecommerce/clothes/products",
@@ -32,7 +34,12 @@ function AllProduct(){
       }
 
      },[]);
-   //  https://academics.newtonschool.co/api/v1/ecommerce/clothes/products?limit=10&page=1&filter={%22gender%22:%22Men%22,%22color%22:%22RED%22}
+
+     
+
+
+
+    //  https://academics.newtonschool.co/api/v1/ecommerce/clothes/products?limit=10&page=1&filter={%22gender%22:%22Men%22,%22color%22:%22RED%22}
        const[searchColor , setSearchColor] = useState('');
 
        const[color, setIsColor] = useState([]);
@@ -216,7 +223,7 @@ function AllProduct(){
       <div className="filter-product">
        
         <div className="filterdata">
-          <div>
+          <div className="search-input-data-color">
           <p className="filter-title"> Product search by color..!</p>
           <input type="search"
            id="filter"
@@ -227,7 +234,7 @@ function AllProduct(){
            onChange={handleColor}
             />
             </div>
-            <div>
+            <div className="search-input-data-color-select">
             <ul className="selectColor">
             <li onClick={FilterColor}>Red</li>
             <li onClick={FilterColor1}>Green</li>
@@ -240,7 +247,7 @@ function AllProduct(){
             
             </div>
 
-            <div>
+            <div className="search-input-data-catageroy">
           <p className="filter-title"> Product search by type..!</p>
           <input type="search"
            id="filter"
@@ -251,7 +258,7 @@ function AllProduct(){
            onChange={handleChange}
             />
             </div>
-            <div>
+            <div className="search-input-data-catageroy-select">
             <ul className="selectProduct">
             <li onClick={chooseProduct}>T-shirt</li>
             <li onClick={chooseProduct1}>Shirt</li>
@@ -264,7 +271,7 @@ function AllProduct(){
             
             </div>
           </div>
-        
+         <div className="search-filter-product">
         { Object.keys(color).length > 0 || Object.keys(searchproduct).length > 0 ? (
        <div className="container-fluid">
        <div className="collection-component col-sm-12 row">
@@ -334,10 +341,11 @@ function AllProduct(){
               </div>
               
               ))}
+             
               </div>
         )}
 
-
+      </div>
       </div>
       <FooterPage/>
        
