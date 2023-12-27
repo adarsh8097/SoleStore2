@@ -1,67 +1,19 @@
  import React,{useEffect, useState} from "react";
  import'./CheckOut.css';
 import { useNavigate } from "react-router-dom";
+import HomePage from "./HomePage";
 
 const userDetail = JSON.parse(sessionStorage.getItem("userDetails")||"{}");
 console.log("userDetailstatus",userDetail);
  
 function CheckOut(){
 
-// const navigate = useNavigate();
-//     const userDetail = JSON.parse(sessionStorage.getItem('userDetails')||"{}");
-//     useEffect(() =>{
-//         if(!userDetail){
-//             navigate("/Loginpage");
-//         }else{
-//             navigate("/CheckOut");
-//         }
-
-//         fetch("https://academics.newtonschool.co/api/v1/ecommerce/wishlist",{
-//             method:"GET",
-//             headers:{
-//                 "Content-Type": "application/json",
-//                 // Authorization: `Bearer ${userDetail.token}`,
-//                 projectId: "8spjkxc7tnxh",
-//             },
-//         })
-//         .then((resp) => resp.json())
-//         .then((resp)=>
-//         //  console.log('dataLoginStatus',resp),
-//           alert(resp.message)
-//          );
-
-
-//     },[]);
 
 const navigate = useNavigate();
       
-    // const userDetail = JSON.parse(sessionStorage.getItem("userDetails")||"{}");
-    // useEffect(()=>{
-    //    if(!userDetail){
-    //     navigate("/Loginpage");
-    //    }
-
-    // })
-
+   
     console.log('userdeatils',userDetail);
-    // useEffect(() =>{
-    //     if(userDetail){
-    //         navigate('/Loginpage');
-    //     }
-    //   },[]);
-        // fetch("https://academics.newtonschool.co/api/v1/ecommerce/wishlist",{
-        //     method:"GET",
-        //     headers:{
-        //         // "Content-Type": "application/json",
-        //         Authorization: `Bearer ${userDetail.token}`,
-        //         projectId: "8spjkxc7tnxh",
-        //     },
-        // })
-        // .then((data) => data.json())
-        // .then((data)=> console.log('dataLoginStatus', data));
-        // //  console.log('dataLoginStatus',data),
-        // //   alert(data.message)
-         
+   
 console.log("userdetails data" , userDetail);
 
 
@@ -79,26 +31,24 @@ console.log("userdetails data" , userDetail);
         cvv:"",
 
     });
-    // console.log("data of value",data);
+   
     const handleChnge=(e)=>{
         const{name,value} = e.target;
         setIsData((prevdata)=>({
             ...prevdata,
             [name]:value,
 
-            // userprdouctpayentDetails : [...prevdata],
-
+          
 
         }));
 
 
     };
 
-    // var totalprice=0;
-    // const navigate = useNavigate();
+  
      const[totalprice , setTotalPrice] = useState(0);
     function calculetTotalPrice(){
-        //loadCartItem();
+     
         let totalPrice =0;
       const  cartproductItem = JSON.parse(localStorage.getItem('cartItem')) || [];
         cartproductItem.map((item,index)=>{
@@ -107,7 +57,7 @@ console.log("userdetails data" , userDetail);
             totalPrice=totalPrice+(q*p);
             console.log("index",index, "price:",p, "quantity",q);
             console.log("totalPrice-Item",totalPrice);
-              // navigate('/CheckOut');
+          
         });
 
         setTotalPrice(totalPrice);
@@ -116,47 +66,14 @@ console.log("userdetails data" , userDetail);
       }
 
        useEffect(()=>{calculetTotalPrice();},[]);
-        // calculetTotalPrice();
-        // function loadCartItem(){
-
-        //      calculetTotalPrice();
-        // }
-        // loadCartItem();
-
-            // 
-           // console.log(cartproductItem);
-    
+      
 
     const handleSubmit =(e)=>{
         e.preventDefault();
-        // alert(`name:${data.fname},email:${data.email},adar:${data.city},state:${data.state},zip:${data.zip}`);
-    // console.log(`name:${data.fname},email:${data.email},adar:${data.city},state:${data.state},zip:${data.zip}`);
-    //  let  userprdouctpayentDetails = JSON.parse(localStorage.getItem("checkoutdetils"));
-    //   let detail = userprdouctpayentDetails;
     localStorage.setItem("userpaymentdetails",JSON.stringify(chaeckOutdata));
 
       console.log("details",chaeckOutdata);
 
-      // const deliverydata = JSON.parse(localStorage.getItem('chaeckOutdata') || "{}") ;
-      //  console.log("userProductcheckoutdata",deliverydata);
-     
-      //  if(fname===""&&
-      //  email===""&&
-      //  adr===""&&
-      //  city===""&&
-      //  state===""&&
-      //  zip==="" &&
-      //  cname===""&&
-      //  ccnum===""&&
-      //  expmonth===""&&
-      //  expyear===""&&
-      //  cvv===""){
-       
-      //   navigate('/CheckOut');
-      // }else{
-       
-      //   navigate('/dispetch');
-      // }
         if(!chaeckOutdata){
           navigate("/CheckOut");
         }else{
@@ -164,7 +81,7 @@ console.log("userdetails data" , userDetail);
         }
     }
 
-    const deliverydata =(p)=>{
+    const deliverydata =()=>{
       const delivery = JSON.stringify(localStorage.getItem('delivery'));
       console.log("userProductcheckoutdata",delivery);
     }
@@ -172,7 +89,8 @@ console.log("userdetails data" , userDetail);
 
     return(
         <>
-        <h1>This is CheckOut From</h1>
+        <HomePage/>
+     
         <div class="row">
         <div class="col-sm-12">
       <div class="container">
@@ -181,15 +99,7 @@ console.log("userdetails data" , userDetail);
           <div class="col-50">
             <h3>Billing Address</h3>
             <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-            {/* <input type="text"
-             id="fname"
-            name="firstname"
-            placeholder="John M. Doe" 
-         value={data.fname}
-         onChange={handleChnge}
-         minLength={4}
-
-                 /> */}
+           
                 <input type="text"
                  id="fname"
                  name="fname"
