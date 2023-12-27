@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Slider from "./Slider";
 import { FaHeart } from "react-icons/fa";
 
- 
+
 function Description(){
  let productDetail = true ;
 console.log("productDetail",productDetail);
