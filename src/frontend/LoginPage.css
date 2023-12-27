@@ -175,7 +175,6 @@ input[type="tel"] {
     box-sizing: border-box;
 }
 
-
 .modal {
     display: none;
     position: fixed;
