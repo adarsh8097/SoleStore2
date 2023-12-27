@@ -3,7 +3,7 @@ import './AllWomenCollection.css';
 import HomePage from "./HomePage";
 import FooterPage from "./FooterPage";
 import Slider from "./Slider";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 
