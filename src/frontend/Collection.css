@@ -1,7 +1,7 @@
-/* mid collections */
+
 
 #collection {
-    /* border: 1px solid; */
+   
     padding: 1rem;
     margin: 1rem 0;
 }
@@ -36,9 +36,9 @@
 }
 
 .collection-img-card-div img:hover {
-    animation: modal-animation 0.5s ease-in-out forwards;
-    transform: translateY(-3px);
+   opacity: 0.8;
     cursor: pointer;
+   
 }
 
 @keyframes modal-animation {
@@ -127,4 +127,3 @@ div.scroll-container {
 .saradiv-poster img {
     width: 100%;
 }
-
