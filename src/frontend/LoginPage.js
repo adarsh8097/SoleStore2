@@ -4,20 +4,11 @@ import { Link,  useNavigate } from "react-router-dom";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
 import HomePage from "./HomePage";
 
-
 function LoginPage(){
     const navigate = useNavigate();
     const[userName, setUserName] = useState();
     const[password, setPassword] = useState();
-    // const[isclick, setIsClick] = useState(false);
-      //  const rigestration =()=>{
-      //     setIsClick(!isclick);
-
-        //   if(isclick){
-        //     // document.getElementById("register-box").display="block";
-        //   }
-    //  }
-    //  }
+    
 
      const LoginUp =async()=>{
 
@@ -39,10 +30,14 @@ function LoginPage(){
         const data = await resp.json();
         if(resp.status >= 400){
              new Error(data.message);
-           alert(data.message);
+            alert(data.message);
+
            
              return;
             }
+            
+           
+
 
           const userdata = data.data;
           console.log('userdata',userdata);
@@ -51,15 +46,10 @@ function LoginPage(){
           sessionStorage.setItem('userDetails',JSON.stringify(userdata));
           alert(`welocme ${userdata.name}`);
           console.log(userdata);
-           navigate('/');
+          navigate('/');
 
 
-        // .then((resp)=>{
-        //     if(resp.status >= 400){
-        //         new Error("data Not found..");
-        //      }
-        //     return resp.json();
-        // })
+       
        
     }
      catch(error){
@@ -75,9 +65,7 @@ function LoginPage(){
         LoginUp();
         const userDetails = sessionStorage.getItem('userDetails');
             console.log( "userDetails",userDetails);
-        // if(!userDetails){
-        //     navigate("/LoginPage");
-        // }
+       
 
      },[]);
 
@@ -107,19 +95,7 @@ function LoginPage(){
           </div>
           <div id="main-login-content-container-child2">
             <div class="flex-div-for-login-signup">
-              {/* <button
-             
-               id="login-toggle-btn"
-                style={{backgroundColor: "#117a7a", color: "white", cursor: "pointer",alignItems:"center",verticalAlign:"center",justifyContent:"center"}}
-              >
-               Login
-              </button> */}
-             {/* <button
-                 id="register-toggle-btn"
-                style={{cursor:"pointer" }}
-              >
-               Register 
-              </button>*/}
+            
               <span className="header">Login Page</span>
             </div> 
           <div id="login-content">
