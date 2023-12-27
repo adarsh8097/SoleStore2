@@ -10,7 +10,7 @@ function Register(){
   const[userLastName, setUserLastName] = useState("");
   const[email,setEmail] = useState("");
   const[password,setPassword] = useState("");
-  // const[confirm_password,SetConfirm_password] = useState("");
+  
   const[phone,setPhone] = useState("");
 
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ function Register(){
             last_name: userLastName,
             email: email,
             password: password,
-            // confirm_password: confirm_password,
+          
             phonenumber: phone,
             appType:"ecommerce",
 
@@ -47,10 +47,14 @@ function Register(){
       sessionStorage.setItem("userDetails",JSON.stringify(data));
         console.log('data',data);
          console.log("data Success");
-        // alert(data.message);
-        if(userfirstName && userLastName && email && password && phone != 0){
+     
+        if(userfirstName && userLastName && email && password && phone !== 0){
+          if(!email.includes('@')){
+            alert('Email must contain "@" symbol');
+          } else{
           alert('please Login');
           navigate('/LoginPage');
+          }
         }
         else{
           alert('please Provide all thing..!');
@@ -67,6 +71,7 @@ function Register(){
     
     
    }
+
 
 
 
@@ -135,6 +140,7 @@ function Register(){
                       id="email"
                       required
                       placeholder="Email *"
+                    
                       onChange={(e)=>setEmail(e.target.value)}
                     />
                     <input
@@ -145,14 +151,7 @@ function Register(){
                       placeholder="Password *"
                       onChange={(e)=>setPassword(e.target.value)}
                     />
-                    {/* <input
-                      type="password"
-                      name="confirm_password"
-                      id="confirmPassword"
-                      required
-                      placeholder="Confirm Password *"
-                      onChange={(e)=>SetConfirm_password(e.target.value)}
-                    /> */}
+                    
                     <input
                       type="tel"
                       name="phone"
