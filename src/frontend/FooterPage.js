@@ -4,6 +4,7 @@ import {FaMobile} from 'react-icons/fa';
 import { Link } from "react-router-dom";
 
  function FooterPage(){
+
     return (
         <>
         <div className="footer-componet">
@@ -29,7 +30,6 @@ import { Link } from "react-router-dom";
               <li><a href="#">My Account</a></li>
             </ul>
           </div>
-     
           <div class="op-details-footer-div-childs">
             <h3>COMPANY</h3>
             <ul>
@@ -48,22 +48,7 @@ import { Link } from "react-router-dom";
               <li><a href="https://www.thesouledstore.com/sitemap">Sitemap</a></li>
             </ul>
           </div>
-          {/* <div class="op-details-footer-div-childs">
-            <ul id="COD-and-return">
-              <li>
-                <img
-                  src="./img//Screenshot 2023-02-23 131711.png"
-                  alt="error"
-                />COD Available
-              </li>
-              <li>
-                <img
-                  src="./img/Screenshot 2023-02-23 131818.png"
-                  alt="error"
-                />30 Days Easy Returns
-              </li>
-            </ul>
-          </div> */}
+         
         </div>
         <div id="middle-app-down-div">
         <div class="op-details-footer-div-childs">
@@ -159,9 +144,6 @@ import { Link } from "react-router-dom";
          </div>
        </footer>
         </>
-         
-
-        
     )
  }
 
