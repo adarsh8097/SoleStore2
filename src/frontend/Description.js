@@ -1,175 +1,91 @@
-import React,{useEffect} from "react";
+import React from "react";
 import './Description.css';
 import HomePage from "./HomePage";
 import FooterPage from "./FooterPage";
 import WomenCollection from './WomenCollectionJson';
-import { Link, json } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Slider from "./Slider";
-import { FaHeart, FaShoppingCart } from "react-icons/fa";
-// import SingleProduct from "./SingleProduct";
-//import SingleProduct from "./SingleProduct";
-// import { useParams } from "react-router-dom";
-// const search = window.location.search;
-//     const params = new URLSearchParams(search);
-//     const foo = params.get('_id');
-//     console.log(foo);
+import { FaHeart } from "react-icons/fa";
 
-// console.log(WomenCollection);
-// Create Single Product:
-// var productDetail = null;
-// var result = WomenCollection.filter(function(element){
-//     if (element._id == foo){
-//         //console.log(element);
-//         productDetail=element;
-//         return true;
-//     } else {
-//         return false;
-//     }
-// });
-
-
-
-//console.log(productDetail.title);
-
-//result();
-
-const handleaddToFavorites = (products)=>{
-  const favoritesProduct = JSON.parse(localStorage.getItem('wishlist')) || [];
-  console.log("ProductList",products);
-  const ifProductAlreadyExecty = favoritesProduct.find(favrate => favrate._id == products._id);
- 
-  console.log("already",ifProductAlreadyExecty);
-
-  if(!ifProductAlreadyExecty){
-
-    favoritesProduct.push(products);
-    alert("product add Successfully..!");
-    localStorage.setItem('wishlist',JSON.stringify(favoritesProduct));
-
-
-  }
-  else{
-    alert("product allrady addd Your wishlist");
-  }
-  
-  // localStorage.setItem('avoritesProduct',JSON.stringify(favoritesProduct));
-
-  console.log('wishlist');
-  console.log(favoritesProduct);
-  // console.log(favoritesProduct);  
-  // console.log(ifProductAlreadyExecty);
-  // console.log("product",products);
-}
-
-//  function onLoad(){
-//   var result = WomenCollection.filter(function(element){
-//     if (element._id == foo){
-//         //console.log(element);
-//         productDetail=element;
-//         return true;
-//     } else {
-//         return false;
-//     }
-// });
-
-//  }
-//  onLoad();
-// let productDetail ;
-
-   //Add Product ShopingList:
-
-   function addtoCart(product){
-    const cartproductItem = JSON.parse(localStorage.getItem('cartItem')) || [];
-     console.log("productData", product);
-     let ifProductAllerdyExicty = cartproductItem.find((productItem) => productItem._id === product._id);
-
-     if(!ifProductAllerdyExicty){
-      product.quantity=1;
-      cartproductItem.push(product);
-      alert('Product add Successfully in cart...!');
-      localStorage.setItem('cartItem',JSON.stringify(cartproductItem));
-
-     }
-     else{
-      alert("Product allready Add in cart...!");
-     }
-     
-     console.log('cartproductItem', cartproductItem);
-   }
  
 function Description(){
-  // var productDetail= null;
-  // let element ;
-  // const { id } =  useParams();
-  // let productDetail 
-  let productDetail = true ;
-
-  console.log("productDetail",productDetail);
-  // useEffect(()=>{
+ let productDetail = true ;
+console.log("productDetail",productDetail);
+ 
     const search = window.location.search;
      const params = new URLSearchParams(search);
     const foo = params.get('_id');
     console.log(foo);
     
     var result = WomenCollection.filter(function(element){
-      if (element._id == foo){
-          // console.log(element);
+      if (element._id === foo){
+        
           productDetail=element;
           console.log("productDetail value", productDetail);
           return true;
       } else {
           return false;
       }
-      // console.log("productDetail value", productDetail);
   });
-// },[productDetail]);
 
-  // var productDetail;
-  // var result = WomenCollection.filter(function(element){
-  //     if (element.id == foo){
-  //         //console.log(element);
-  //         productDetail=element;
-  //         return true;
-  //     } else {
-  //         return false;
-  //     }
-  // });
-    // const{id} = useParams;
 
-    // const mesgAlert =()=>{
-    //     alert("Please refresh the page some server-issue..!");
-    //  } 
+    const navigate = useNavigate();
+    
+    function addtoCart(product){
+    
+      const cartproductItem = JSON.parse(localStorage.getItem('cartItem')) || [];
+       console.log("productData", product);
+       let ifProductAllerdyExicty = cartproductItem.find((productItem) => productItem._id === product._id);
+  
+       if(!ifProductAllerdyExicty){
+        product.quantity=1;
+        cartproductItem.push(product);
+        alert('Product add Successfully in cart...!');
+        navigate("/AllWomenCollection");
+        localStorage.setItem('cartItem',JSON.stringify(cartproductItem));
+  
+       }
+       else{
+        alert("Product allready Add in cart...!");
+       }
+       
+       console.log('cartproductItem', cartproductItem);
+     }
+
+
+     const handleaddToFavorites = (products)=>{
+
+      const favoritesProduct = JSON.parse(localStorage.getItem('wishlist')) || [];
+      console.log("ProductList",products);
+      const ifProductAlreadyExecty = favoritesProduct.find(favrate => favrate._id === products._id);
      
-    // const handleaddToFavorites = (productDetail)=>{
-    //   const favoritesProduct = JSON.parse(localStorage.getItem('favoritesProduct')) || [];
-    //   const ifProductAlreadyExecty = favoritesProduct.find(favrate => favrate.id === productDetail.id);
-     
-
-    //   if(!ifProductAlreadyExecty){
-
-    //     favoritesProduct.push(productDetail);
-    //     alert("product add Successfully..!");
-
-    //   }else{
-    //     alert("product allrady addd Your wishlist");
-    //   }
-      
-    //   localStorage.setItem('avoritesProduct',JSON.stringify(favoritesProduct));
-
-
-    //   console.log(favoritesProduct);
-    //   console.log(ifProductAlreadyExecty);
-    // }
+      console.log("already",ifProductAlreadyExecty);
+    
+      if(!ifProductAlreadyExecty){
+    
+        favoritesProduct.push(products);
+        alert("product add Successfully..!");
+         navigate("/AllWomenCollection");
+        localStorage.setItem('wishlist',JSON.stringify(favoritesProduct));
+    
+    
+      }
+      else{
+        alert("product allrady addd Your wishlist");
+      }
+      console.log('wishlist');
+      console.log(favoritesProduct);
+  
+    }
 return(
         <>
         <HomePage/>
         <Slider/>
-        
-         {/* <h1>Product {id} </h1> */}
-         <div className="container">
-        <div className="Single-productItem-component   mt-4 col-sm-9" >
+       
+         <div className="desc-part">
+        <div className="Single-productItem-component  col-sm-4 mt-3 " >
             
-            {/* console.log("product",productItem); */}
+
             <div className="card-head">
             
             <span className="card-product-img">
@@ -178,8 +94,8 @@ return(
            
            
             </div>
-          
-            <div className="card-body sm-4">
+           
+            <div className="card-body body-des col-sm-12">
             <h5>Product {productDetail.name} </h5>
             <h6>{productDetail.title}</h6>
             <div className="price-line">
@@ -191,7 +107,7 @@ return(
                 <li>XXS</li>
                 <li>XS</li>
                 <li>S</li>
-                <li>M</li>
+                <li className="active">M</li>
                 <li>L</li>
                 <li>XL</li>
                 <li>XXL</li>
@@ -223,8 +139,9 @@ return(
             <div className="head">Product detail:</div>{productDetail.productDetais}
             </div>
             <div className="add-cart">
-            <button className="button btn-wishlist" onClick={()=>handleaddToFavorites(productDetail)}><FaHeart/> add to wishlist</button>
-            <button className="button" title="add to cart" onClick={()=>addtoCart(productDetail)}>add to ShoppingCart<FaShoppingCart/></button>
+            <button className="btn-cart" title="add to cart" onClick={()=>addtoCart(productDetail)}>ADD TO CART</button>
+           
+            <button className="btn-wish btn-wishlist" onClick={()=>handleaddToFavorites(productDetail)}><FaHeart/> ADD TO WISHLIST</button>
            
             </div>
             </div>
