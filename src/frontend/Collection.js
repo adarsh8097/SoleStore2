@@ -4,61 +4,6 @@ import { Link } from "react-router-dom";
 
 function Collection(){
 
-    // return(
-    //     <div id="collection">
-    //      <div className="collection-heading">COLLECTIONS</div>
-    //      <div className="card-container">
-    //         <div className="img-card-div">
-    //            <img src="./img/Collection-tile-joggerd_1.webp"  class="img-thumbnail" alt='error'/>
-    //         </div>
-    //         <div className="img-card-div">
-    //            <img src="./img/Collection-Tile2.webp" class="img-thumbnail" alt='error'/>
-    //         </div>
-    //         {/* <div className="img-card-dive">
-    //            <img src="./img/Collection-Tile3-Naruto_wNv392b.webp" alt='error'/>
-    //         </div> */}
-    //          <div className="img-card-div">
-    //            <img src="./img/category1.webp"  class="img-thumbnail" alt='error'/>
-    //         </div>
-    //         <div className="img-card-div">
-    //            <img src="./img/Collection-tile_1.webp"  class="img-thumbnail" alt='error'/>
-    //         </div>
-    //         <div className="img-card-div">
-    //            <img src="./img/collection-tile_pretty-Pink_2_Jz32NqG.webp"  class="img-thumbnail" alt='error'/>
-    //         </div>
-    //         <div className="img-card-div">
-    //            <img src="./img/Colllection-Tiles-1-Sara-red.webp"  class="img-thumbnail" alt='error'/>
-    //         </div>
-    //      </div>
-    //      <div class="container mt-3">
-        
-    //         <div class="card">
-                
-    //             <img src="./img/Colllection-Tiles-1-Sara-red.webp"  class="img-thumbnail" alt='error'/>
-            
-    //         </div>
-    //     </div>
-    //     </div>
-    // )
-
-    // return(
-    //     <div className="contianer-fluid  post-container">
-    //         <div className="post-heading">COLLECTIONS</div>
-    //         <div className="card-container">
-    //             <div className="card" style={{width:"18rem"}}>
-    //                 <img src="./img/Collection-tile-joggerd_1.webp" alt="Cloth Collection" className="card-img-top thumbnail"/>
-    //             </div>
-                
-    //         </div>
-    //         <div className="card-container">
-    //             <div className="card" style={{width:"18rem"}}>
-    //                 <img src="./img/Collection-tile-joggerd_1.webp" alt="Cloth Collection" className="card-img-top thumbnail"/>
-    //             </div>
-                
-    //         </div>
-
-    //     </div>
-    // )
    
     const CollectionProduct = [
       {
@@ -158,46 +103,9 @@ function Collection(){
             <Link to="AllWomenCollection"><img src={item.imageshow} alt={item.alt} /></Link>  
             </div>
             ))}
-            {/* <div className="collection-img-card-div">
-              <img src="./img/Collection-Tile2.webp" alt="error" />
-            </div>
-            <div className="collection-img-card-div">
-              <img
-                src="collection1.webp"
-                alt="error"
-              />
-            </div>
-            <div className="collection-img-card-div">
-              <img src="./img/Collection-tile_1.webp" alt="error" />
-            </div>
-            <div class="collection-img-card-div">
-              <img
-                src="./img/collection-tile_pretty-Pink_2_Jz32NqG.webp"
-                alt="error"
-              />
-            </div>
-            <div class="collection-img-card-div">
-              <img src="./img/Colllection-Tiles-1-Sara-red.webp" alt="error" />
-            </div> */}
-           
           </div>
         </div>
         <div className="shopby-color">
-          
-          {/* <div className="collection-heading">SHOP BY COLOUR</div>
-           <div className="scroll-container">
-            <img src="collection2.webp"  alt="Collection Pic" />
-            <img src="collection3.webp" alt="error" />
-            <img src="collection4.webp" alt="error" />
-            <img src="color1.webp" alt="error"/>
-            <img src="color2.webp" alt="error"/>
-            <img src="color3.webp" alt="error"/>
-            <img src="color4.webp" alt="error"/>
-            <img src="color5.webp" alt="error"/>
-            <img src="color6.webp" alt="error"/>
-         </div> */}
-         
-
         </div>
         <div class="category">
           
@@ -208,21 +116,7 @@ function Collection(){
             <Link to="AllWomenCollection"> <img src={item.imageshow} alt={item.alt} /></Link>
             </div>
             ))};
-            {/* <div class="category-img-card-div">
-              <img src="./img/category2.webp" alt="error" />
-            </div>
-            <div class="category-img-card-div">
-              <img src="./img/category3.webp" alt="error" />
-            </div>
-            <div class="category-img-card-div">
-              <img src="./img/category4.webp" alt="error" />
-            </div>
-            <div class="category-img-card-div">
-              <img src="./img/category5.webp" alt="error" />
-            </div>
-            <div class="category-img-card-div">
-              <img src="./img/category6.webp" alt="error" />
-            </div> */}
+           
             
           </div>
         </div>
