@@ -385,14 +385,15 @@ li:hover{
 }
 
 .goNsGa{
-   
+   position: absolute;
     top: 9%;
-    /* left: 1.3rem; */
+    left: 1.3rem;
     transform: translateY(-50%);
-    left: 70%;
-    border-radius: 100%;
+    /* left: 70%; */
+    /* border-radius: 100%; */
    
 }
+
 
 
 .hoFBBP {
@@ -402,9 +403,10 @@ li:hover{
     padding: 4px 6px;
     text-align: center;
     display: inline-block;
-    border-radius: 15px;
+    border-radius: 100%;
     position: absolute;
-    font-weight: bold;
+    /* font-weight: bold; */
+    width: 70%;
 }
 
 
