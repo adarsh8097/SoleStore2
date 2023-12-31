@@ -77,7 +77,16 @@ const  addtocart =(p)=>{
   console.log("cartItem");
   console.log(cartproductItem);
 }
-     
+
+const [activeItem, setActive] = useState(null);
+
+   const handleItemCheck =(index)=>{
+    setActive(index);
+
+   }
+
+   const items = ['XXS', 'XS', 'S', 'M', 'L','XL','XXL'];
+
   return(
     <div>
    <HomePage/>
@@ -107,13 +116,13 @@ const  addtocart =(p)=>{
         <div className="product-price">Price: &#8377;{product.price}</div>
         <div className="product-size">Please select a size:
             <ul>
-                <li>XXS</li>
-                <li>XS</li>
-                <li>S</li>
-                <li>M</li>
-                <li>L</li>
-                <li>XL</li>
-                <li>XXL</li>
+              {items.map((item,index)=>(
+                <li key={index} onClick={() => handleItemCheck(index)}
+                className={index === activeItem ? 'active' : ''}
+                >
+                  {item}
+                </li>
+              ))}
             </ul>
 
             </div>
