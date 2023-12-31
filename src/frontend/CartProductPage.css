@@ -70,7 +70,30 @@
 
 }
 
+.check-out-btn,.check-out-btn:hover{
+    color: #000;
+    background-color: aliceblue;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 0.5rem;
+    width: 150px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-color: rgb(252, 86, 86);
+   font-family: 'Times New Roman', Times, serif;
+}
 
+.add-to-wishlist,.add-to-wishlist:hover{
+    border-radius: 0.5rem;
+    /* padding: 0.5rem; */
+    cursor: pointer;
+    background-color: rgb(246, 247, 248);
+    color: #000;
+    border-color: red;
+    padding: 5px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
 @media screen and (max-width:760px){
 
 
@@ -80,12 +103,14 @@
         text-align: center;
          gap: 1rem;
          box-sizing: border-box;
-
+            justify-content: center;
+            align-items: center;
     }
 
     .product-cart{
         display: flex;
         flex-direction: column;
+        border-radius: 0.5rem;
     }
 
     .product-cart-container-price{
