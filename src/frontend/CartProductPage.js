@@ -131,7 +131,7 @@ useEffect(()=>{
                                  </div>
                                  
                              
-                                <br></br> <button className="add-to-wishlist" onClick={() => handleRemoveFromCart(index)} title="Remove from Favorites"><i class="fas fa-trash-alt"></i>Remove</button>
+                                <br></br> <button className="add-to-wishlist" onClick={() => handleRemoveFromCart(index)} title="Remove from list"><i class="fas fa-trash-alt"></i>Remove</button>
                        
                             </div>
                             <div className="cart-product-price">price:{item.price}</div>
@@ -174,7 +174,7 @@ useEffect(()=>{
                     </p>
                 </div>
                 <div className="card-footer">
-                  <button onClick={userdeatils}>CheckOut</button>
+                  <button className="check-out-btn" onClick={userdeatils}>CheckOut</button>
                  </div>
                    <Link to="/"> <span> <p className="cart-para-btn">< FaArrowLeft style={{fontWeight:"bold", textAlign:"center",fontSize:"1rem"}}/>Continue Shoping</p>
             </span></Link>
