@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import './Description.css';
 import HomePage from "./HomePage";
 import FooterPage from "./FooterPage";
@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Slider from "./Slider";
 import { FaHeart } from "react-icons/fa";
 
-
+ 
 function Description(){
  let productDetail = true ;
 console.log("productDetail",productDetail);
@@ -77,6 +77,16 @@ console.log("productDetail",productDetail);
       console.log(favoritesProduct);
   
     }
+    const[activeItem, setActive] = useState(null);
+
+    const handleItemCheck =(index)=>{
+   setActive(index);
+
+    }
+
+    const items =['XXS', 'XS', 'S', 'M', 'L','XL','XXL'];
+
+
 return(
         <>
         <HomePage/>
@@ -103,14 +113,14 @@ return(
             </div>
             <div className="product-price">{productDetail.RodePrice}</div>
             <div className="product-size">Please select a size:
-            <ul>
-                <li>XXS</li>
-                <li>XS</li>
-                <li>S</li>
-                <li className="active">M</li>
-                <li>L</li>
-                <li>XL</li>
-                <li>XXL</li>
+             <ul>
+              {items.map((item,index)=>(
+                <li key={index} onClick={() => handleItemCheck(index)}
+                className={index === activeItem ? 'active' : ''}
+                >
+                  {item}
+                </li>
+              ))}
             </ul>
 
             </div>
