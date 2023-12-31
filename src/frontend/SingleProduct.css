@@ -36,3 +36,8 @@ h4{
 h4:hover{
     color: #a25255;
 }
+
+.product-size ul li.active {
+    border-color: red;
+    color: #15728a;
+}
