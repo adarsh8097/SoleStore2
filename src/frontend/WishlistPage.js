@@ -1,107 +1,193 @@
-import React, { useEffect, useState }  from "react";
+import React, { useEffect, useState } from "react";
 import './WishlistPage.css';
-import { FaShoppingCart } from "react-icons/fa";
 import FooterPage from "./FooterPage";
 import HomePage from "./HomePage";
 import Slider from "./Slider";
 import { json, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
-  function WishlistPage(){
-    const [favorateProduct,setFavoriteProducts] = useState([]);
+function WishlistPage() {
+    // const[cartCount , setCartCount] = useState(0);
+    const [favoriteProductData, setFavoriteProductsData] = useState([]);
+    const navigate = useNavigate();
+ 
+    const userdatatoken = JSON.parse(sessionStorage.getItem('userDetailsToken'));
+  console.log(userdatatoken);
+   
 
-   useEffect(()=>{
-        const product = JSON.parse(localStorage.getItem('wishlist') || []);
-        console.log(product);
-        setFavoriteProducts(product);
 
+    const fetchwishlistData = () => {
+        fetch('https://academics.newtonschool.co/api/v1/ecommerce/wishlist',{
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${userdatatoken}`,
+                projectId: "8spjkxc7tnxh",
+            },
+        })
+        .then((resp) =>  resp.json())
+        .then((data) => {
+            if (data.status === "success") {
+                setFavoriteProductsData(data.data.items);
+                localStorage.setItem('favoriteProductData', JSON.stringify(data.data.items)); // Store data in localStorage
+                toast.success(data.message);
+            } else {
+                toast.error(data.message);
+            }
+        })
+        .catch((error) => {
+            console.error("Error fetching wishlist data:", error);
+        });
 
+   
+    }
+    
+
+    useEffect(()=>{
+        fetchwishlistData();
     },[]);
-    const nevigate = useNavigate();
-    const handleRemoveFromFavrates = (index) =>{
-     let item = [...favorateProduct];
-         item.splice(index,1);
-         console.log(item);
-         localStorage.setItem('wishlist',JSON.stringify(item));
-         alert("This Product Removed SuccessFully From Wish List...");
-          setFavoriteProducts(item);
-         return item;
+
+    const favorateProduct = JSON.parse(localStorage.getItem('favoriteProductData')) || [];
+console.log(favorateProduct);
+// let cartproductItem = JSON.parse(localStorage.getItem('productdata')) || [] ;
+ const addtocart = (id) => {
+    try {
+       
+        const quantity = parseInt(1); 
+        
+        if (isNaN(quantity)) {
+            throw new Error("Invalid quantity");
+        }
+
+        fetch(`https://academics.newtonschool.co/api/v1/ecommerce/cart/${id}`, {
+            method: "PATCH",
+            body: JSON.stringify({
+                "quantity": quantity,
+                "size": "S",
+            }),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${userdatatoken}`,
+                projectId: "8spjkxc7tnxh",
+            },
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            if(data.status === "success") {
+                toast.success(data.message);
+                // setCartCount(data.results);
+                localStorage.setItem('productdata', JSON.stringify(data.data.items));
+            // setTimeout(() => {
+            //     navigate('/AllProduct');
+            //  }, 2000);
+                deletewishlist(id);
+               
+            } else {
+                toast.error(data.message);
+            }
+        })
+        .catch((error) => {
+            console.error("Error adding to cart:", error);
+            toast.error("Failed to add to cart");
+        });
+    } catch (err) {
+        console.log('error', err);
+        toast.error("Invalid quantity");
+    }
+}
+// let CartItemProduct = JSON.parse(localStorage.getItem('CartProduct'));
+// console.log(CartItemProduct);
+const deletewishlist = (id) => {
+       try{       
+         fetch(`https://academics.newtonschool.co/api/v1/ecommerce/wishlist/${id}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${userdatatoken}`,
+                projectId: "8spjkxc7tnxh",
+            },
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            if (data.status === "success") {
+                fetchwishlistData();
+                toast.success(data.message);
+            } else {
+                toast.error(data.message);
+            }
+        })
+    }
+    catch(error) {
+            console.error("Error deleting wishlist item:", error);
+            toast.error("Failed to delete wishlist item");
+        } 
     }
 
 
-        function addtoCart(p){
-            const cartproductItem = JSON.parse(localStorage.getItem('cartItem'))||[];
-            console.log("my-product-"+ p);
-            let ifProductAllerdyExicty = cartproductItem.find((cart)=> cart._id === p._id);
-            console.log(ifProductAllerdyExicty);
+    
+    
+    //  function ClearWishlist(){
+    //     try{
 
-            if(!ifProductAllerdyExicty){
-                p.quantity=1;
-                cartproductItem.push(p);
-                alert('Product add to Cart Successfully...!');
-                localStorage.setItem('cartItem',JSON.stringify(cartproductItem));
-              
-                 nevigate('/WishlistPage');
-                 
+    //         fetch('https://academics.newtonschool.co/favorite/api/v1/ecommerce/wishlist/',{
+    //             method:'delete',
+    //             headers:{
+    //                 Authorization: `Bearer ${userdatatoken}`,
+    //                 projectId: "8spjkxc7tnxh",
 
-
-                
-                 
-
-            }else{  
-                alert("product allready add to cart...!");
-            }
-            console.log('CartProduct');
-            console.log(cartproductItem);
-        }
-     
-    return(
-       <>
-       <HomePage/>
-       <Slider/>
-        <h1>This is my wishlist page...!</h1>
-     
-        <div className="favorite-component row col-sm-12" >
-           
-           {favorateProduct.length > 0 ? (
-            favorateProduct.map((item,index) =>(
-                <div className="card product-card  column col-sm-3 mt-3" >
-             
-             <div data-v-31f0882c="" className="WishlistIcon pl-1 pb-2 pr-1 wishlist" onClick={() => handleRemoveFromFavrates(index)} >
-             <span class="closebtun" title="remove from wishist">&times;</span>
-             </div>
-                 <div className='favorite-product card-head' key={item._id}>
-                  <img src={item.displayImage}
-                    alt={item.alt}
-                    className="favorite-product-image" />
-                   </div>
-                <div className='favorite-product-details card-body'>
-                    <p className="h4"><b>{item.name}</b> </p>
-                    {/* <p className="h4">{item.title}</p> */}
-                    <p>Price: {item.price}</p>
-                </div>
-                    {/* <button className="add-to-wishlist" onClick={() => handleRemoveFromFavrates(index)} title="Remove from Favorites"><i class="fas fa-trash-alt"></i></button> */}
-                    <span className="add-to-cart"  onClick={()=> addtoCart(item)} title="Add from Cart">Add to Cart<FaShoppingCart/></span>
-               
-
-            </div>
+    //             }
+    //         })
+    //         .then((response)=> response.json())
+    //         .then((data) => console.log(data));
             
 
-            ))
-           ):(
-            <>
-            <div className="empty-cart-product container mt-1">
-            <span><img src="img/empty-cart.avif"/></span> 
-            <p className='favorite-para'>No favorite product found.</p> 
+    //     }catch(error){
+    //         console.log("Not clear data", error);
+    //     }
+    //  }
+
+    //  ClearWishlist();
+
+    return (
+        <>
+            {/* <ToastContainer /> */}
+            <HomePage />
+            {/* <Slider /> */}
+            {/* <h1>This is my wishlist page...!</h1> */}
+
+            <div className="favorite-component row col-sm-12">
+                {favoriteProductData.length > 0 ? (
+                    favoriteProductData.map((item, index) => (
+                        <div className="card product-card  column col-sm-3 mt-3" style={{ height: "440px" }} key={index}>
+                            <div className="WishlistIcon pl-1 pb-2 pr-1 wishlist">
+                                <div onClick={() => deletewishlist(item.products._id)}>
+                                    <span className="closebtun" title="remove from wishlist" >&times;</span>
+                                </div>
+                                <div className='favorite-product card-head'>
+                                    <img src={item.products.displayImage} alt={item.products.name} className="favorite-product-image" />
+                                    <p className="h4" style={{fontSize:'15px'}}>{item.products.name}</p>
+                                    <p>Price: {item.products.price}</p>
+                                    <button className="add-to-cart" title="Add to Cart" onClick={()=>addtocart(item.products._id)}>
+                                        ADD TO CART
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <div className="empty-cart-product mt-2">
+                        <span><img src="https://www.thesouledstore.com/static/img/wishList-empty-icon.fd2a993.png" alt="no-product" /></span>
+                        <p className='favorite-para'>Your wishlist is lonely and looking for love.</p>
+                        <p>Add products to your wishlist, review them anytime and easily move to cart.</p>
+                        <button className="cont-shoping">CONTINUE SHOPPING</button>
+                    </div>
+                )}
+         
+
             </div>
-            </>
-        )}
-
-        </div>
-        {/* </div> */}
-        <FooterPage/>
+            <FooterPage />
         </>
-    )
-
+    );
 }
 
 export default WishlistPage;
