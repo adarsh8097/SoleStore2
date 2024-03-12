@@ -52,25 +52,24 @@ h2{
  }
 
  .wishlistIcon {
-    width: 30px;
-    height: 30px;
-    background-color: rgba(0,0,0,.2);
+    /* width: 30px;
+    height: 30px; */
+    /* background-color: rgba(20, 20, 20, 0.2);
     border-radius: 50%;
     text-align: center;
-    line-height: 30px;
+    /* line-height: 30px; 
     position: absolute;
     top: 15px;
     right: 25px;
-    
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.16);
     cursor: pointer;
     color:#fff;
     justify-content: center;
     align-items: center;
-    text-align: center;
+    text-align: center; */
 }
 
-.pb-2 {
+/* .pb-2 {
     padding-bottom: 0.5rem!important;
 }
 
@@ -83,15 +82,31 @@ h2{
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
    content: "\F08A";
-    color: #fff;
+    color: #9b0b0b;
     justify-content: center;
     align-items: center;
     text-align: center;
     
 }
-
  .wishlist:after{
     font: 14px fontAwesome;
     color: red;
     background-color: red; 
-}
+} */
+
+/* .card-whis-content{
+    display: flex;
+    flex-direction: column;
+} */
+/* 
+.card{
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1;
+} */
+
+/* .wishlistIcon {
+    margin-left: auto; /* Push the heart icon to the right 
+    cursor: pointer;
+  } */
