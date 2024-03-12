@@ -5,12 +5,13 @@ import { Link } from "react-router-dom";
 
  function FooterPage(){
 
-    return (
+    return(
+
         <>
         <div className="footer-componet">
             <div id="banner-of-happy-customer">
             <div id="home-brand-banner">
-            <h1>HOMEGROWN INDIAN BRAND</h1>
+            <p>HOMEGROWN INDIAN BRAND</p>
             </div>  
             <div id="happy-customers">
             <h1>Over 6 Million Happy Customers</h1>
