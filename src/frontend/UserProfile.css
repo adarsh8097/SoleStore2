@@ -8,13 +8,11 @@
      /* display: flex;
      flex-direction: row; */
      
-   
-     
-    
 }
 
-.card-header img{
+.card-header{
     width: 100%;
+    /* height: 100px; */
     border-radius: 50%;
 }
 
@@ -94,11 +92,12 @@
 .order-know{
     display: flex;
     flex-direction: row;
-    gap: 2rem;
-    border: 1px solid gray;
-    background-color: #f2f2f2;
+    gap: 300px;
+    /* border: 1px solid gray; */
+    /* background-color: #f2f2f2; */
     border-radius: 5px;
     padding-right: 5px;
+
     
 }
 
@@ -115,14 +114,27 @@
 .product-count-slide{
     display: flex;
     /* flex-direction: ; */
-    gap: 1rem;
+    gap: 200px;
     padding: 10px;
-    
+   
 
 }
 
 .cart-pro{
     width: 450px;
+}
+
+.pagin-btn{
+    gap: 10px;
+    justify-content: space-around;
+}
+
+.move{
+    background-color: rgb(253, 252, 249);
+    justify-content: space-around;
+    color: #333;
+    border: none;
+    font-size: 20px;
 }
 
 
