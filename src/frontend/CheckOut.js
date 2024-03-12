@@ -1,254 +1,461 @@
- import React,{useEffect, useState} from "react";
- import'./CheckOut.css';
+import React, { useEffect, useState } from "react";
+import "./CheckOut.css";
 import { useNavigate } from "react-router-dom";
 import HomePage from "./HomePage";
+import { toast } from "react-toastify";
 
-const userDetail = JSON.parse(sessionStorage.getItem("userDetails")||"{}");
-console.log("userDetailstatus",userDetail);
+const userDetail = JSON.parse(sessionStorage.getItem("userDetails") || "{}");
+let cartproductItem = JSON.parse(localStorage.getItem("productdata") || "{}");
+
+const userdatatoken = JSON.parse(
+  sessionStorage.getItem("userDetailsToken")
+);
+
+let TotalProductItem = sessionStorage.getItem('totalPrice');
+console.log("Total Product price",TotalProductItem);
+
+console.log(cartproductItem);
+
+function CheckOut() {
  
-function CheckOut(){
+  const [totalPrice, setTotalPrice] = useState(0);
+  const navigate = useNavigate();
 
+  const [chaeckOutdata, setCheckoutData] = useState({
+    fname:userdatatoken?userDetail.name:"" || "",
+    email:userdatatoken?userDetail.email:"" || "",
+    street: "",
+    city: "",
+    state: "",
+    zip: "",
+    cname: "",
+    ccnum: "",
+    expmonth: "",
+    expyear: "",
+    cvv: "",
+  });
 
-const navigate = useNavigate();
-      
-   
-    console.log('userdeatils',userDetail);
-   
-console.log("userdetails data" , userDetail);
-
-
-    const [chaeckOutdata,setIsData] = useState({
-        fname:"",
-        email:"",
-        adr:"",
-        city:"",
-        state:"",
-        zip:"",
-        cname:"",
-        ccnum:"",
-        expmonth:"",
-        expyear:"",
-        cvv:"",
-
-    });
-   
-    const handleChnge=(e)=>{
-        const{name,value} = e.target;
-        setIsData((prevdata)=>({
-            ...prevdata,
-            [name]:value,
-
-          
-
-        }));
-
-
+  const [getItem, setgetItem] = useState([]);
+    const cartGetItem = () => {
+      try {
+        fetch("https://academics.newtonschool.co/api/v1/ecommerce/cart", {
+          method: "get",
+          headers: {
+            Authorization: `Bearer ${userdatatoken}`,
+            projectId: "8spjkxc7tnxh",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // setgetItem(data.data.items.product);
+            setgetItem(data.data);
+            setTotalPrice(data.totalPrice);
+            console.log("Product data",data.data);
+          });
+      } catch (error) {
+        console.log("error", error);
+      }
     };
 
+     console.log(getItem.totalPrice);
+    
+   useEffect(() => {
+    cartGetItem();
+    setCheckoutData((prevData) => ({
+      ...prevData,
+      totalPrice: TotalProductItem,
+    }));
+
+  }, [userdatatoken]);
+ 
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setCheckoutData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  // console.log(getItem.data.totalPrice);
+
+  //  let ItemPrice = getItem.data.totalPrice;
+  //  console.log(ItemPrice);
+  const getTotalPrice = () => {
+    let totalPrice = 0;
+    cartproductItem.forEach((item) => {
+      totalPrice += item.product.price * item.quantity;
+    });
+    return totalPrice;
+  };
+
+  useEffect(()=>{
+    setTotalPrice(getTotalPrice());
+  },[cartproductItem]);
+
+  const deleteItem = async (id) => {
+  try{
+        console.log(id);
+      fetch(`https://academics.newtonschool.co/api/v1/ecommerce/cart/${id}`,{
+        method:'delete',
+
+       headers: {
+                Authorization: `Bearer ${userdatatoken}`,
+                projectId: "8spjkxc7tnxh",
+              },
+            })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data)
+             
+               if(data.status === "success"){
+                // getData();
+                 toast.success(data.message);
+               }else{
+                toast.success(data.message);
+               }
+            });
+      
+       
+    }catch(err){
+      console.log("error message", err);
+    }
+
+  };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   // const productId = cartproductItem.map((item)=> item._id);
+  //   // const quantity = cartproductItem.map((item)=> item.quantity);
+  //   // console.log("Item Product:",productId);
+  //   // console.log("Item Quentity", quantity);
+  //   try {
+       
+  //     cartproductItem.map(async(item)=>(
+  //      await fetch("https://academics.newtonschool.co/api/v1/ecommerce/order", {
+  //       method: "POST",
+  //       headers: {
+  //         Authorization: `Bearer ${userdatatoken}`,
+  //         projectId: "8spjkxc7tnxh",
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         productId: item._id,
+  //         quantity: item.quantity,
+  //         addressType: "HOME",
+  //         address: {
+  //           street: chaeckOutdata.street,
+  //           city: chaeckOutdata.city,
+  //           state: chaeckOutdata.state,
+  //           country: "India",
+  //           zipCode: chaeckOutdata.zip,
+  //         },
+  //       }),
+  //     })
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         if (data.status === "success") {
+  //           toast.success(data.message);
+  //           console.log(data);
+  //           navigate("/dispetch");
+  //         } else {
+  //           toast.error(data.message);
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         toast.error("Error Placing order" + error.message);
+  //         console.error("Error:", error);
+  //       })
+  //     ))
+  //   } catch (error) {
+  //     toast.error(error.message);
+  //     console.log("data not checkout", error);
+  //   }
+  // };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
   
-     const[totalprice , setTotalPrice] = useState(0);
-    function calculetTotalPrice(){
-     
-        let totalPrice =0;
-      const  cartproductItem = JSON.parse(localStorage.getItem('cartItem')) || [];
-        cartproductItem.map((item,index)=>{
-            var q=parseInt(item.quantity);
-            var p=parseInt(item.price);
-            totalPrice=totalPrice+(q*p);
-            console.log("index",index, "price:",p, "quantity",q);
-            console.log("totalPrice-Item",totalPrice);
-          
+  //   try {
+  //     const promises = cartproductItem.map(async (item) => {
+  //       const response = await fetch("https://academics.newtonschool.co/api/v1/ecommerce/order", {
+  //         method: "POST",
+  //         headers: {
+  //           Authorization: `Bearer ${userdatatoken}`,
+  //           projectId: "8spjkxc7tnxh",
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           productId: item._id,
+  //           quantity: item.quantity,
+  //           addressType: "HOME",
+  //           address: {
+  //             street: chaeckOutdata.street,
+  //             city: chaeckOutdata.city,
+  //             state: chaeckOutdata.state,
+  //             country: "India",
+  //             zipCode: chaeckOutdata.zip,
+  //           },
+  //         }),
+  //       });
+  
+  //       return response.json(); // Return the parsed JSON from the response
+  //     });
+  
+  //     const responses = await Promise.all(promises); // Wait for all promises to resolve
+  
+  //     responses.forEach((data) => {
+  //       if (data.status === "success") {
+  //         toast.success(data.message);
+  //         navigate("/dispetch");
+  //       } else {
+  //         toast.error(data.message);
+  //       }
+  //     });
+  //   } catch (error) {
+  //     toast.error("Error placing order: " + error.message);
+  //     console.error("Error:", error);
+  //   }
+  // };
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    try {
+      sessionStorage.setItem("numberofCheckOutItem",cartproductItem?.length);
+      for (const item of cartproductItem) {
+        const response = await fetch("https://academics.newtonschool.co/api/v1/ecommerce/order", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${userdatatoken}`,
+            projectId: "8spjkxc7tnxh",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            productId: item.product._id,
+            quantity: item.quantity,
+            addressType: "HOME",
+            address: {
+              street: chaeckOutdata.street,
+              city: chaeckOutdata.city,
+              state: chaeckOutdata.state,
+              country: "India",
+              zipCode: chaeckOutdata.zip,
+            },
+          }),
         });
-
-        setTotalPrice(totalPrice);
-
-          
+  
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error("Error:", errorData);
+          throw new Error(errorData.message || "Failed to place order");
+        }
+  
+        const data = await response.json();
+        if (data.status === "success") {
+          localStorage.removeItem('productdata');
+         await deleteItem(item.product._id);
+         
+          toast.success(data.message);
+          navigate("/dispetch");
+        } else {
+          toast.error(data.message);
+        }
       }
 
-       useEffect(()=>{calculetTotalPrice();},[]);
-      
-
-    const handleSubmit =(e)=>{
-        e.preventDefault();
-    localStorage.setItem("userpaymentdetails",JSON.stringify(chaeckOutdata));
-
-      console.log("details",chaeckOutdata);
-
-        if(!chaeckOutdata){
-          navigate("/CheckOut");
-        }else{
-          navigate("/dispetch");
-        }
+      // localStorage.removeItem('productdata');
+      // navigate("/dispetch");
+    } catch (error) {
+      toast.error("Error placing order: " + error.message);
+      console.error("Error:", error);
     }
+  };
+  
+  return (
+    <>
+      <HomePage />
+      <div className="row">
+        <div className="col-sm-12">
+          <div className="container">
+            <form onSubmit={handleSubmit}>
+              <div className="row">
+                <div className="col-50">
+                  <h3>Billing Address</h3>
+                  <label htmlFor="fname">
+                    <i className="fa fa-user"></i> Full Name
+                  </label>
+                  <input
+                    type="text"
+                    id="fname"
+                    name="fname"
+                    placeholder="John M. Doe"
+                    value={chaeckOutdata.fname}
+                    onChange={handleInputChange}
+                    minLength={4}
+                    required
+                  />
 
-    const deliverydata =()=>{
-      const delivery = JSON.stringify(localStorage.getItem('delivery'));
-      console.log("userProductcheckoutdata",delivery);
-    }
-    deliverydata();
+                  <label htmlFor="email">
+                    <i className="fa fa-envelope"></i> Email
+                  </label>
+                  <input
+                    type="text"
+                    id="email"
+                    name="email"
+                    placeholder="john@example.com"
+                    value={chaeckOutdata.email}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  <label htmlFor="adr">
+                    <i className="fa fa-address-card-o"></i> Address
+                  </label>
+                  <input
+                    type="text"
+                    id="adr"
+                    name="street"
+                    placeholder="542 W. 15th Street"
+                    value={chaeckOutdata.street}
+                    onChange={handleInputChange}
+                  />
+                  <label htmlFor="city">
+                    <i className="fa fa-institution"></i> City
+                  </label>
+                  <input
+                    type="text"
+                    id="city"
+                    value={chaeckOutdata.city}
+                    onChange={handleInputChange}
+                    name="city"
+                    placeholder="New York"
+                    required
+                  />
 
-    return(
-        <>
-        <HomePage/>
-     
-        <div class="row">
-        <div class="col-sm-12">
-      <div class="container">
-          <form onSubmit={handleSubmit}>
-           <div class="row">
-          <div class="col-50">
-            <h3>Billing Address</h3>
-            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-           
-                <input type="text"
-                 id="fname"
-                 name="fname"
-                 placeholder="John M. Doe" 
-                 value={chaeckOutdata.fname}
-                 onChange={handleChnge}
-                 minLength={4}
-                 required
-                />
-                 
-            <label for="email"><i class="fa fa-envelope"></i> Email</label>
-            <input type="text"
-             id="email" 
-             name="email"
-              placeholder="john@example.com"
-              value={chaeckOutdata.email}
-              onChange={handleChnge} required/>
-            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-            <input type="text" 
-            id="adr"
-             name="adr"
-              placeholder="542 W. 15th Street"
-            
-             value={chaeckOutdata.adr}
-             onChange={handleChnge}
-             />
-            <label for="city"><i class="fa fa-institution"></i> City</label>
-            <input type="text" 
-            id="city"
-            value={chaeckOutdata.city}
-            onChange={handleChnge}
-            name="city"
-             placeholder="New York"
-             required/>
+                  <div className="row">
+                    <div className="col-50">
+                      <label htmlFor="state">State</label>
+                      <input
+                        type="text"
+                        id="state"
+                        name="state"
+                        value={chaeckOutdata.state}
+                        onChange={handleInputChange}
+                        placeholder="NY"
+                        required
+                      />
+                    </div>
+                    <div className="col-50">
+                      <label htmlFor="zip">Zip</label>
+                      <input
+                        type="text"
+                        id="zip"
+                        name="zip"
+                        placeholder="10001"
+                        minLength={5}
+                        maxLength={6}
+                        value={chaeckOutdata.zip}
+                        onChange={handleInputChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="col-50">
+                 {getItem.totalPrice > 0 ?(
+                    <div>
+                  <h3>Payment</h3>
+                  <label htmlFor="pprice">TotalPrice</label>
+                  {/* <input type="text" value={chaeckOutdata.totalPrice} readOnly/> */}
+                  <input type="text" value={userdatatoken?getItem.totalPrice:0} readOnly/>
+                  
 
-            <div class="row">
-              <div class="col-50">
-                <label for="state">State</label>
-                <input 
-                type="text"
-                 id="state" 
-                 name="state" 
-                 value={chaeckOutdata.state}
-                 onChange={handleChnge}
-                 placeholder="NY" 
-                 required/>
-              </div>
-              <div class="col-50">
-                <label for="zip">Zip</label>
-                <input type="text" 
-                id="zip" 
-                name="zip" 
-                placeholder="10001"
-                 minLength={5} maxLength={6}
-                 value={chaeckOutdata.zip}
-                 onChange={handleChnge}
-                 required/>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-50">
-            <h3>Payment</h3>
-            <label for="fname">Accepted Cards</label>
-            <div class="icon-container">
-              <i class="fa fa-cc-visa" style={{color:"navy"}}></i>
-              <i class="fa fa-cc-amex" style={{color:"blue"}}></i>
-              <i class="fa fa-cc-mastercard" style={{color:"red"}}></i>
-              <i class="fa fa-cc-discover" style={{color:"orange"}}></i>
-            </div>
-              <label for="pprice">TotalPrice</label>
-              <input type="text" value={totalprice}/>
-            <label for="cname">Name on Card</label>
-            <input type="text" 
-            id="cname"
-             name="cname"
-              placeholder="John More Doe"
-               required minLength={4} 
-               maxLength={10}
-               value={chaeckOutdata.cname}
-               onChange={handleChnge}
-               />
-            <label for="ccnum">Credit card number</label>
-            <input type="text"
-             id="ccnum"
-              name="ccnum" 
-              placeholder="1111-2222-3333-4444" 
-              required 
-              minLength={16} 
-              maxLength={16}
-              value={chaeckOutdata.cardnumber}
-              onChange={handleChnge}
+                 <label for="cname">Name on Card</label>
+             <input type="text" 
+           id="cname"
+            name="cname"
+             placeholder="John More Doe"
+              required minLength={4} 
+              maxLength={10}
+              value={chaeckOutdata.cname}
+              onChange={handleInputChange}
               />
-            <label for="expmonth">Exp Month</label>
-            <input type="text" 
-            id="expmonth" 
-            name="expmonth" 
-            placeholder="September" 
-            required 
-            value={chaeckOutdata.expmonth}
-            onChange={handleChnge}
-            minLength={3}
-            maxLength={4}
-            />
-            <div class="row">
-            
-              <div class="col-50">
-                <label for="expyear">Exp Year</label>
-                <input type="text"
-                 id="expyear"
-                  name="expyear" 
-                  placeholder="2018"
-                   required minLength={4}
-                    maxLength={4}
-                    value={chaeckOutdata.expyear}
-                     onChange={handleChnge}
-                    />
-              </div>
-              
-              <div class="col-50">
-                <label for="cvv">CVV</label>
-                <input type="text"
-                 id="cvv"
-                  name="cvv"
-                   placeholder="352" 
-                   required
-                    minLength={3} 
-                    maxLength={3}
-                    value={chaeckOutdata.cvv}
-                     onChange={handleChnge}
-                    />
-              </div>
-              
-            </div>
-          </div>
-          
-        </div>
-        <label>
-          <input type="checkbox"  name="sameadr" required /> Shipping address same as billing
-        </label>
-   
-        <input type="submit" value="Continue to checkout" class="button" />
-      </form>
-    </div>
-  </div>
-  </div>
-  </>
-        
-    );
- }
+           <label for="ccnum">Credit card number</label>
+           <input type="text"
+            id="ccnum"
+             name="ccnum" 
+             placeholder="1111-2222-3333-4444" 
+             required 
+             minLength={16} 
+             maxLength={16}
+             value={chaeckOutdata.cardnumber}
+             onChange={handleInputChange}
+             />
+           <label for="expmonth">Exp Month</label>
+           <input type="text" 
+           id="expmonth" 
+           name="expmonth" 
+           placeholder="07/21" 
+           required 
+           value={chaeckOutdata.expmonth}
+           onChange={handleInputChange}
+           minLength={3}
+           maxLength={4}
+           />
+           
+           
+             <div class="col-50">
+               <label for="expyear">Exp Year</label>
+               <input type="text"
+                id="expyear"
+                 name="expyear" 
+                 placeholder="2018"
+                  required minLength={4}
+                   maxLength={4}
+                   value={chaeckOutdata.expyear}
+                    onChange={handleInputChange}
+                   />
+             </div>
+             
+             <div class="col-50">
+               <label for="cvv">CVV</label>
+               <input type="text"
+                id="cvv"
+                 name="cvv"
+                  placeholder="352" 
+                  required
+                   minLength={3} 
+                   maxLength={3}
+                   value={chaeckOutdata.cvv}
+                    onChange={handleInputChange}
+                   />
+             </div>
+             </div>
+                 ):(
+                  <div>
+                    <p>Payment part something issue please refresh page</p>
+                    </div>
+                 )}
+                </div>
 
- export default CheckOut;
+                </div>
+              <label>
+                <input type="checkbox" name="sameadr" required /> Shipping
+                address same as billing
+              </label>
+
+              <input
+                type="submit"
+                value="Continue to checkout"
+                className="button"
+              />
+            </form>
+          </div>
+        
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default CheckOut;
