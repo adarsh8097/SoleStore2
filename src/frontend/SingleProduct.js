@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from "react";
 import './SingleProduct.css'
-import { useNavigate, useParams } from "react-router-dom";
+import { json, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { FaHeart,FaShoppingCart } from "react-icons/fa";
 import HomePage from "./HomePage";
 import FooterPage from "./FooterPage";
-
-
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// import Men from "./Men.js";
+// const userDetail = JSON.parse(localStorage.getItem("userDetails")|| "{}");
 
 const SingleProduct =()=>{
    const { id } = useParams();
    const [product , setProduct ] = useState({});
+  //  const[token, setToken] = useState([]);
+  // const fetchedtoken = JSON.parse(sessionStorage.getItem("userDetails") || "{}");
+  // console.log(fetchedtoken.token);
+  const userdatatoken = JSON.parse(sessionStorage.getItem('userDetailsToken'));
+  console.log(userdatatoken);
 
-  
-   
+  // let cartproductItem = JSON.parse(localStorage.getItem('productdata')) || [] ;
+
+ 
    useEffect(()=> {
           const fetchData = async()=>{
             try{
@@ -26,57 +33,41 @@ const SingleProduct =()=>{
               );
               console.log(data.data);
                 setProduct(data.data);
+              
              
             }catch(err){
-              console.log('Data is not found', err);
+              console.log('Data Product is not found', err);
             }
           };
 
           fetchData();
+        
 
    },[id]);
 
-
+    
 const navigate  = useNavigate();
-const addtowishList =(product)=>{
-  const favorateProduct = JSON.parse(localStorage.getItem('wishlist'))||[];
-  console.log('product',product);
-  const ifProductAlreadyExecty = favorateProduct.find(favrate => favrate._id === product._id);
+// const addtowishList =(product)=>{
+//   const favorateProduct = JSON.parse(localStorage.getItem('wishlist'))||[];
+//   console.log('product',product);
+//   const ifProductAlreadyExecty = favorateProduct.find(favrate => favrate._id === product._id);
 
-  if(!ifProductAlreadyExecty){
-    favorateProduct.push(product);
-    alert("Product added To wishlist Successfully");
-    localStorage.setItem('wishlist',JSON.stringify(favorateProduct));
-    navigate('/AllProduct');
+//   if(!ifProductAlreadyExecty){
+//     favorateProduct.push(product);
+//     alert("Product added To wishlist Successfully");
+//     localStorage.setItem('wishlist',JSON.stringify(favorateProduct));
+//     navigate('/AllProduct');
 
-  }else{
-    alert("Product allready exist in wishlist...");
-  }
+//   }else{
+//     alert("Product allready exist in wishlist...");
+//   }
 
-  console.log('wishlist');
-  console.log(favorateProduct);
+//   console.log('wishlist');
+//   console.log(favorateProduct);
 
- }
+//  }
 
-const  addtocart =(p)=>{
-  const cartproductItem = JSON.parse(localStorage.getItem('cartItem')) || [];
-  console.log("product",p);
-  let ifproductallreadyInCart = cartproductItem.find(cart => cart._id === p._id);
 
-  if(!ifproductallreadyInCart){
-    p.quantity = 1;
-      cartproductItem.push(p);
-      alert("Product add SuccessFully in Cart...!");
-      localStorage.setItem('cartItem', JSON.stringify(cartproductItem));
-      navigate("/AllProduct");
-
-  }else{
-      alert("Product allready Add in cart...!");
-  }
-
-  console.log("cartItem");
-  console.log(cartproductItem);
-}
 
 const [activeItem, setActive] = useState(null);
 
@@ -87,10 +78,180 @@ const [activeItem, setActive] = useState(null);
 
    const items = ['XXS', 'XS', 'S', 'M', 'L','XL','XXL'];
 
+
+    // function AddtoProductCart(product){
+    //   setProductId(product);
+    // }
+    // const [productId , setProductId] = useState(null);
+
+  
+    
+    const AddItemData = async()=>{
+      try{
+        const data = await axios.patch(`https://academics.newtonschool.co/api/v1/ecommerce/cart/${id}`,
+        {"quantity": 1,
+        "size": "S"
+       },
+         { headers: {
+          Authorization: `Bearer ${userdatatoken}`,
+           projectId :"8spjkxc7tnxh",
+         },
+         
+            },);
+
+         console.log(data.data);
+         if(data.data.status === "success"){
+         toast.success(data.data.message);
+        //  localStorage.setItem('CartProduct',JSON.stringify(responce.data.items));
+        //  updateCart(responce.data.items)
+          setTimeout(() => {
+                navigate('/AllProduct');
+             }, 2000);
+
+         }else{
+          toast.error (data.data.message);
+         }
+       
+       
+      }catch(err){
+        console.log('Data is not found', err);
+      }
+
+    };
+
+    const[wishlist,setWishlist] = useState("");
+    function addWishlist() {
+      try {
+        fetch('https://academics.newtonschool.co/api/v1/ecommerce/wishlist/',{
+          method: 'PATCH', // Use 'method' instead of 'Method'
+          headers: {
+            Authorization: `Bearer ${userdatatoken}`,
+            projectId: "8spjkxc7tnxh",
+            'Content-Type': 'application/json' // Specify content type for the body
+          },
+          body: JSON.stringify({ productId: id }) // Convert body to JSON format
+        })
+        .then((resp) => resp.json())
+        .then((data) =>{
+          setWishlist(data); 
+
+         if(data.status === "success"){
+          fetchwishlistData();
+            toast.success(data.message);
+            // alert(data.message);
+             setTimeout(() => {
+                navigate('/AllProduct');
+             }, 2000);
+              
+          }else{
+            toast.error(data.message);
+          }
+        
+        });
+
+      } catch (error) {
+        console.log("error", error);
+      }
+    }
+
+    // useEffect(()=>{
+    //   getWishlist();
+    // },[]);
+    
+    // getWishlist();
+    // console.log(wishlist);
+
+    // const updateCart = (newCartItem) => {
+    //   const existingCartItemIndex = cartproductItem.findIndex(item => item.data.product._id === newCartItem.data.product._id);
+  
+    //   if (existingCartItemIndex !== -1) {
+    //     // If item already exists in cart, increment its quantity
+    //     cartproductItem[existingCartItemIndex].quantity++;
+    //   } else {
+    //     // Otherwise, add it as a new item
+    //     cartproductItem.push({ product: newCartItem.data.product, quantity: 1 });
+    //   }
+  
+    //   localStorage.setItem('productdata', JSON.stringify(cartproductItem)); // Update local storage
+    // };
+   
+    // useEffect(()=>{
+    //   updateCart();
+    // },[]);
+
+  //   const addWishlist = (id) => {
+  //     fetch('https://academics.newtonschool.co/api/v1/ecommerce/wishlist/', {
+  //         method: 'PATCH',
+  //         headers: {
+  //             Authorization: `Bearer ${fetchedtoken.token}`,
+  //             projectId: "8spjkxc7tnxh",
+  //             'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({ productId: id }),
+  //     })
+  //     .then(response => {
+  //         if (!response.ok) {
+  //             throw new Error('Network response was not ok');
+  //         }
+  //         return response.json();
+  //     })
+  //     .then(data => {
+  //         console.log(data);
+  //         // Handle successful response
+  //         if(data.status ==='success'){
+  //         toast.success(data.message);
+  //         }else{
+  //           toast.success(data.message);
+  //         }
+  //     })
+  //     .catch(error => {
+  //         console.error('Error:', error);
+  //         // Handle fetch error gracefully
+  //         // toast.error(e.message);
+  //     });
+  // };
+  
+  // addWishlist();
+  
+  const fetchwishlistData = () => {
+    fetch('https://academics.newtonschool.co/api/v1/ecommerce/wishlist',{
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${userdatatoken}`,
+            projectId: "8spjkxc7tnxh",
+        },
+    })
+    .then((resp) =>  resp.json())
+    .then((data) => {
+        if (data.status === "success") {
+          console.log("data product wishlist", data);
+            // setWishlistData(data);
+            console.log(data);
+            // localStorage.setItem('favoriteProductData', JSON.stringify(data.data.items)); // Store data in localStorage
+            toast.success(data.message);
+        } else {
+            toast.error(data.message);
+        }
+    })
+    .catch((error) => {
+        console.error("Error fetching wishlist data:", error);
+    });
+  
+  
+  }
+  
+  // let count = wishlistItem.results;
+  // console.log(count);
+  
+  useEffect(()=>{
+    fetchwishlistData();
+  },[]);
+
   return(
     <div>
-   <HomePage/>
- 
+    {/* <Men/> */}
+    <HomePage/>
+  {/* <ToastContainer/> */}
     <div className=" mt-5"> 
     <div className="Single-productItem-component  mt-4 col-sm-9">
 
@@ -153,10 +314,10 @@ const [activeItem, setActive] = useState(null);
 
             <div className="add-cart">
 
-            <button className="btn-cart" title="add to cart" onClick={()=> addtocart(product)}>ADD TO CART <FaShoppingCart/></button>
-           
+            {/* <button className="btn-cart" title="add to cart" onClick={()=> addtocart(product)}>ADD TO CART <FaShoppingCart/></button> */}
+            <button className="btn-cart" title="add to cart" onClick={()=> AddItemData()}>ADD TO CART <FaShoppingCart/></button>
 
-            <button className="btn-wish btn-wishlist" title="add to wishlist" onClick={()=>addtowishList(product)}><FaHeart/> ADD TO WISHLIST</button>
+            <button className="btn-wish btn-wishlist" title="add to wishlist" onClick={()=> addWishlist()}> <i class="fa fa-heart-o" style={{color:"red",fontSize:"18px"}}/> ADD TO WISHLIST</button>
            
             </div>
       </div>
