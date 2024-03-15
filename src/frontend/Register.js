@@ -84,22 +84,28 @@ function Register() {
         if(data.status === 'success'){
           toast.success("Register Successfully");
         console.log(data);
+        setLoder(false);
         navigate('/LoginPage');
 
         }
         else{
+          
           toast.error(data.message);
+          alert(data.message);
           console.log("Data not found");
+          setLoder(false);
+         
         }
       });
 
     }catch(error){
+       toast.error(error.message);
        console.log("Data not found",error);
        setLoder(false);
     }
   }
   const handleRegisterClick = () => {
-    alert("Server side issue please try after sometime...!");
+    toast.error("Server side issue please try after sometime...!");
     setLoder(false);
   }
 
@@ -124,9 +130,9 @@ function Register() {
         <div id="login-container">
           <div id="main-login-content-container">
             <div id="main-login-content-container-child1">
-              <h3>Login with SOULE-Store Fashions</h3>
+              <h3>SignUp with SOULE-Store Fashions</h3>
             </div>
-            <span className="header">SignUp Page</span>
+            {/* <span className="header">SignUp Page</span> */}
             <div id="login-content">
               <div id="login-content-inner-div">
                 <div id="register-box">
@@ -142,9 +148,9 @@ function Register() {
                   </div>
                   <div>-OR-</div>
                   <form onSubmit={submitForm}>
-                    <div style={{ display: "flex" }}>
+                    <div style={{ display: "flex" ,justifyContent:"space-between",gap:"10px",}}>
                       <input
-                        style={{ width: "45%" }}
+                        style={{ width: "50%",border: "1px solid skyblue",borderRadius:"5px" }}
                         type="text"
                         name="first_name"
                         id="firstName"
@@ -153,9 +159,9 @@ function Register() {
                         onChange={(e) => setUserFirstName(e.target.value)}
                         required
                       />
-                      <div style={{ width: "45%" }}></div>
+                      {/* <div style={{ width: "45%" }}></div> */}
                       <input
-                        style={{ width: "45%" }}
+                        style={{ width: "50%",border: "1px solid skyblue",borderRadius:"5px"}}
                         type="text"
                         name="last_name"
                         id="lastName"
@@ -201,11 +207,11 @@ function Register() {
                       <label for="Gender">Gender</label>
                       &nbsp;
                       <label for="male">Male</label>
-                      <input type="radio" name="gender" value="male" checked />
+                      <input type="radio" name="gender" value="male" checked  style={{marginTop:'-10px'}}/>
                       <label for="female">Female</label>
-                      <input type="radio" name="gender" value="female" />
+                      <input type="radio" name="gender" value="female"  style={{marginTop:'-10px'}}/>
                       <label for="other">Other</label>
-                      <input type="radio" name="gender" value="other" />
+                      <input type="radio" name="gender" value="other"  style={{marginTop:'-10px'}}/>
                     </div>
                     <button type="submit" id="form-register-btn">Submit</button>
                     &nbsp;
