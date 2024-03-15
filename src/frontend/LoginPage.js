@@ -13,7 +13,8 @@ function LoginPage() {
     const[loder , setLoder] = useState(false);
     // const [btnToggle , setBtnToggle] = useState(true); // Initialize btnToggle state here
         // var btnToggle = true;
-    const LoginUp = async () => {
+    const LoginUp = async (e) => {
+        e.preventDefault();
         try {
             setLoder(true);
             const resp = await fetch('https://academics.newtonschool.co/api/v1/user/login', {
@@ -58,9 +59,7 @@ function LoginPage() {
         } catch (error) {
             // setBtnToggle(false);
             console.error('Login failed:', error);
-
-           
-            // alert(error.message);
+            alert(error.message);
         toast.error(error.message);
         setLoder(false);
         }
@@ -116,7 +115,7 @@ function LoginPage() {
                         </div>
                         <div id="main-login-content-container-child2">
                             <div class="flex-div-for-login-signup">
-                                <span className="header">Login Page</span>
+                                {/* <span className="header">Login Page</span> */}
                             </div>
                             <div id="login-content">
                                 <div id="login-content-inner-div">
@@ -133,7 +132,7 @@ function LoginPage() {
                                         </div>
                                         <div>-OR-</div>
                                         <div>
-                                            <form>
+                                            <form onSubmit={LoginUp}>
                                                 <input
                                                     type="email"
                                                     name="email"
@@ -150,7 +149,7 @@ function LoginPage() {
                                                     id="password"
                                                     onChange={(e) => setPassword(e.target.value)}
                                                 />
-                                                <button type="button" value="Proceed" id="Proceed-btn" onClick={LoginUp} >Login</button>
+                                                <button type="submit" value="Proceed" id="Proceed-btn" >Login</button>
                                             </form>
                                         </div>
                                         <div>
