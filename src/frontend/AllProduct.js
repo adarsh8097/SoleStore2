@@ -1,30 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import './AllProduct.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import Man from './Mannavbar';
 import FooterPage from "./FooterPage";
 import { Link, useNavigate } from "react-router-dom";
 import HomePage from "./HomePage";
-// import { Toast,ToastContainer } from "react-toastify/dist/components";
-//  import 
+import { MyContext } from "./ContextApi";
+import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 
 const API_BASE_URL = "https://academics.newtonschool.co/api/v1/ecommerce";
 const PROJECT_ID = "8spjkxc7tnxh";
 
 function ProductCard({ item, addToWishlist }) {
   return (
-    <div className="card product-card col-sm-9 mt-4" style={{ height:"390px"}} key={item._id}>
-      <div className="wishlistIcon pl-1 pb-2 pr-1 wishlist" title="add to Wishlist" onClick={() => addToWishlist(item._id)}><i class="fa fa-heart-o" style={{fontSize:"20px", marginLeft:"100%",cursor:"pointer", position:"relative", zIndex:"-3"}}></i> </div>
+    <div className="card product-card col-sm-3 mt-5" style={{ height: "390px" }} key={item._id}>
       <div className="card-head">
+        <div className="wishlistIcon pl-1 pb-2 pr-1 wishlist" onClick={() => addToWishlist(item._id)} title="add to Wishlist">
+          <i className="fa fa-heart-o" style={{ fontSize: "20px", marginLeft: "100%", cursor: "pointer", position: "relative", zIndex: "-3", overflowY: "2" }}></i>
+        </div>
         <div className="img-card-div" key={item._id}>
           <Link to={`/Allproduct/${item._id}`}>
-            <img src={item.displayImage} alt={item.alt}/>
+            <img src={item.displayImage} alt={item.alt} />
           </Link>
         </div>
         <div className="card-info">
-          <div className="product-name" style={{color:'gray', fontSize:'15px',textOverflow:'ellipsis',}} >{item.name}</div>
-          <h6 className="product-price">Price:{item.price}</h6>
+          <div className="product-name" style={{ color: 'gray', fontSize: '15px', textOverflow: 'ellipsis' }}>{item.name}</div>
+          <h6 className="product-price">Price: {item.price}</h6>
         </div>
       </div>
     </div>
@@ -32,22 +33,24 @@ function ProductCard({ item, addToWishlist }) {
 }
 
 function AllProduct() {
-  const fetchedToken = JSON.parse(sessionStorage.getItem("userDetailsToken") || "{}");
+  const userdatatoken = JSON.parse(sessionStorage.getItem("userDetailsToken") || "{}");
   const navigate = useNavigate();
   const [isItem, setIsItem] = useState([]);
-  const [searchColor, setSearchColor] = useState('');
   const [color, setColor] = useState([]);
+  const [searchColor, setSearchColor] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchProduct, setSearchProduct] = useState([]);
+  const [wishlistItem, setWishlistData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+  const{setWishlistPrduct}= useContext(MyContext);
 
   useEffect(() => {
     fetchProducts();
-   
   }, []);
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/clothes/products`, {
+      const response = await fetch(`${API_BASE_URL}/clothes/products?gender=Men`, {
         method: "GET",
         headers: {
           projectId: PROJECT_ID,
@@ -58,9 +61,6 @@ function AllProduct() {
       }
       const data = await response.json();
       setIsItem(data.data);
-     
-
-      console.log(data.data);
     } catch (err) {
       console.log("Product not found", err);
     }
@@ -101,7 +101,7 @@ function AllProduct() {
         throw new Error('Failed to fetch products by name');
       }
       const data = await response.json();
-      setSearchProduct(data.data || []);
+      setIsItem(data.data || []);
     } catch (err) {
       console.log("Data not found", err);
     }
@@ -114,10 +114,10 @@ function AllProduct() {
 
   const addToWishlist = async (productId) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/wishlist/`,{
+      const response = await fetch(`${API_BASE_URL}/wishlist/`, {
         method: 'PATCH',
         headers: {
-          Authorization: `Bearer ${fetchedToken}`,
+          Authorization: `Bearer ${userdatatoken}`,
           projectId: PROJECT_ID,
           'Content-Type': 'application/json',
         },
@@ -128,82 +128,97 @@ function AllProduct() {
       }
       const data = await response.json();
       if (data.status === "success") {
+        setWishlistPrduct(data);
         toast.success(data.message);
-        localStorage.setItem('favoriteProductData', JSON.stringify(data.data.items));
-        setTimeout(() => {
-            navigate('/men');
-        }, 2000);
+       
       } else {
         toast.error(data.message);
       }
     } catch (error) {
       console.error("Error:", error);
-      // toast.error("Failed to add product to wishlist");
       toast.error(error);
     }
   };
 
+  const totalItems = color.length > 0 ? color.length : isItem.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = currentPage * itemsPerPage;
+  const paginatedData = color.length > 0 ? color.slice(startIndex, endIndex) : isItem.slice(startIndex, endIndex);
 
- 
+  const handlePageChange = (action) => {
+    if (action === 'prev') {
+      setCurrentPage(currentPage - 1);
+    } else if (action === 'next') {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
-
+  
+const colorOptions = ["red", "green", "yellow", "pink", "blue", "black"];
+const productTypes = [
+  'Shirt',
+  'Top',
+  'T-shirt',
+  'Pants',
+  'Joggers',
+  'Jeans',
+  'Cargo',
+  'Kurta',
+  'Leg',
+  'Crop'
+];
 
   return (
     <>
-      {/* <ToastContainer/> */}
-      {/* <Man/> */}
-      <HomePage/>
+      <HomePage />
       <div className="filter-product">
-        <div className="filterdata">
+        <div className="filterdata card" style={{width:'400px', height:"570px",justifyContent:'center',alignItems:'center',position:"sticky"}}>
           <div className="search-input-data-color">
-            <p className="filter-title"> Product search by color..!</p>
-            <input type="search" id="filter" placeholder="Search Product by Color..!" autoFocus="autofocus" className="searchinput" value={searchColor} onChange={handleColor} />
+            <p className="filter-title"> Search Product.!</p>
+            <input type="search" id="filter" placeholder="Search your favorite color.!!" autoFocus="autofocus" className="searchinput" value={searchColor} onChange={handleColor} />
           </div>
           <div className="search-input-data-color-select">
-            <ul className="selectColor">
-              <li onClick={() => filterProductsByColor("red")}>Red</li>
+            
+            <ul className="selectColor ">
+              {/* <li onClick={() => filterProductsByColor("red")}>Red</li>
               <li onClick={() => filterProductsByColor("green")}>Green</li>
               <li onClick={() => filterProductsByColor("yellow")}>Yellow</li>
               <li onClick={() => filterProductsByColor("pink")}>Pink</li>
               <li onClick={() => filterProductsByColor("blue")}>Blue</li>
-              <li onClick={() => filterProductsByColor("black")}>Black</li>
-              {/* <li onClick={MoreColor}>MoreColor</li> */}
+              <li onClick={() => filterProductsByColor("black")}>Black</li> */}
+               {colorOptions.map((color, index) => (
+        <li key={index} onClick={() => filterProductsByColor(color)}>{color}</li>
+      ))}
             </ul>
           </div>
           <div className="search-input-data-catageroy">
-            <p className="filter-title"> Product search by type..!</p>
-            <input type="search" id="filter" placeholder="Search Product by Type..!" autoFocus="autofocus" className="searchinput" value={searchTerm} onChange={handleChange} />
-          </div>
-          <div className="search-input-data-catageroy-select">
-            <ul className="selectProduct">
-              <li onClick={() => fetchData("T-shirt")}>T-shirt</li>
-              <li onClick={() => fetchData("Shirt")}>Shirt</li>
-              <li onClick={() => fetchData("Pants")}>Pants</li>
-              <li onClick={() => fetchData("Joggers")}>Joggers</li>
-              <li onClick={() => fetchData("shorts")}>Shorts</li>
-              <li onClick={() => fetchData("kurta")}>Kurta</li>
-              {/* <li onClick={MoreColor}>MoreItem</li> */}
-            </ul>
-          </div>
+            <p className="filter-title"> Product search by Catageroy..!</p>
+            <input type="search" id="filter" placeholder="Search Product byType..!" autoFocus="autofocus" className="searchinput" value={searchTerm} onChange={handleChange} />
+            </div>
+            <div className="search-input-data-color-select">
+              <ul className="selectColor">
+                {productTypes.map((product,index)=>(
+                  <li key={index} className="color-option" onClick={()=>fetchData(product)}>{product}</li>
+                ))}
+              </ul>
+
+            </div>
         </div>
         <div className="search-filter-product">
           <div className="container-fluid">
-            <div className="product-card collection-component col-sm-12 row" style={{gap:"20px"}}>
-              {(color.length > 0 || searchProduct.length > 0) ? (
-                <>
-                  {color.map((item) => <ProductCard key={item._id} item={item} addToWishlist={addToWishlist} />)}
-                  {searchProduct.map((item) => <ProductCard key={item._id} item={item} addToWishlist={addToWishlist} />)}
-                </>
-              ) : (
-                <>
-                  {isItem.map((item) => <ProductCard key={item._id} item={item} addToWishlist={addToWishlist} />)}
-                </>
-              )}
+            <div className="product-card collection-component col-sm-12 row justify-content-center" style={{ gap: "30px" }}>
+              {paginatedData.map(item => <ProductCard key={item._id} item={item} addToWishlist={addToWishlist} />)}
+            </div>
+            <div className="pagination-buttons text-center mt-3">
+            <button className="pagination-button" onClick={() => handlePageChange('prev')} disabled={currentPage === 1} style={{ backgroundColor: '#f32b1d',border:"none"}}><FaArrowCircleLeft></FaArrowCircleLeft></button>
+              <span className="pagination-info">Page {currentPage} of {totalPages}</span>
+              <button className="pagination-button" onClick={() => handlePageChange('next')} disabled={currentPage === totalPages} style={{ backgroundColor: '#f32b1d',border:"none"}}><FaArrowCircleRight></FaArrowCircleRight></button>
             </div>
           </div>
         </div>
       </div>
-      <FooterPage/>
+      <FooterPage />
     </>
   );
 }
