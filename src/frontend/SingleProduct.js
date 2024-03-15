@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './SingleProduct.css'
 import { json, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
@@ -7,6 +7,7 @@ import HomePage from "./HomePage";
 import FooterPage from "./FooterPage";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { MyContext } from "./ContextApi";
 // import Men from "./Men.js";
 // const userDetail = JSON.parse(localStorage.getItem("userDetails")|| "{}");
 
@@ -18,6 +19,8 @@ const SingleProduct =()=>{
   // console.log(fetchedtoken.token);
   const userdatatoken = JSON.parse(sessionStorage.getItem('userDetailsToken'));
   console.log(userdatatoken);
+  const{ setWishlistPrduct,  setCartProductItemStore} = useContext(MyContext);
+  // const{ setCartProductItemStore} = useContext(MyContext);
 
   // let cartproductItem = JSON.parse(localStorage.getItem('productdata')) || [] ;
 
@@ -99,14 +102,14 @@ const [activeItem, setActive] = useState(null);
          
             },);
 
-         console.log(data.data);
+         console.log("Single product Item",data.data.data.items);
          if(data.data.status === "success"){
+
+          setCartProductItemStore(data.data.data.items);
          toast.success(data.data.message);
         //  localStorage.setItem('CartProduct',JSON.stringify(responce.data.items));
         //  updateCart(responce.data.items)
-          setTimeout(() => {
-                navigate('/AllProduct');
-             }, 2000);
+    
 
          }else{
           toast.error (data.data.message);
@@ -134,14 +137,14 @@ const [activeItem, setActive] = useState(null);
         .then((resp) => resp.json())
         .then((data) =>{
           setWishlist(data); 
+         
 
          if(data.status === "success"){
           fetchwishlistData();
+          setWishlistPrduct(data);
             toast.success(data.message);
             // alert(data.message);
-             setTimeout(() => {
-                navigate('/AllProduct');
-             }, 2000);
+           
               
           }else{
             toast.error(data.message);
