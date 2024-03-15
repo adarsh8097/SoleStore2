@@ -7,6 +7,8 @@ import FooterPage from "./FooterPage";
 
 function Men(){
 
+    
+
     const manCollection = [
         {
             id:"101",
