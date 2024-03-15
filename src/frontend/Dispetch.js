@@ -13,8 +13,7 @@ import HomePage from "./HomePage";
      
     return(
         <>
-      
-        <HomePage/>
+      <HomePage/>
         <div className="card-container mt-5">
             <div className="row">
             <div className="card" style={{height:"370px"}}>
