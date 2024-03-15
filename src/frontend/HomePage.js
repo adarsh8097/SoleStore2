@@ -201,21 +201,23 @@ const fetchwishlistData = () => {
   })
   .then((resp) =>  resp.json())
   .then((data) => {
-      if (data.status === "success") {
+      if (data.status === "success"){
         console.log("data product wishlist", data);
           setWishlistData(data);
           setWishlistPrduct(data);
-          console.log(data);
-          localStorage.setItem('favoriteProductData', JSON.stringify(data.data.items)); // Store data in localStorage
+          // console.log(data);
+          // localStorage.setItem('favoriteProductData', JSON.stringify(data.data.items)); // Store data in localStorage
           toast.success(data.message);
       } else {
           // toast.error(data.message);
+          
           console.log("data not Fetch",data.message);
           
       }
   })
   .catch((error) => {
       console.error("Error fetching wishlist data:", error);
+      
   });
 
 
@@ -276,10 +278,10 @@ useEffect(() =>{
 
 console.log("length of Product",);
 
-   const[datawish , setdataWish] = useState([]);
+   const[dataWish,setdataWish] = useState([]);
     const  addtowishList = async(productId) => {
       try {
-        const response = await fetch(`${API_BASE_URL}/wishlist/`,{
+     const response=   await fetch(`${API_BASE_URL}/wishlist/`,{
           method: 'PATCH',
           headers: {
             Authorization: `Bearer ${userdatatoken}`,
@@ -289,33 +291,38 @@ console.log("length of Product",);
           body: JSON.stringify({ productId }),
         });
         if (!response.ok) {
+          
           throw new Error('Failed to add product to wishlist');
+         
         }
         const data = await response.json();
-        if (data.status === "success") {
-          // setSearchTerm(data);
+
+        if (data.status === "success"){
+          setSearchTerm(data);
           setdataWish(data);
           console.log("wishlist data",data);
           fetchwishlistData();
-          // favorateProduct();
-          toast.success(data.message);
+           toast.success(data.message);
   
-        } else {
-           toast.error(data.message);
+        } 
+        else{
+          toast.error(data.message);
         }
       } catch (error) {
         // toast.error(error.message);
-        console.error("Error:", error);
+         console.error("Error:", error);
+         toast.error(error.message);
         // toast.error("Failed to add product to wishlist");
       
       }
     };
   
+    // console.log(dataWish);
 
     //  console.log(wishlist);
-     useEffect(()=>{
-      addtowishList();
-     },[]);
+    //  useEffect(()=>{
+    //   addtowishList();
+    //  },[]);
 
      
    
