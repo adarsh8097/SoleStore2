@@ -1,22 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './WishlistPage.css';
 import FooterPage from "./FooterPage";
 import HomePage from "./HomePage";
 import Slider from "./Slider";
 import { json, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { MyContext } from "./ContextApi";
+import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 
 function WishlistPage() {
     // const[cartCount , setCartCount] = useState(0);
     const [favoriteProductData, setFavoriteProductsData] = useState([]);
     const navigate = useNavigate();
- 
+    const{setCartProductItemStore,setWishlistPrduct} = useContext(MyContext);
+    const[loder, setLoder] = useState(false);
+    const[currentPage , setIsCurrentPage] = useState(1);
+    const itemsPerPage = 10;
     const userdatatoken = JSON.parse(sessionStorage.getItem('userDetailsToken'));
-  console.log(userdatatoken);
+//   console.log(userdatatoken);
    
 
 
     const fetchwishlistData = () => {
+        try{
+            setLoder(true);
         fetch('https://academics.newtonschool.co/api/v1/ecommerce/wishlist',{
             method: 'GET',
             headers: {
@@ -28,15 +35,17 @@ function WishlistPage() {
         .then((data) => {
             if (data.status === "success") {
                 setFavoriteProductsData(data.data.items);
-                localStorage.setItem('favoriteProductData', JSON.stringify(data.data.items)); // Store data in localStorage
+                // localStorage.setItem('favoriteProductData', JSON.stringify(data.data.items)); // Store data in localStorage
                 toast.success(data.message);
+                setLoder(false);
             } else {
                 toast.error(data.message);
             }
         })
-        .catch((error) => {
+    }catch(error){
             console.error("Error fetching wishlist data:", error);
-        });
+            setLoder(false);
+        };
 
    
     }
@@ -46,8 +55,8 @@ function WishlistPage() {
         fetchwishlistData();
     },[]);
 
-    const favorateProduct = JSON.parse(localStorage.getItem('favoriteProductData')) || [];
-console.log(favorateProduct);
+//     const favorateProduct = JSON.parse(localStorage.getItem('favoriteProductData')) || [];
+// console.log(favorateProduct);
 // let cartproductItem = JSON.parse(localStorage.getItem('productdata')) || [] ;
  const addtocart = (id) => {
     try {
@@ -72,11 +81,12 @@ console.log(favorateProduct);
         })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
+            console.log("wishlistDataItem",data.data.items);
             if(data.status === "success") {
+                setCartProductItemStore(data.data.items);
                 toast.success(data.message);
                 // setCartCount(data.results);
-                localStorage.setItem('productdata', JSON.stringify(data.data.items));
+                // localStorage.setItem('productdata', JSON.stringify(data.data.items));
             // setTimeout(() => {
             //     navigate('/AllProduct');
             //  }, 2000);
@@ -108,10 +118,12 @@ const deletewishlist = (id) => {
         })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
+            console.log("itms deleted",data);
             if (data.status === "success") {
+                // setFavoriteProductsData(data.data.items);
+                setWishlistPrduct(data);
                 fetchwishlistData();
-                toast.success(data.message);
+                // toast.success(data.message);
             } else {
                 toast.error(data.message);
             }
@@ -123,7 +135,15 @@ const deletewishlist = (id) => {
         } 
     }
 
+    const totalPages = Math.ceil(favoriteProductData.length / itemsPerPage);
 
+    const handlePageChange = (action) => {
+        if (action === 'prev') {
+            setIsCurrentPage(currentPage - 1);
+        } else if (action === 'next') {
+            setIsCurrentPage(currentPage + 1);
+        }
+      };
     
     
     //  function ClearWishlist(){
@@ -148,14 +168,25 @@ const deletewishlist = (id) => {
 
     //  ClearWishlist();
 
+    // const totalItems = favoriteProductData.length ? 
+
     return (
         <>
-            {/* <ToastContainer /> */}
-            <HomePage />
-            {/* <Slider /> */}
-            {/* <h1>This is my wishlist page...!</h1> */}
-
-            <div className="favorite-component row col-sm-12">
+           {loder?<div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh', // Make the spinner container cover the entire viewport height
+      }}
+    >
+      <div className="spinner-border" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>
+    </div>:(
+        <>
+         <HomePage />
+           <div className="favorite-component row col-sm-12">
                 {favoriteProductData.length > 0 ? (
                     favoriteProductData.map((item, index) => (
                         <div className="card product-card  column col-sm-3 mt-3" style={{ height: "440px" }} key={index}>
@@ -172,9 +203,9 @@ const deletewishlist = (id) => {
                                     </button>
                                 </div>
                             </div>
-                        </div>
-                    ))
-                ) : (
+                           </div>
+                        
+                    )) ) : (
                     <div className="empty-cart-product mt-2">
                         <span><img src="https://www.thesouledstore.com/static/img/wishList-empty-icon.fd2a993.png" alt="no-product" /></span>
                         <p className='favorite-para'>Your wishlist is lonely and looking for love.</p>
@@ -182,10 +213,13 @@ const deletewishlist = (id) => {
                         <button className="cont-shoping">CONTINUE SHOPPING</button>
                     </div>
                 )}
-         
+            
+            
 
             </div>
             <FooterPage />
+            </>
+            )}
         </>
     );
 }
