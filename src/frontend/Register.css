@@ -1,0 +1,27 @@
+.comming{
+    font-size: 8rem;
+    padding: 20px;
+    justify-content: center;
+    text-align: center;
+    margin-top: 40px;
+}
+
+@media screen and (max-width:667px){
+    .comming{
+        font-size: 2rem;
+        padding: 20px;
+        justify-content: center;
+        text-align: center;
+        margin-top: 40px;
+    }
+}
+
+@media (min-width:668px) and (max-width:900px){
+    .comming{
+        font-size: 4rem;
+        padding: 20px;
+        justify-content: center;
+        text-align: center;
+        margin-top: 40px;
+    }
+}
