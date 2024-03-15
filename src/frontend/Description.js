@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import './Description.css';
 import HomePage from "./HomePage";
 import FooterPage from "./FooterPage";
-import WomenCollection from './WomenCollectionJson';
+// import WomenCollection from './WomenCollectionJson';
 import { Link, useNavigate } from "react-router-dom";
 import Slider from "./Slider";
 import { FaHeart } from "react-icons/fa";
 
- 
+
 function Description(){
  let productDetail = true ;
 console.log("productDetail",productDetail);
@@ -17,16 +17,16 @@ console.log("productDetail",productDetail);
     const foo = params.get('_id');
     console.log(foo);
     
-    var result = WomenCollection.filter(function(element){
-      if (element._id === foo){
+  //   var result = WomenCollection.filter(function(element){
+  //     if (element._id === foo){
         
-          productDetail=element;
-          console.log("productDetail value", productDetail);
-          return true;
-      } else {
-          return false;
-      }
-  });
+  //         productDetail=element;
+  //         console.log("productDetail value", productDetail);
+  //         return true;
+  //     } else {
+  //         return false;
+  //     }
+  // });
 
 
     const navigate = useNavigate();
@@ -77,16 +77,6 @@ console.log("productDetail",productDetail);
       console.log(favoritesProduct);
   
     }
-    const[activeItem, setActive] = useState(null);
-
-    const handleItemCheck =(index)=>{
-   setActive(index);
-
-    }
-
-    const items =['XXS', 'XS', 'S', 'M', 'L','XL','XXL'];
-
-
 return(
         <>
         <HomePage/>
@@ -113,14 +103,14 @@ return(
             </div>
             <div className="product-price">{productDetail.RodePrice}</div>
             <div className="product-size">Please select a size:
-             <ul>
-              {items.map((item,index)=>(
-                <li key={index} onClick={() => handleItemCheck(index)}
-                className={index === activeItem ? 'active' : ''}
-                >
-                  {item}
-                </li>
-              ))}
+            <ul>
+                <li>XXS</li>
+                <li>XS</li>
+                <li>S</li>
+                <li className="active">M</li>
+                <li>L</li>
+                <li>XL</li>
+                <li>XXL</li>
             </ul>
 
             </div>
