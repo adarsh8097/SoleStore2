@@ -172,23 +172,24 @@ const deletewishlist = (id) => {
 
     return (
         <>
-           {loder?<div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh', // Make the spinner container cover the entire viewport height
-      }}
-    >
-      <div className="spinner-border" role="status">
-        <span className="sr-only">Loading...</span>
-      </div>
-    </div>:(
-        <>
-         <HomePage />
+          <HomePage />
            <div className="favorite-component row col-sm-12">
                 {favoriteProductData.length > 0 ? (
                     favoriteProductData.map((item, index) => (
+                       <>
+                        {loder?<div
+                            style={{
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              height: '100vh', // Make the spinner container cover the entire viewport height
+                            }}
+                          >
+                            <div className="spinner-border" role="status">
+                              <span className="sr-only">Loading...</span>
+                            </div>
+                          </div>:(
+                              <>
                         <div className="card product-card  column col-sm-3 mt-3" style={{ height: "440px" }} key={index}>
                             <div className="WishlistIcon pl-1 pb-2 pr-1 wishlist">
                                 <div onClick={() => deletewishlist(item.products._id)}>
@@ -204,8 +205,12 @@ const deletewishlist = (id) => {
                                 </div>
                             </div>
                            </div>
+                           </>
+                           )}
+                           </>
+
                         
-                    )) ) : (
+                    )) ): (
                     <div className="empty-cart-product mt-2">
                         <span><img src="https://www.thesouledstore.com/static/img/wishList-empty-icon.fd2a993.png" alt="no-product" /></span>
                         <p className='favorite-para'>Your wishlist is lonely and looking for love.</p>
@@ -213,13 +218,12 @@ const deletewishlist = (id) => {
                         <button className="cont-shoping">CONTINUE SHOPPING</button>
                     </div>
                 )}
-            
-            
 
-            </div>
+             </div>
             <FooterPage />
-            </>
-            )}
+           
+            
+            
         </>
     );
 }
