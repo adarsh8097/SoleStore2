@@ -5,6 +5,7 @@ import { FaFacebook, FaGoogle } from "react-icons/fa";
 import FooterPage from "./FooterPage";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import HomePage from "./HomePage";
 
 function Register() {
   const [userFirstName, setUserFirstName] = useState("");
@@ -13,56 +14,112 @@ function Register() {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const navigate = useNavigate();
+  const[loder , setLoder] = useState(false);
 
-  const submitForm = (e) => {
-    e.preventDefault();
-    fetch("https://academics.newtonschool.co/api/v1/user/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        projectId: "8spjkxc7tnxh",
-      },
-      body: JSON.stringify({
-        name: userFirstName,
-        last_name: userLastName,
-        email: email,
-        password: password,
-        phonenumber: phone,
-        appType: "ecommerce",
-      }),
-    })
-      .then((resp) => {
-        if (resp.status >= 400) {
-          throw new Error("data not found");
-        }
-        return resp.json();
-      })
-      .then((data) => {
-        if (data.status === 'success') {
-          sessionStorage.setItem("userDetails", JSON.stringify(data));
-          toast.success("Register SuccessFully")
-          alert("Register SuccessFully");
+
+  // const submitForm = (e) => {
+  //   e.preventDefault();
+  //   fetch("https://academics.newtonschool.co/api/v1/user/signup", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       projectId: "8spjkxc7tnxh",
+  //     },
+  //     body: JSON.stringify({
+  //       name: userFirstName,
+  //       last_name: userLastName,
+  //       email: email,
+  //       password: password,
+  //       phonenumber: phone,
+  //       appType: "ecommerce",
+  //     }),
+  //   })
+  //     .then((resp) => {
+  //       if (resp.status >= 400) {
+  //         throw new Error("data not found");
+  //       }
+  //       return resp.json();
+  //     })
+  //     .then((data) => {
+  //       if (data.status === 'success') {
          
-          navigate('/LoginPage');
-        } else {
-          alert(data.message);
-          toast.error(data.message);
-        }
-      })
-      .catch((error) => {
-        alert(error.message);
-        console.log("data is not found...!", error);
-      });
-  };
+  //         toast.success("Register SuccessFully")
+  //         alert("Register SuccessFully");
+  //         sessionStorage.setItem("userDetails", JSON.stringify(data));
+         
+  //         navigate('/LoginPage');
+  //       } else {
+  //         alert(data.message);
+  //         toast.error(data.message);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       alert(error.message);
+  //       console.log("data is not found...!", error);
+  //     });
+  // };
+   
+  const submitForm=(e)=>{
+    e.preventDefault();
+    try{
+      setLoder(true);
+      fetch('https://academics.newtonschool.co/api/v1/user/signup',{
+        method:"POST",
+        headers:{
+          "Content-Type": "application/json",
+           projectId: "8spjkxc7tnxh",
+        },
+        body: JSON.stringify({
+                name: userFirstName,
+                last_name: userLastName,
+                email: email,
+                password: password,
+                phonenumber: phone,
+                appType: "ecommerce",
+              }),
 
+      })
+      .then((response)=> response.json())
+      .then((data)=>{
+        if(data.status === 'success'){
+          toast.success("Register Successfully");
+        console.log(data);
+        navigate('/LoginPage');
+
+        }
+        else{
+          toast.error(data.message);
+          console.log("Data not found");
+        }
+      });
+
+    }catch(error){
+       console.log("Data not found",error);
+       setLoder(false);
+    }
+  }
   const handleRegisterClick = () => {
     alert("Server side issue please try after sometime...!");
+    setLoder(false);
   }
 
   return (
     <>
       {/* <!-- register --> */}
-      <ToastContainer/>
+      {/* <ToastContainer/> */}
+      {loder?<div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh', // Make the spinner container cover the entire viewport height
+      }}
+    >
+      <div className="spinner-border" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>
+    </div>:(<>
+      <HomePage/>
       <div id="page-container">
         <div id="login-container">
           <div id="main-login-content-container">
@@ -166,6 +223,7 @@ function Register() {
         </div>
       </div>
       <FooterPage />
+      </>)}
     </>
   )
 }
