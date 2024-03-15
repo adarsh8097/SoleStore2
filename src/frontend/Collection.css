@@ -1,182 +1,129 @@
-import React from "react";
-import './Collection.css';
-import { Link } from "react-router-dom";
 
-function Collection(){
 
+#collection {
    
-    const CollectionProduct = [
-      {
-        id:"101",
-        name:"women-wollection",
-        imageshow:"./img/Collection-tile-joggerd_1.webp",
-        alt:"images-Loding"
-      },
-      {
-        id:"102",
-        name:"women-wollection",
-        imageshow:"./img/Collection-Tile2.webp",
-        alt:"images-Loding"
-      },
-      {
-        id:"103",
-        name:"women-collecton",
-        imageshow:"collection1.webp",
-        alt:"images-Loding"
-
-      },
-      {
-        id:"104",
-        name:"women-collecton",
-        imageshow:"./img/Collection-tile_1.webp",
-        alt:"images-Loding"
-
-      },
-      {
-        id:"105",
-        name:"women-collecton",
-        imageshow:"./img/collection-tile_pretty-Pink_2_Jz32NqG.webp",
-        alt:"images-Loding"
-
-      },
-      {
-        id:"106",
-        name:"women-collecton",
-        imageshow:"./img/Colllection-Tiles-1-Sara-red.webp",
-        alt:"images-Loding"
-
-      },
-
-      
-
-    ]
-
-    const CatagoryProduct =[
-      {
-        id:"201",
-        name:"women-Catagory-collection",
-        imageshow:"./img/category1.webp",
-        alt:"product-img"
-      },
-      {
-        id:"202",
-        name:"women-Catagory-collection",
-        imageshow:"./img/category2.webp",
-        alt:"product-img"
-      },
-      {
-        id:"203",
-        name:"women-Catagory-collection",
-        imageshow:"./img/category3.webp",
-        alt:"product-img"
-      },
-      {
-        id:"204",
-        name:"women-Catagory-collection",
-        imageshow:"./img/category4.webp",
-        alt:"product-img"
-      },
-      {
-        id:"205",
-        name:"women-Catagory-collection",
-        imageshow:"./img/category5.webp",
-        alt:"product-img"
-      },
-      {
-        id:"206",
-        name:"women-Catagory-collection",
-        imageshow:"./img/category6.webp",
-        alt:"product-img"
-      },
-    ]
-   
-
-    return (
-        <>
-        
-        <div id="collection">
-          
-          <div className="collection-heading">COLLECTIONS</div>
-          <div id="collection-card-container">
-            { CollectionProduct.map((item)=> (
-            <div className="collection-img-card-div cloumn " key={item.id}>
-            <Link to="AllWomenCollection"><img src={item.imageshow} alt={item.alt} /></Link>  
-            </div>
-            ))}
-          </div>
-        </div>
-        <div className="shopby-color">
-        </div>
-        <div class="category">
-          
-          <div class="collection-heading">CATEGORY</div>
-          <div id="category-card-container">
-            {CatagoryProduct.map((item)=> (
-            <div class="category-img-card-div column" key={item.id}>
-            <Link to="AllWomenCollection"> <img src={item.imageshow} alt={item.alt} /></Link>
-            </div>
-            ))};
-           
-            
-          </div>
-        </div>
-
-        <div class="category2">
-          
-          <div><img src="./img/category7.webp" alt="error" /></div>
-          <div><img src="./img/category8.webp" alt="error" /></div>
-          <div><img src="./img/category9.webp" alt="error" /></div>
-          <div><img src="./img/category10.webp" alt="error" /></div>
-        </div>
-       
-
-        <div className="collection">
-          
-        <div class="collection-heading">SHOP BY OCCASIONS</div>
-        <div id="collection-card-container">
-            <div class="collection-img-card-div">
-              <img src="shop1.webp" alt="error" />
-            </div>
-            <div class="collection-img-card-div">
-              <img src="shop2.webp" alt="error" />
-            </div>
-            <div class="collection-img-card-div">
-              <img src="shop3.webp" alt="error" />
-            </div>
-            
-            </div>
-        </div>
-
-        <div id="OFFICIAL-MERCHANDISE-parent">
-          <div class="collection-heading">OFFICIAL MERCHANDISE</div>
-          <div id="OFFICIAL-MERCHANDISE">
-            <div><img src="./img/netflix.webp" alt="error" /></div>
-            <div><Link to="#"><img src="./img/marvel.webp" alt="error" /></Link></div>
-            <div><Link to="#"><img src="./img/disney.webp" alt="error" /></Link></div>
-            <div><img src="./img/dc.webp" alt="error" /></div>
-          </div>
-        </div>
-
-        <div class="saradiv-poster">
-          <div class="collection-heading">
-            STRAIGHT OUT OF CELEBRITY CLOSETS
-          </div>
-          <img src="./img/sara poster.webp" alt="error" />
-        </div>
-        <div class="saradiv-poster">
-        <div class="collection-heading">
-           MEMBERSHIP
-          </div>
-          <img src="./img/big bottom banner.webp" alt="" />
-        </div>
-
-        
-      
-        </>
-
-        
-    );
-
+    padding: 1rem;
+    margin: 1rem 0;
 }
 
-export default Collection;
+.collection-heading {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 1.8rem;
+    margin: 1rem 0;
+}
+.collection-heading:hover{
+    color: red;
+}
+#collection-card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+   
+   gap: 1rem;
+  
+}
+
+.collection-img-card-div img {
+    /* border: 1px solid; */
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: block;
+    margin: auto;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
+        rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.collection-img-card-div img:hover {
+   opacity: 0.8;
+    cursor: pointer;
+   
+}
+
+@keyframes modal-animation {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.8
+    }
+}
+
+
+div.scroll-container {
+    background-color: #fff;
+    overflow: auto;
+    white-space: nowrap;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  div.scroll-container img{
+    padding: 10px;
+  }
+
+  div.scroll-container :hover{
+    transform: translateY(-3px);
+  }
+ 
+
+ 
+#category-card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem; 
+     cursor: pointer;
+}
+
+.category-img-card-div {
+    padding: 0.5rem;
+   
+} 
+
+.category-img-card-div img {
+    width: 100%;
+ 
+} 
+
+.category-img-card-div img:hover {
+    transform: translateY(-3px);
+ 
+} 
+.category2,
+#OFFICIAL-MERCHANDISE {
+    display: flex;
+    justify-content: space-around;
+    padding: 0.3rem;
+    margin: 0;
+    cursor: pointer;
+}
+
+.category2 img,
+#OFFICIAL-MERCHANDISE img {
+    display: block;
+    margin: auto;
+    width: 98%;
+}
+
+.category2 img:hover{
+    opacity: 0.8;
+    width: 100%;
+   overflow: hidden;
+}
+
+#OFFICIAL-MERCHANDISE  img:hover{
+    opacity: 0.5;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* sarah - poster and below banner*/
+.saradiv-poster {
+    margin: 2rem 0;
+}
+
+.saradiv-poster img {
+    width: 100%;
+}
