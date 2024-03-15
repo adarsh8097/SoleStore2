@@ -10,8 +10,7 @@ import './UserProfile.css';
 function UserProfile() {
     const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(4);
-
-    const numberofhistoryItem = sessionStorage.getItem('numberofCheckOutItem')
+ const numberofhistoryItem = sessionStorage.getItem('numberofCheckOutItem')
     const userDetail = JSON.parse(sessionStorage.getItem("userDetails") || "{}");
     const userdatatoken = JSON.parse(sessionStorage.getItem('userDetailsToken'));
     const deliverydata = JSON.parse(localStorage.getItem("userpaymentdetails") || "{}");
@@ -20,6 +19,8 @@ function UserProfile() {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = orderdata.slice(indexOfFirstItem, indexOfLastItem);
+    const[loder , setLoder] = useState(false);
+
   
     // Change page
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -45,6 +46,7 @@ function UserProfile() {
 
     const fetchOrderdata = () => {
         try {
+            setLoder(true);
             fetch('https://academics.newtonschool.co/api/v1/ecommerce/order/', {
                 method: "GET",
                 headers: {
@@ -54,16 +56,17 @@ function UserProfile() {
             })
             .then((response) => response.json())
             .then((data) => {
-                // setOrderData(data.data.slice(data.data.length-numberofhistoryItem,data.data.length));
-                // console.log("adrress",data.data.slice(data.data.length-numberofhistoryItem)[0].order.shipmentDetails.address)
+                setOrderData(data.data.slice(data.data.length-numberofhistoryItem,data.data.length));
+                console.log("adrress",data.data.slice(data.data.length-numberofhistoryItem)[0].order.shipmentDetails.address)
                 setAddress(data.data.slice(data.data.length-numberofhistoryItem)[0].order.shipmentDetails.address);  
                 // console.log("Order data-",data);
-                setOrderData(data.data);
-                console.log("Oreder history data",data.data);
-
+                // setOrderData(data.data);
+                // console.log("Oreder history data",data.data);
+                setLoder(false);
             });
         } catch (error) {
             console.log("Error fetching order data:", error);
+            setLoder(false);
         }
     }
 
@@ -90,12 +93,24 @@ function UserProfile() {
     //   const hasPreviousPage = currentPage > totalPages;
     return (
         <>
+             {loder?<div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh', // Make the spinner container cover the entire viewport height
+      }}
+    >
+      <div className="spinner-border" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>
+    </div>:(<>
             <HomePage />
             <h4>User Profile Section</h4>
             {/* User Info */}
             <div className="order-know">
             <div className="card-data" style={{padding:"10px",margin:"10px"}}>
-                    <div className="card" style={{height:"600px"}}>
+                    <div className="card" style={{height:"500px",width:"auto"}}>
                     <div className="card-header">
                         <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAH4AfgMBIgACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAABQYCAwQBB//EADUQAAICAQEFAgwGAwAAAAAAAAABAgMEEQUSITFRQWEGEyIyQmJxgZGhwdEUI1JTseFygvD/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A+4gAAAAAAAA8bS4t6GmWZixeksmlPo7EBvBphlY9nCF9Un6s0zbqB6AAAAAAAAAAABHbW2nDBhux0ldJeTHp3sDpzM2jDhvXz015RXFv3EBmbfyLdY48VTHrzkRd1tl9krLpOc5c2zADO2621622Tm/WepgAB4b6MvIx3+TdOPcnw+BpAE9heEEtVHMgtP3IL+UTtNtd1asqnGcXycXqUQ6cHOuwrd+p6xfnQb4SAuoOfCy68yiNtT4Pg0+afQ6AAAAAADnz8qOHjTunx04RXV9iKZdbO+2Vtst6cnq2SnhJleNy1RF+RUuP+T/rQiAAAAAlNm7JeRFW5Dca35sVzf8ARMV4WLWtIY9S9sdf5AqYLTfs3Eujo6Yxf6oeSyB2jgWYU09d6uXmy+jA5AAB17LzZYOSp865cJx7upcoSU4qUXqmtU0UIs3g3lO3ElRN6yqfD/F/8wJgAADyT0Wr7D00Zz3cLIa5quTXwApd1juustfOcnL4mB4egDp2bQsnMrrl5uusvYjmJDYMks/R9sGkBZPYBquo1WugA1ZNEcmidU/SWifR9hs3l1PIS156agU1pxbTWjXBgzyJKeRZKPJzbXxMABI+D9rr2nCPZZFx+v0I46NmvTaGNpz8bFfMC7AAAacuHjMW6C5yrkvkbjxgUIG7Np/D5l1L9GT09nZ8jSAM6LHRbC2POL1MABbcayvJpjZVLWL+T6G3c7ytYkc/Hj47HrsUHz8nVP3HbXt793H4+rL7gTG4jh2rlRxcdxjL82a0iunecdm2rrfIxaEpv/Z+5Edl05UZ+MyoWb0vSl2+8Dn0PQAB1bLhv7Sxkv3E/hxOUlfBunxmc7dOFcfm+X1AtIAAAACv+E2I96GXBcPNn9GQJe7qoXVTrsjrGa0aKbtHDswch12auPOE/wBSA001TusjXXHelJ6JFiwNl1YqU7ErLv1PkvYebHwvw1CsmvzrFq/VXQkABhOqub1nXCT74pmYA8hCEPMjGPsWh60pJqSTT5pgAQ20dkJp24i0fbX9vsQhdCC27hKEvxVS0UnpNd/UCILdsPEeLhLfWllnlS7uiIbYWznk3LItj+TB8NfTf2LSAAAAAADTk41OTBRugpJPVdzNwA55xcX3GJ1GuVS7OAGkGbrkuwx3ZdH8APAeqEujM1U3z4Aaz2WPG+uULlrCS0aN0a1HvZmBjCuFcIwhFRjFaJLsMgAAAAAAAAAAAAAAAAAAAAAAAAAP/9k=" alert="profile-dp"/>
                     </div>
@@ -121,17 +136,19 @@ function UserProfile() {
                         
                         <p style={{padding:"0",margin:"0"}}>State: {address.state}</p>
                     </div>
+                    <hr></hr>
+                        <div className="">
+                            <p className="logutbutton" onClick={logOutBtn}>LogOut</p>
+                        </div>
                     </div>
                     ):(
                         <div>
                             {/* <div>THis is not address found </div> */}
                         </div>
                        )}
+
                        </div>
-                        <hr></hr>
-                        <div className="Logout" >
-                            <p className="logutbutton" onClick={logOutBtn}>LogOut</p>
-                        </div>
+                       
                     </div>
                       
 
@@ -140,6 +157,7 @@ function UserProfile() {
                  
 
             {/* Order Details */}
+       
          {orderdata.length > 0 && orderdata[0] && orderdata[0].order ?(
             <div className="order-details">
                 {/* <h2>Order Details</h2> */}
@@ -214,9 +232,11 @@ function UserProfile() {
                         <p>No Order data Found</p>
                     </div>
                 )}
+                
                 </div>
 
             <FooterPage />
+            </>)}
         </>
     );
 }
