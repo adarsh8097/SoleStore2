@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import HomePage from "./HomePage";
 import Slider from "./Slider";
 import FooterPage from "./FooterPage";
+import './Register.css';
 
  let projectId = '8spjkxc7tnxh';
  let base_domain = 'https://academics.newtonschool.co/';
@@ -58,12 +59,7 @@ function MyFilterProduct(){
         <div>
             <HomePage/>
             <Slider/>
-             <p style={{
-                 padding:"5rem",
-                 fontSize:"8rem",
-                 textAlign:"center"
-
-             }}>Comming soon ..!</p>
+             <p className="comming">Comming soon ..!</p>
              {/* <div>
                 {category.map((d,index)=>(
                     <div key={index}>
