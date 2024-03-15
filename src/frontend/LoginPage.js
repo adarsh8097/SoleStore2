@@ -10,10 +10,12 @@ function LoginPage() {
     const navigate = useNavigate();
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
+    const[loder , setLoder] = useState(false);
     // const [btnToggle , setBtnToggle] = useState(true); // Initialize btnToggle state here
         // var btnToggle = true;
     const LoginUp = async () => {
         try {
+            setLoder(true);
             const resp = await fetch('https://academics.newtonschool.co/api/v1/user/login', {
                 method: "POST",
                 headers: {
@@ -48,17 +50,19 @@ function LoginPage() {
             // btnToggle = false;
             toast.success(`Welcome ${userdata.name}`);
             //  alert(`Welcome ${userdata.name}`);
-             setTimeout(()=>{
+            setLoder(false);
                 // btnToggle = false;
                 navigate('/');
-             },1000);
+            
            
         } catch (error) {
             // setBtnToggle(false);
             console.error('Login failed:', error);
+
            
             // alert(error.message);
         toast.error(error.message);
+        setLoder(false);
         }
     };
 
@@ -83,6 +87,19 @@ function LoginPage() {
     return (
         <>
             {/* <ToastContainer /> */}
+            {loder?<div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh', // Make the spinner container cover the entire viewport height
+      }}
+    >
+      <div className="spinner-border" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>
+    </div>:(
+        <>
             <HomePage />
             <div id="myModal" class="modal">
                 <div class="modal-content">
@@ -149,6 +166,7 @@ function LoginPage() {
                     </div>
                 </div>
             </div>
+            </>)}
         </>
     );
 }
