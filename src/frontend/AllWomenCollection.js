@@ -129,16 +129,22 @@ function AllProduct() {
         throw new Error('Failed to add product to wishlist');
       }
       const data = await response.json();
-      if (data.status === "success") {
+      if (data.status === 'success') {
         toast.success(data.message);
         setWishlistPrduct(data);
-       
-      } else {
+        }
+      else{
+        if(data.message){
         toast.error(data.message);
+        }else{
+          throw new Error('Failed to add product to wishlist');
+        }
       }
     } catch (error) {
+      // toast.error('Please Login first..!');
+      toast.error(error.message);
       console.error("Error:", error);
-      toast.error(error);
+     
     }
   };
 
