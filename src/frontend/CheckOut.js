@@ -614,14 +614,12 @@ function CheckOut() {
         name="expmonth" 
         placeholder="MM" 
         required 
+        
         value={chaeckOutdata.expmonth} 
         onChange={(e)=>handleMonth(e)}
 
         />
-                  
-           
-             <div class="col-50">
-               <label for="expyear">Exp Year</label>
+           <label for="expyear">Exp Year</label>
                <input type="text"
                 id="expyear"
                  name="expyear" 
@@ -631,10 +629,7 @@ function CheckOut() {
                    value={chaeckOutdata.expyear}
                     onChange={(e)=>handleYear(e)}
                    />
-             </div>
-             
-             <div class="col-50">
-               <label for="cvv">CVV</label>
+             <label for="cvv">CVV</label>
                <input type="text"
                 id="cvv"
                  name="cvv"
@@ -645,7 +640,7 @@ function CheckOut() {
                    value={chaeckOutdata.cvv}
                     onChange={(e)=>handleCVV(e)}
                    />
-             </div>
+           
              </div>
                  ):(
                   <div>
