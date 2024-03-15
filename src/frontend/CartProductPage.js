@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './CartProductPage.css';
 import HomePage from "./HomePage";
 import Slider from "./Slider";
@@ -9,6 +9,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { type } from "@testing-library/user-event/dist/type";
+import { MyContext } from "./ContextApi";
 
 function CartItem() {
 
@@ -19,6 +20,8 @@ function CartItem() {
   const[cartItem , setIsCart] = useState([]);
   console.log(userdatatoken);
   const navigate = useNavigate();
+  const{setCartProductItemStore} = useContext(MyContext);
+  const[loder , setLoder] = useState(false);
 
   function userdeatils() {
     if (Object.keys(userdatatoken).length === 0) {
@@ -32,6 +35,7 @@ function CartItem() {
 
   const getData = () => {
     try {
+      setLoder(true);
       fetch(`https://academics.newtonschool.co/api/v1/ecommerce/cart`, {
         method: "GET",
         headers: {
@@ -49,11 +53,11 @@ function CartItem() {
         setProductdata(data);
         console.log(data);
         if (data.status === "success") {
-          localStorage.setItem('productdata', JSON.stringify(data.data.items));
+         // localStorage.setItem('productdata', JSON.stringify(data.data.items));
           setProductdata(data);
-          
-        console.log(data);
+         console.log(data);
           toast.success(data.message);
+          setLoder(false);
         } else {
           toast.error(data.message);
         }
@@ -61,10 +65,12 @@ function CartItem() {
       .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
         toast.error(error.message);
+        setLoder(false);
       });
     } catch (error) {
       console.log("data not get it", error);
       toast.error('Failed to fetch data. Please try again later.');
+      setLoder(false);
     }
   }
   
@@ -79,7 +85,7 @@ function CartItem() {
 
   const deleteItem = async (id) => {
     try{
-
+        console.log("DarshProductData");
       fetch(`https://academics.newtonschool.co/api/v1/ecommerce/cart/${id}`,{
         method:'delete',
 
@@ -89,9 +95,12 @@ function CartItem() {
               },
             })
             .then((response) => response.json())
-            .then((data) => {console.log(data)
+            .then((data) => {
+              
              
                if(data.status === "success"){
+                console.log("ClearDataCataItem",data);
+                setCartProductItemStore(data.data.items);
                 getData();
                 toast.success(data.message);
                }else{
@@ -183,7 +192,19 @@ function CartItem() {
 
   return (
     <>
-      {/* <ToastContainer /> */}
+     {loder?<div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh', // Make the spinner container cover the entire viewport height
+      }}
+    >
+      <div className="spinner-border" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>
+    </div>:(
+  <>
       <HomePage />
       {/* <Slider /> */}
       {/* <h1>This is CartItem Product..!</h1> */}
@@ -303,6 +324,8 @@ function CartItem() {
         )}
       </div>
       <FooterPage />
+      </>
+      )}
     </>
   );
 }
