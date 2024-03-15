@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./CheckOut.css";
 import { useNavigate } from "react-router-dom";
 import HomePage from "./HomePage";
+import { MyContext } from "./ContextApi";
 import { toast } from "react-toastify";
 
+
 const userDetail = JSON.parse(sessionStorage.getItem("userDetails") || "{}");
-let cartproductItem = JSON.parse(localStorage.getItem("productdata") || "{}");
+// let cartproductItem = JSON.parse(localStorage.getItem("productdata") || "{}");
 
 const userdatatoken = JSON.parse(
   sessionStorage.getItem("userDetailsToken")
@@ -14,12 +16,15 @@ const userdatatoken = JSON.parse(
 let TotalProductItem = sessionStorage.getItem('totalPrice');
 console.log("Total Product price",TotalProductItem);
 
-console.log(cartproductItem);
+
+// console.log(cartproductItem);
 
 function CheckOut() {
  
+  const{setCartProductItemStore,cartproductItemStore} = useContext(MyContext);
   const [totalPrice, setTotalPrice] = useState(0);
   const navigate = useNavigate();
+  const[loder , setLoder] = useState(false);
 
   const [chaeckOutdata, setCheckoutData] = useState({
     fname:userdatatoken?userDetail.name:"" || "",
@@ -77,13 +82,17 @@ function CheckOut() {
     }));
   };
 
+
+
+
+
   // console.log(getItem.data.totalPrice);
 
   //  let ItemPrice = getItem.data.totalPrice;
   //  console.log(ItemPrice);
   const getTotalPrice = () => {
     let totalPrice = 0;
-    cartproductItem.forEach((item) => {
+    cartproductItemStore.forEach((item) => {
       totalPrice += item.product.price * item.quantity;
     });
     return totalPrice;
@@ -91,37 +100,37 @@ function CheckOut() {
 
   useEffect(()=>{
     setTotalPrice(getTotalPrice());
-  },[cartproductItem]);
+  },[cartproductItemStore]);
 
-  const deleteItem = async (id) => {
-  try{
-        console.log(id);
-      fetch(`https://academics.newtonschool.co/api/v1/ecommerce/cart/${id}`,{
-        method:'delete',
+  // const deleteItem = async (id) => {
+  // try{
+  //       console.log(id);
+  //     fetch(`https://academics.newtonschool.co/api/v1/ecommerce/cart/${id}`,{
+  //       method:'delete',
 
-       headers: {
-                Authorization: `Bearer ${userdatatoken}`,
-                projectId: "8spjkxc7tnxh",
-              },
-            })
-            .then((response) => response.json())
-            .then((data) => {
-              console.log(data)
+  //      headers: {
+  //               Authorization: `Bearer ${userdatatoken}`,
+  //               projectId: "8spjkxc7tnxh",
+  //             },
+  //           })
+  //           .then((response) => response.json())
+  //           .then((data) => {
+  //             console.log(data)
              
-               if(data.status === "success"){
-                // getData();
-                 toast.success(data.message);
-               }else{
-                toast.success(data.message);
-               }
-            });
+  //              if(data.status === "success"){
+  //               // getData();
+  //               //  toast.success(data.message);
+  //              }else{
+  //               toast.success(data.message);
+  //              }
+  //           });
       
        
-    }catch(err){
-      console.log("error message", err);
-    }
+  //   }catch(err){
+  //     console.log("error message", err);
+  //   }
 
-  };
+  // };
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -217,62 +226,269 @@ function CheckOut() {
   //     console.error("Error:", error);
   //   }
   // };
-  
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  
+  const deleteItem = async (id) => {
     try {
-      sessionStorage.setItem("numberofCheckOutItem",cartproductItem?.length);
-      for (const item of cartproductItem) {
-        const response = await fetch("https://academics.newtonschool.co/api/v1/ecommerce/order", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${userdatatoken}`,
-            projectId: "8spjkxc7tnxh",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            productId: item.product._id,
-            quantity: item.quantity,
-            addressType: "HOME",
-            address: {
-              street: chaeckOutdata.street,
-              city: chaeckOutdata.city,
-              state: chaeckOutdata.state,
-              country: "India",
-              zipCode: chaeckOutdata.zip,
-            },
-          }),
-        });
+      const response = await fetch(`https://academics.newtonschool.co/api/v1/ecommerce/cart/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${userdatatoken}`,
+          projectId: "8spjkxc7tnxh",
+        },
+      });
   
-        if (!response.ok) {
-          const errorData = await response.json();
-          console.error("Error:", errorData);
-          throw new Error(errorData.message || "Failed to place order");
-        }
+      const data = await response.json();
   
-        const data = await response.json();
-        if (data.status === "success") {
-          localStorage.removeItem('productdata');
-         await deleteItem(item.product._id);
-         
-          toast.success(data.message);
-          navigate("/dispetch");
-        } else {
-          toast.error(data.message);
-        }
+      if (response.ok) {
+        // Item deleted successfully
+        console.log(data);
+      } else {
+        // Item deletion failed
+        toast.error(data.message);
       }
-
-      // localStorage.removeItem('productdata');
-      // navigate("/dispetch");
-    } catch (error) {
-      toast.error("Error placing order: " + error.message);
-      console.error("Error:", error);
+    } catch (err) {
+      // Error occurred during the delete operation
+      console.log("error message", err);
     }
   };
   
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  
+  //   try {
+  //     sessionStorage.setItem("numberofCheckOutItem",cartproductItemStore?.length);
+  //     const deletePromises = [];
+  //     for (const item of cartproductItemStore) {
+  //       const response = await fetch("https://academics.newtonschool.co/api/v1/ecommerce/order", {
+  //         method: "POST",
+  //         headers: {
+  //           Authorization: `Bearer ${userdatatoken}`,
+  //           projectId: "8spjkxc7tnxh",
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           productId: item.product._id,
+  //           quantity: item.quantity,
+  //           addressType: "HOME",
+  //           address: {
+  //             street: chaeckOutdata.street,
+  //             city: chaeckOutdata.city,
+  //             state: chaeckOutdata.state,
+  //             country: "India",
+  //             zipCode: chaeckOutdata.zip,
+  //           },
+  //         }),
+  //       });
+  
+  //       if (!response.ok) {
+  //         const errorData = await response.json();
+  //         console.error("Error:", errorData);
+  //         throw new Error(errorData.message || "Failed to place order");
+  //       }
+  
+  //       const data = await response.json();
+  //       if (data.status === "success") {
+  //         // localStorage.removeItem('productdata');
+
+  //       //  await deleteItem(item.product._id);
+  //       deletePromises.push(deleteItem(item.product._id));
+
+         
+  //       //  toast.success(data.message);
+  //         // navigate("/dispetch");
+  //       } else {
+  //         toast.error(data.message);
+  //       }
+  //     }
+  //     await Promise.all(deletePromises);
+  //     toast.success("all data deleted successfully")
+  //     // localStorage.removeItem('productdata');
+  //     setCartProductItemStore([]);
+  //     navigate("/dispetch");
+  //   } catch (error) {
+  //     toast.error("Error placing order: " + error.message);
+  //     console.error("Error:", error);
+  //   }
+  // };
+
+  const handleSubmit = async (e) => {
+   
+
+    
+  
+    try {
+      e.preventDefault();
+      if(parseInt(chaeckOutdata.expyear) >= 2024 && parseInt(chaeckOutdata.expyear) <=2028)
+      {
+        setLoder(true);
+        sessionStorage.setItem("numberofCheckOutItem", cartproductItemStore?.length);
+        const deletePromises = [];
+        for (const item of cartproductItemStore) {
+          const orderResponse = await fetch("https://academics.newtonschool.co/api/v1/ecommerce/order", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${userdatatoken}`,
+              projectId: "8spjkxc7tnxh",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              productId: item.product._id,
+              quantity: item.quantity,
+              addressType: "HOME",
+              address: {
+                street: chaeckOutdata.street,
+                city: chaeckOutdata.city,
+                state: chaeckOutdata.state,
+                country: "India",
+                zipCode: chaeckOutdata.zip,
+              },
+            }),
+          });
+    
+          if (!orderResponse.ok) {
+            const errorData = await orderResponse.json();
+            console.error("Error:", errorData);
+            throw new Error(errorData.message || "Failed to place order");
+          }
+    
+          const orderData = await orderResponse.json();
+          if (orderData.status === "success") {
+            const deleteResponse = await fetch(`https://academics.newtonschool.co/api/v1/ecommerce/cart/${item.product._id}`, {
+              method: 'DELETE',
+              headers: {
+                Authorization: `Bearer ${userdatatoken}`,
+                projectId: "8spjkxc7tnxh",
+              },
+            });
+    
+            if (!deleteResponse.ok) {
+              const errorData = await deleteResponse.json();
+              console.error("Error:", errorData);
+              throw new Error(errorData.message || "Failed to delete item from cart");
+            }
+            console.log("Item deleted successfully");
+          } else {
+            console.error("Error placing order:", orderData.message);
+            throw new Error(orderData.message || "Failed to place order");
+          }
+        }
+    
+        toast.success("All items ordered successfully");
+        setCartProductItemStore([]);
+        setLoder(false);
+        navigate("/dispetch");
+      }
+      else{
+
+        setCheckoutData((prevData) => ({
+          ...prevData,
+          [prevData.expyear]: "",
+        }));
+        toast.error("Please enter a correct expiry year between 2024 and 2028");
+      
+      }
+   
+    } catch (error) {
+      toast.error("Error placing order: " + error.message);
+      console.error("Error:", error);
+      setLoder(false);
+    }
+  };
+
+  const handlePincode = (e) => {
+    
+    const re = /^\d{0,6}$/; // Regular expression to match up to four digits
+    const inputValue = e.target.value;
+  
+    // Check if the input is a valid number with up to four digits or empty string
+    if (inputValue === '' || re.test(inputValue)) {
+      setCheckoutData((prevData) => ({
+        ...prevData,
+        [e.target.name]: inputValue,
+      }));
+    }
+  };
+  
+  const handleInputChangeNumber = (e) => {
+    
+    const re = /^\d{0,16}$/; // Regular expression to match up to four digits
+    const inputValue = e.target.value;
+  
+    // Check if the input is a valid number with up to four digits or empty string
+    if (inputValue === '' || re.test(inputValue)) {
+      setCheckoutData((prevData) => ({
+        ...prevData,
+        [e.target.name]: inputValue,
+      }));
+    }
+  };
+  
+  // const handleMonthChange = (e)=>{
+  //   const { name, value } = e.target;
+  //   const month = value.split('-')[1]; // Extract month part from selected date
+  //   setCheckoutData((prevData) => ({
+  //     ...prevData,
+  //     [name]: month
+  //   }));
+  // }
+  const handleMonth = (e) => {
+    const re = /^(0?[1-9]|1[0-2])$/; // Regular expression to match numbers from 1 to 12
+    const inputValue = e.target.value;
+  
+    // Check if the input is a valid number (1-12) or empty string
+    if (inputValue === '' || re.test(inputValue)) {
+      setCheckoutData((prevData) => ({
+        ...prevData,
+        [e.target.name]: inputValue,
+      }));
+    }
+  };
+
+  const handleYear = (e) => {
+    const re = /^\d{0,4}$/; // Regular expression to match up to four digits
+    const inputValue = e.target.value;
+  
+    // Check if the input is a valid number with up to four digits or empty string
+    if (inputValue === '' || re.test(inputValue)) {
+      setCheckoutData((prevData) => ({
+        ...prevData,
+        [e.target.name]: inputValue,
+      }));
+    }
+  };
+
+  const handleCVV = (e) => {
+    const re = /^\d{0,3}$/; // Regular expression to match up to four digits
+    const inputValue = e.target.value;
+  
+    // Check if the input is a valid number with up to four digits or empty string
+    if (inputValue === '' || re.test(inputValue)) {
+      setCheckoutData((prevData) => ({
+        ...prevData,
+        [e.target.name]: inputValue,
+      }));
+    }
+  };
+  
+  
+  
+  
+  
+  
   return (
     <>
+    {loder?<div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh', // Make the spinner container cover the entire viewport height
+      }}
+    >
+      <div className="spinner-border" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>
+    </div>:(
+<>
       <HomePage />
       <div className="row">
         <div className="col-sm-12">
@@ -354,7 +570,7 @@ function CheckOut() {
                         minLength={5}
                         maxLength={6}
                         value={chaeckOutdata.zip}
-                        onChange={handleInputChange}
+                        onChange={(e)=>handlePincode(e)}
                         required
                       />
                     </div>
@@ -388,21 +604,21 @@ function CheckOut() {
              required 
              minLength={16} 
              maxLength={16}
-             value={chaeckOutdata.cardnumber}
-             onChange={handleInputChange}
+             value={chaeckOutdata.ccnum}
+             onChange={(e)=>handleInputChangeNumber(e)}
              />
-           <label for="expmonth">Exp Month</label>
-           <input type="text" 
-           id="expmonth" 
-           name="expmonth" 
-           placeholder="07/21" 
-           required 
-           value={chaeckOutdata.expmonth}
-           onChange={handleInputChange}
-           minLength={3}
-           maxLength={4}
-           />
-           
+        <label htmlFor="expmonth">Exp Month</label>
+        <input 
+        type="text" 
+        id="expmonth" 
+        name="expmonth" 
+        placeholder="MM" 
+        required 
+        value={chaeckOutdata.expmonth} 
+        onChange={(e)=>handleMonth(e)}
+
+        />
+                  
            
              <div class="col-50">
                <label for="expyear">Exp Year</label>
@@ -413,7 +629,7 @@ function CheckOut() {
                   required minLength={4}
                    maxLength={4}
                    value={chaeckOutdata.expyear}
-                    onChange={handleInputChange}
+                    onChange={(e)=>handleYear(e)}
                    />
              </div>
              
@@ -427,7 +643,7 @@ function CheckOut() {
                    minLength={3} 
                    maxLength={3}
                    value={chaeckOutdata.cvv}
-                    onChange={handleInputChange}
+                    onChange={(e)=>handleCVV(e)}
                    />
              </div>
              </div>
@@ -454,6 +670,7 @@ function CheckOut() {
         
         </div>
       </div>
+      </>)}
     </>
   );
 }
