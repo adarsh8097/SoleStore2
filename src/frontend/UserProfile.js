@@ -92,7 +92,20 @@ function UserProfile() {
       const hasNextPage = currentPage < totalPages;
     //   const hasPreviousPage = currentPage > totalPages;
     return (
-        <>
+        <> 
+            {orderdata.length === 0 ? (
+             <p style={{
+                width:"10vw",
+                height:"10vh",
+                textAlign:"center",
+                justifyContent:"center",
+                color:"red",
+                fontSize:"20px"
+
+             }}>Data Not Found</p>
+          
+            ):(
+            <>
              {loder?<div
       style={{
         display: 'flex',
@@ -104,7 +117,9 @@ function UserProfile() {
       <div className="spinner-border" role="status">
         <span className="sr-only">Loading...</span>
       </div>
-    </div>:(<>
+    </div>
+    
+      :(<>
             <HomePage />
             <h4>User Profile Section</h4>
             {/* User Info */}
@@ -236,6 +251,7 @@ function UserProfile() {
                 </div>
 
             <FooterPage />
+            </>)}
             </>)}
         </>
     );
