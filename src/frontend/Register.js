@@ -109,6 +109,17 @@ function Register() {
     setLoder(false);
   }
 
+  const handleInputChangeNumber = (e) => {
+    // Remove any non-numeric characters from the input value
+    const numericValue = e.target.value.replace(/\D/g, '');
+
+    // Update the state with the numeric value
+    setPhone(numericValue);
+};
+
+
+
+
   return (
     <>
       {/* <!-- register --> */}
@@ -189,22 +200,24 @@ function Register() {
                       minLength={4}
                       onChange={(e) => setPassword(e.target.value)}
                     />
-                    <input
-                      type="tel"
-                      name="phone"
-                      required
-                      placeholder="Phone Number *"
-                      id="phoneNumber"
-                      minLength={10}
-                      maxLength={10}
-                      onChange={(e) => setPhone(e.target.value)}
-                    />
+                  <input
+                          type="tel"
+                          name="phone"
+                          required
+                          placeholder="Phone Number *"
+                          id="phoneNumber"
+                          pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                          value={phone}
+                          minLength={10}
+                          maxLength={10}
+                          onChange={handleInputChangeNumber} // Attach the onChange event handler
+                      />
                     <div style={{
                       display: "flex",
                       justifyContent: "space-between",
                       boxSizing: "border-box"
                     }}>
-                      <label for="Gender">Gender</label>
+                      <label for="Gender">Gender:</label>
                       &nbsp;
                       <label for="male">Male</label>
                       <input type="radio" name="gender" value="male" checked  style={{marginTop:'-10px'}}/>
