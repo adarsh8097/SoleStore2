@@ -375,7 +375,7 @@ console.log("SuperheroText",superheroTexts);
        
         <>
         <ToastContainer/>
-        {loder?<div
+        {/* {loder?<div
       style={{
         display: 'flex',
         justifyContent: 'center',
@@ -386,7 +386,7 @@ console.log("SuperheroText",superheroTexts);
       <div className="spinner-border" role="status">
         <span className="sr-only">Loading...</span>
       </div>
-    </div>:(
+    </div>:( */}
   <>
        <header>
     
@@ -452,14 +452,7 @@ console.log("SuperheroText",superheroTexts);
                BOTTOMWEAR
                </span>
                <ul class="dropdown-menu">
-                   {/* <li><Link class="dropdown-item" to="#">All Cargos</Link></li>
-                   <li><Link class="dropdown-item" to="#">Joggers</Link></li>
-                   <li><Link class="dropdown-item" to="#">Jeans</Link></li>
-                   <li><Link class="dropdown-item" to="#">Shorts</Link></li>
-                   <li><Link class="dropdown-item" to="#">Innerwear at ₹199</Link></li>
-                   <li><Link class="dropdown-item" to="#">Leggings</Link></li>
-                   <li><Link class="dropdown-item" to="#">Pajamas</Link></li>
-                   <li><Link class="dropdown-item" to="#">Dresses</Link></li> */}
+          
                    {productTypes.map((data,index)=>(
                        <li><Link class="dropdown-item" key={index} onClick={(e)=>handleCategoryClick(data,e)}>{data}</Link></li>
                    ))}
@@ -471,11 +464,7 @@ console.log("SuperheroText",superheroTexts);
                SHOES & ACCESSORIES
                </span>
                <ul class="dropdown-menu">
-                   {/* <li><Link class="dropdown-item" to="#">Umbrellas</Link></li>
-                   <li><Link class="dropdown-item" to="#">Shoes</Link></li>
-                   <li><Link class="dropdown-item" to="#">Backpacks</Link></li>
-                   <li><Link class="dropdown-item" to="#">Perfumes</Link></li>
-                   <li><Link class="dropdown-item" to="#">Caps</Link></li> */}
+                  
                      {productTypes.map((data,index)=>(
                        <li><Link class="dropdown-item" key={index} onClick={(e)=>handleCategoryClick(data,e)}>{data}</Link></li>
                    ))}
@@ -487,13 +476,7 @@ console.log("SuperheroText",superheroTexts);
                </span>
            
                <ul class="dropdown-menu">
-                   {/* <li><Link class="dropdown-item" to="#">All Superheroes</Link></li>
-                   <li><Link class="dropdown-item" to="#">Captain America™</Link></li>
-                   <li><Link class="dropdown-item" to="#">X-Men™</Link></li>
-                   <li><Link class="dropdown-item" to="#">Marvel™</Link></li>
-                   <li><Link class="dropdown-item" to="#">Black Panther™</Link></li>
-                   <li><Link class="dropdown-item" to="#">Iron Man™</Link></li>
-                  <li><Link class="dropdown-item" to="#">Spider-Man™</Link></li> */}
+                   
                     {productTypes.map((data,index)=>(
                        <li><Link class="dropdown-item" key={index} onClick={(e)=>handleCategoryClick(data,e)}>{data}</Link></li>
                    ))}
@@ -661,7 +644,7 @@ console.log("SuperheroText",superheroTexts);
    
 </div>
   </>
-)}
+{/* )} */}
 
         {/* ShopingStore */}
 
