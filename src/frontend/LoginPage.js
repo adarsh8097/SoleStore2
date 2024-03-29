@@ -10,70 +10,64 @@ function LoginPage() {
     const navigate = useNavigate();
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
-    const[loder , setLoder] = useState(false);
+    const[loder , setLoader] = useState(false);
     // const [btnToggle , setBtnToggle] = useState(true); // Initialize btnToggle state here
         // var btnToggle = true;
-    const LoginUp = async (e) => {
-        e.preventDefault();
-        try {
-            setLoder(true);
-            const resp = await fetch('https://academics.newtonschool.co/api/v1/user/login', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    projectId: "8spjkxc7tnxh",
-                },
-                body: JSON.stringify({
-                    email: userName,
-                    password: password,
-                    appType: "ecommerce",
-                }),
-            });
-            const data = await resp.json();
-            if (resp.status >= 400) {
-                // btnToggle = false;
-                throw new Error(data.message || 'Failed to login');
+        const LoginUp = (e) => {
+            e.preventDefault();
+            try {
+                setLoader(true); // Start loader when fetching data
+    
+                fetch('https://academics.newtonschool.co/api/v1/user/login', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        projectId: "8spjkxc7tnxh",
+                    },
+                    body: JSON.stringify({
+                        email: userName,
+                        password: password,
+                        appType: "ecommerce",
+                    }),
+                })
+                .then((data) => data.json())
+                .then((data) => {
+                    setLoader(false); // Stop loader when data fetching finishes
+    
+                    if (data.status === 'success') {
+                        const userdata = data && data.data;
+                        const userdatatoken = data && data.token;
+                        sessionStorage.setItem('userDetails', JSON.stringify(userdata));
+                        sessionStorage.setItem('userDetailsToken', JSON.stringify(userdatatoken));
+                        toast.success(`Welcome ${userdata.name}`);
+                        navigate('/');
+                    } else {
+                        toast.error(data.message);
+                        // alert(data.message);
+                        navigate('/LoginPage');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Login failed:', error);
+                    toast.error(error.message);
+                    setLoader(false); // Stop loader on error
+                });
+            } catch (error) {
+                console.error('Login failed:', error);
+                toast.error(error.message);
+                setLoader(false); // Stop loader on error
             }
+        };
 
-            const userdata = data && data.data;
-            const userdatatoken = data && data.token;
-            if (!userdata || !userdatatoken) {
-                // btnToggle = false;
-                throw new Error('Invalid response data');
-            }
-
-            console.log('userToken', userdatatoken);
-            console.log('userdata', userdata);  
-
-            sessionStorage.setItem('userDetails', JSON.stringify(userdata));
-            sessionStorage.setItem('userDetailsToken', JSON.stringify(userdatatoken));
-            // setBtnToggle(false);
-            // btnToggle = false;
-            toast.success(`Welcome ${userdata.name}`);
-            //  alert(`Welcome ${userdata.name}`);
-            setLoder(false);
-                // btnToggle = false;
-                navigate('/');
-            
-           
-        } catch (error) {
-            // setBtnToggle(false);
-            console.error('Login failed:', error);
-            alert(error.message);
-        toast.error(error.message);
-        setLoder(false);
-        }
-    };
-
-    useEffect(() => {
-        const userDetails = sessionStorage.getItem('userDetails');
-        if (userDetails) {
-            // btnToggle(true);
-            // btnToggle = false;
-            console.log("userDetails", userDetails);
-            // Handle the user details here
-        }
-    }, []);
+    // useEffect(() => {
+    //     const userDetails = sessionStorage.getItem('userDetails');
+    //     if (userDetails) {
+    //         // btnToggle(true);
+    //         // btnToggle = false;
+    //         console.log("userDetails", userDetails);
+    //         // Handle the user details here
+    //     }
+    // }, []);
 
     const alertfun = () => {
         // toast.success("Coming Soon..!");
@@ -85,8 +79,8 @@ function LoginPage() {
 
     return (
         <>
-            {/* <ToastContainer /> */}
-            {loder?<div
+            
+            {/* {loder?<div
       style={{
         display: 'flex',
         justifyContent: 'center',
@@ -97,8 +91,9 @@ function LoginPage() {
       <div className="spinner-border" role="status">
         <span className="sr-only">Loading...</span>
       </div>
-    </div>:(
+    </div>:( */}
         <>
+          {/* <ToastContainer /> */}
             <HomePage />
             <div id="myModal" class="modal">
                 <div class="modal-content">
@@ -165,7 +160,8 @@ function LoginPage() {
                     </div>
                 </div>
             </div>
-            </>)}
+            {/* </>)} */}
+            </>
         </>
     );
 }
