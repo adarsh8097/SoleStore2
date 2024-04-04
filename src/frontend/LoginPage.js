@@ -39,7 +39,9 @@ function LoginPage() {
                         const userdatatoken = data && data.token;
                         sessionStorage.setItem('userDetails', JSON.stringify(userdata));
                         sessionStorage.setItem('userDetailsToken', JSON.stringify(userdatatoken));
-                        toast.success(`Welcome ${userdata.name}`);
+                        setTimeout(()=>{
+                            toast.success(`Welcome ${userdata.name}`);
+                        },1000);
                         navigate('/');
                     } else {
                         toast.error(data.message);
