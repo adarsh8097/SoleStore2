@@ -201,12 +201,12 @@ function Register() {
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   <input
-                          type="tel"
+                          type="text"
                           name="phone"
                           required
                           placeholder="Phone Number *"
                           id="phoneNumber"
-                          pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                          // pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                           value={phone}
                           minLength={10}
                           maxLength={10}
