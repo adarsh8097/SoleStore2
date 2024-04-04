@@ -9,6 +9,7 @@ import './UserProfile.css';
 
 function UserProfile() {
     const [currentPage, setCurrentPage] = useState(1);
+    const[color , setColor] = useState('red');
   const [itemsPerPage] = useState(4);
  const numberofhistoryItem = sessionStorage.getItem('numberofCheckOutItem')
     const userDetail = JSON.parse(sessionStorage.getItem("userDetails") || "{}");
@@ -91,22 +92,28 @@ function UserProfile() {
       const totalPages = Math.ceil(orderdata.length / itemsPerPage);
       const hasNextPage = currentPage < totalPages;
     //   const hasPreviousPage = currentPage > totalPages;
-    return (
-        <> 
-            {orderdata.length === 0 ? (
-             <p style={{
-                width:"10vw",
-                height:"10vh",
-                textAlign:"center",
-                justifyContent:"center",
-                color:"red",
-                fontSize:"20px"
+    //   function handleName(){
+    //     setTimeout(()=>{
+    //        alert(<p style={userDetail?"red":" "}>{userDetail.name}</p>)
+                
+            
+    //     },1000);
+    // }
 
-             }}>Data Not Found</p>
-          
-            ):(
+    // handleName();
+
+    //   useEffect(()=>{
+        setTimeout(() => {
+            setColor(color=="red"?"black":"red");
+      }, 1000);
+    //   },[color]);
+
+     
+    return (
+         
+            
             <>
-             {loder?<div
+             {/* {loder?<div
       style={{
         display: 'flex',
         justifyContent: 'center',
@@ -119,7 +126,7 @@ function UserProfile() {
       </div>
     </div>
     
-      :(<>
+      :(<> */}
             <HomePage />
             <h4>User Profile Section</h4>
             {/* User Info */}
@@ -131,8 +138,8 @@ function UserProfile() {
                     </div>
                     <div className="card-body-ueserfon">
                         <div className="card-info">
-                            <div className="card-para">Name:{userDetail.name}</div>
-                            <div className="card-para">email:{userDetail.email}</div>
+                            <div className="card-para" style={{color:color}}>Name:{userDetail.name}</div>
+                            <div className="card-para" style={{color:color}}>email:{userDetail.email}</div>
                            <hr></hr>
                         </div>
                         <div>
@@ -152,18 +159,19 @@ function UserProfile() {
                         <p style={{padding:"0",margin:"0"}}>State: {address.state}</p>
                     </div>
                     <hr></hr>
-                        <div className="">
-                            <p className="logutbutton" onClick={logOutBtn}>LogOut</p>
-                        </div>
+                        
                     </div>
                     ):(
                         <div>
                             {/* <div>THis is not address found </div> */}
+                           
                         </div>
                        )}
 
                        </div>
-                       
+                       <div className="">
+                            <p className="logutbutton" onClick={logOutBtn}>LogOut</p>
+                        </div>
                     </div>
                       
 
@@ -172,11 +180,12 @@ function UserProfile() {
                  
 
             {/* Order Details */}
+            
        
          {orderdata.length > 0 && orderdata[0] && orderdata[0].order ?(
             <div className="order-details">
                 {/* <h2>Order Details</h2> */}
-                <h5> TotalPrice:{calculateTotalPriceSum()}</h5>
+                <h5 style={{color:color}}> TotalPrice:{calculateTotalPriceSum()}</h5>
                 <div className="Order-product-details-show col-sm-12 ">
                 <div className="OrderCart">
                 { Array.isArray(currentItems) && currentItems.map(order => (
@@ -244,16 +253,17 @@ function UserProfile() {
                         
                 ):(
                     <div>
-                        <p>No Order data Found</p>
+                        <p style={{color:"red"}}>No Order data Found</p>
                     </div>
                 )}
                 
                 </div>
 
             <FooterPage />
-            </>)}
-            </>)}
-        </>
+            </>
+            // )}
+           
+        // </>
     );
 }
 
