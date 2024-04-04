@@ -91,7 +91,7 @@ function Register() {
         else{
           
           toast.error(data.message);
-          alert(data.message);
+          // alert(data.message);
           console.log("Data not found");
           setLoder(false);
          
@@ -124,7 +124,7 @@ function Register() {
     <>
       {/* <!-- register --> */}
       {/* <ToastContainer/> */}
-      {loder?<div
+      {/* {loder?<div
       style={{
         display: 'flex',
         justifyContent: 'center',
@@ -135,7 +135,7 @@ function Register() {
       <div className="spinner-border" role="status">
         <span className="sr-only">Loading...</span>
       </div>
-    </div>:(<>
+    </div>:(<> */}
       <HomePage/>
       <div id="page-container">
         <div id="login-container">
@@ -242,7 +242,7 @@ function Register() {
         </div>
       </div>
       <FooterPage />
-      </>)}
+      {/* </>)} */}
     </>
   )
 }
