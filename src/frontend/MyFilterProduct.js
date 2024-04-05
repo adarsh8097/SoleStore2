@@ -59,7 +59,7 @@ function MyFilterProduct(){
         <div>
             <HomePage/>
             <Slider/>
-             <p className="comming">Comming soon ..!</p>
+             <p className="comming">Coming soon ..!</p>
              {/* <div>
                 {category.map((d,index)=>(
                     <div key={index}>
