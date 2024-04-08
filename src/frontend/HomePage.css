@@ -572,7 +572,7 @@ input[type=search] {
     }
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 767px) and (max-width: 991px) {
 
     .top_nav55{
         display:block;
@@ -594,7 +594,7 @@ input[type=search] {
     #logo-img-div img{
         border-radius: 40%;
         height: 100px; 
-        margin-top: 100px;
+        margin-top: 15px;
         z-index: 1;
         width: 100px;
         cursor: pointer;
@@ -604,6 +604,12 @@ input[type=search] {
         
       
     }
+     .search-container{
+        display: block;
+     }
+     .searchbutton{
+        display: block;
+     }
 
     .drop-item  div{
         float: none;
@@ -626,7 +632,7 @@ input[type=search] {
     }
   
     .search-input-icons{
-       display: none;
+       display: block;
       
     }
 
@@ -672,7 +678,7 @@ input[type=search] {
     #logo-img-div img{
         border-radius: 40%;
         height: 100px;
-        margin-top: 100px;
+        /* margin-top: px; */
         z-index: 1;
         width: 100px;
         cursor: pointer;
