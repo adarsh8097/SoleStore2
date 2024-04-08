@@ -393,7 +393,7 @@ console.log("SuperheroText",superheroTexts);
 
     <div data-v-3ee02bb2="" id="topbar" class="topbar">
      <div data-v-3ee02bb2="" class="">
-       <div data-v-3ee02bb2="" class="row">
+       <div data-v-3ee02bb2="" class="">
          <div data-v-3ee02bb2="" class="topheader68">
            <nav>
            <ul data-v-3ee02bb2="" data-testid="floornav" class="top_nav55">
@@ -435,7 +435,7 @@ console.log("SuperheroText",superheroTexts);
       <div className="drop-item">
           <div class="dropdown">
          
-             < span type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" >
+             < span type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"  style={{ fontFamily: 'Source Sans Pro, sans-serif',fontWeight: '700',fontSize:'15px'}}>
                TOPWEAR
                </span>
                <ul class="dropdown-menu">
@@ -448,7 +448,7 @@ console.log("SuperheroText",superheroTexts);
             
 
            <div class="dropdown">
-               <span type="button" class="btn  dropdown-toggle" data-bs-toggle="dropdown" >
+               <span type="button" class="btn  dropdown-toggle" data-bs-toggle="dropdown" style={{ fontFamily: 'Source Sans Pro, sans-serif',fontWeight: '700',fontSize:'15px'}} >
                BOTTOMWEAR
                </span>
                <ul class="dropdown-menu">
@@ -460,7 +460,7 @@ console.log("SuperheroText",superheroTexts);
                </ul>
            </div>
            <div class="dropdown">
-               <span type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" >
+               <span type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"  style={{ fontFamily: 'Source Sans Pro, sans-serif',fontWeight: '700',fontSize:'15px'}}>
                SHOES & ACCESSORIES
                </span>
                <ul class="dropdown-menu">
@@ -471,7 +471,7 @@ console.log("SuperheroText",superheroTexts);
                </ul>
            </div>
            <div class="dropdown">
-               <span type="button" class="btn  dropdown-toggle" data-bs-toggle="dropdown" >
+               <span type="button" class="btn  dropdown-toggle" data-bs-toggle="dropdown"  style={{ fontFamily: 'Source Sans Pro, sans-serif',fontWeight: '700',fontSize:'15px'}}>
                SHOP BY THEMES
                </span>
            
@@ -484,7 +484,7 @@ console.log("SuperheroText",superheroTexts);
            </div>
            <div className="dropdown">
              <Link to="/MyFilterProduct">
-          <span type="button" class="btn">
+          <span type="button" class="btn"  style={{ fontFamily: 'Source Sans Pro, sans-serif',fontWeight: '700',fontSize:'15px'}}>
            MEMBERSHIP
             </span></Link>
           
@@ -494,7 +494,7 @@ console.log("SuperheroText",superheroTexts);
                    
                 <div className="search-container" >
                 
-                   { isSearch && <div className="search-input" >
+                   { isSearch ?( <div className="search-input" onClick={searchpro}>
                     <input type="search" 
                      id="search" 
                      placeholder="Search Product...?" 
@@ -510,7 +510,13 @@ console.log("SuperheroText",superheroTexts);
                            </span>
                       </div>
                       
-                     </div> 
+                     </div> ):(
+                         <div class="searchbutton" onClick={searchpro}>
+                         <span class="search-input-icons" style={{cursor:"pointer"}} onClick={ handleSearch }>
+                           <FaSearch /> 
+                         </span>
+                     </div>
+                     )
                      
                      }  
 
@@ -518,11 +524,11 @@ console.log("SuperheroText",superheroTexts);
 
               
      
-                    <div class="searchbutton" onClick={searchpro}>
+                    {/* <div class="searchbutton" onClick={searchpro}>
                        <span class="search-input-icons" style={{cursor:"pointer"}} onClick={ handleSearch }>
                          <FaSearch /> 
                        </span>
-                   </div>
+                   </div> */}
                  
                      <div class="searchbutton" onClick={details}>
                     <span className="user-Sign-symbol">
@@ -656,4 +662,3 @@ console.log("SuperheroText",superheroTexts);
 
   export default HomePage;   
            
-
