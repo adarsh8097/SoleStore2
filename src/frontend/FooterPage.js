@@ -2,8 +2,15 @@ import React from "react";
 import './FooterPage.css';
 import {FaMobile} from 'react-icons/fa';
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
  function FooterPage(){
+   
+   function alert(){
+    toast.error("Coming soon")
+   }
+    
 
     return(
 
@@ -34,25 +41,25 @@ import { Link } from "react-router-dom";
           <div class="op-details-footer-div-childs">
             <h3>COMPANY</h3>
             <ul>
-              <li><a href="https://www.thesouledstore.com/about-us">About Us</a></li>
-              <li><a href="https://www.thesouledstore.com/careers">Careers</a></li>
-              <li><a href="https://www.thesouledstore.com/stores-near-me#Bandra-1">Stores Near Me</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="MyFilterProduct">Careers</a></li>
+              <li><a href="MyFilterProduct">Stores Near Me</a></li>
               <li><a href="#">From The Soul</a></li>
-              <li><a href="https://www.thesouledstore.com/souled-army">Souled Army</a></li>
+              <li><a href="MyFilterProduct">Souled Army</a></li>
             </ul>
           </div>
           <div class="op-details-footer-div-childs">
             <h3>MORE INFO</h3>
             <ul>
-              <li><a href="https://www.thesouledstore.com/terms-and-conditions">T&C</a></li>
-              <li><a href="https://www.thesouledstore.com/privacy-policy">Privacy Policy</a></li>
-              <li><a href="https://www.thesouledstore.com/sitemap">Sitemap</a></li>
+              <li><a href="MyFilterProduct">T&C</a></li>
+              <li><a href="MyFilterProduct">Privacy Policy</a></li>
+              <li><a href="MyFilterProduct">Sitemap</a></li>
             </ul>
           </div>
          
         </div>
         <div id="middle-app-down-div">
-        <div class="op-details-footer-div-childs">
+        <div class="op-details-footer-div-childs" onClick={alert}>
             <ul id="COD-and-return">
               <li>
                 <img
@@ -87,16 +94,16 @@ import { Link } from "react-router-dom";
         </div>
         <div id="navigation-link-and-who-div">
           <div>
-            <div class="to-flex-divs-footer" onclick="openNaviLinkfun()">
-              <div className="link-heading">NAVIGATION LINKS</div>
-              <button id="nav-link-plus">+</button>
+            <div class="to-flex-divs-footer p-2" onclick="openNaviLinkfun()">
+              <div className="link-heading m-2 " >NAVIGATION LINKS</div>
+             <Link to="/"><span className="p-3 fw-bold fs-4 text-danger"id="nav-link-plus">+</span></Link>
             </div>
           </div>
            <div>
-            <div class="to-flex-divs-footer" onclick="openWhoLinkfun()">
-              <div className="link-heading">WHO WE ARE</div>
-              <button id="who-link-plus">+</button>
-            </div>
+            <div class="to-flex-divs-footer p-2" onclick="openWhoLinkfun()">
+              <div className="link-heading m-2">WHO WE ARE</div>
+              <Link to="/"><span className="p-3 fw-bold fs-4 text-danger"id="nav-link-plus">+</span></Link>
+             </div>
             <div id="hidden-divs-footerTwo">
               <div>
                 <p>
