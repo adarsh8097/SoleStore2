@@ -177,8 +177,8 @@ function Men(){
           <div class="collection-heading">OFFICIAL MERCHANDISE</div>
           <div id="OFFICIAL-MERCHANDISE">
             <div><img src="./img/netflix.webp" alt="error" /></div>
-            <div><Link to="https://www.thesouledstore.com/artists/marvel-official-merchandise"><img src="./img/marvel.webp" alt="error" /></Link></div>
-            <div><Link to="https://www.thesouledstore.com/tags/disney"><img src="./img/disney.webp" alt="error" /></Link></div>
+            <div><Link to="#"><img src="./img/marvel.webp" alt="error" /></Link></div>
+            <div><Link to="#"><img src="./img/disney.webp" alt="error" /></Link></div>
             <div><img src="./img/dc.webp" alt="error" /></div>
           </div>
         </div>
