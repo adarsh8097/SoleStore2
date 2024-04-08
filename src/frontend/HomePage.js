@@ -180,7 +180,7 @@ const HomePage =({userdatatoken})=> {
     const alertmessg =()=>{
          setIsClick(!isclick);
         if(isclick){
-        toast.success(" Comming soon..!");
+        toast.success(" Coming soon..!");
         }
 
 
