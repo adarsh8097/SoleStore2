@@ -60,7 +60,7 @@ const HomePage =({userdatatoken})=> {
              .then((response)=>response.json())
              .then((data)=> {
               setCatagory(data.data);
-              // console.log(data);
+              console.log("dataCatagory",data);
             });
 
            }catch(err){
@@ -370,6 +370,10 @@ console.log("SuperheroText",superheroTexts);
 //   console.log(isCheck)
 //   return isCheck
 // }
+
+const capitalizeFirstLetter = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
      
     return(
        
@@ -441,7 +445,8 @@ console.log("SuperheroText",superheroTexts);
                <ul class="dropdown-menu">
                   
                    {catagory.map((items,index)=>(
-                     <li><Link class="dropdown-item"  key={index} onClick={(e)=>handleCategoryClick(items,e)}>{items}</Link></li>
+                     <li><Link class="dropdown-item"  key={index} onClick={(e)=>handleCategoryClick(items,e)}>
+                       {capitalizeFirstLetter(items)}</Link></li>
                    ))}
                </ul>
             </div>
