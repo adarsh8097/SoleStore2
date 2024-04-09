@@ -31,6 +31,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <div className="main-header" style={{width:"100%"}}>
        
         <Router>
         <Routes>
@@ -57,7 +58,7 @@ function App() {
           <Route path='/MyFilterProduct' element={<MyFilterProduct/>}/>
         </Routes>
         </Router>
-       
+        </div>
       </header>
     </div>
   );
